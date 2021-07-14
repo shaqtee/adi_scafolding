@@ -1,7 +1,23 @@
 @extends('layouts.public')
 
 @section('css')
-<link href="{{ asset('packages/sbadmin2/css/sb-admin-2.css') }}" rel="stylesheet">
+<style>
+    .myRow{
+        border:2px solid red;
+    }
+    .myCol{
+        border:2px solid blue;
+    }
+
+    @media(min-width:0){
+        #cart {
+            display:none;
+        }
+        .loginregister {
+            display:none;
+        }
+    }
+</style>
 @endsection
 
 @section('public_content')
@@ -34,18 +50,68 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">Kontak</a>
                                 </li>
+                                <li class="nav-item d-lg-none">
+                                    <a class="nav-link" href="#">
+                                        <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+                                        &nbsp;Keranjang Belanja</a>
+                                </li>
+                                <li class="nav-item d-lg-none">
+                                    <a class="nav-link" href="#">
+                                        <i class="fa fa-heart" aria-hidden="true"></i>
+                                        &nbsp;Daftar Keinginan</a>
+                                </li>
+                                <li class="nav-item d-lg-none">
+                                    @if (Route::has('login'))
+                                @auth
+                                    @if(auth()->user()->roles()->get()[0]->name == 'administrator')
+                                            <a href="{{ url('/admin') }}" class="nav-link">
+                                                <span class="btn btn-primary">
+                                                    <i class="fas fa-home"></i>
+                                                    &nbsp;Home
+                                                </span>
+                                            </a>
+                                    @elseif(auth()->user()->roles()->get()[0]->name == 'user')
+                                            <a href="{{ url('/member') }}" class="nav-link">
+                                                <span class="btn btn-primary">
+                                                    <i class="fas fa-home"></i>
+                                                    &nbsp;Home
+                                                </span>
+                                            </a>
+                                    @else
+                                            <a href="{{ url('/home') }}" class="nav-link">
+                                                <span class="btn btn-primary">
+                                                    <i class="fas fa-home"></i>
+                                                    &nbsp;Home
+                                                </span>
+                                            </a>
+                                    @endif
+                                @else
+                                        <a href="{{ route('login') }}" class="nav-link active">
+                                                <i class="fas fa-sign-in-alt"></i>
+                                                &nbsp;Masuk
+                                        </a>
+                                    @if (Route::has('register'))
+                                            <a href="{{ route('register') }}" class="nav-link active">
+                                                    <i class="fas fa-sign-in-alt"></i>
+                                                    &nbsp;Daftar
+                                            </a>
+                                    @endif
+                                @endauth
+                            @endif
+
+                                </li>
                             </ul>
 
-                            <div class="badge badge-warning mr-5 d-inline" style="font-size:0.8em;">
+                            <div class="badge badge-warning mr-5 d-lg-block" style="font-size:0.8em;" id="cart">
 
                                     <a href="">
                                         <i class="fa fa-heart" aria-hidden="true"></i>
-                                        Wishlist (1)
+                                        Daftar Keinginan (1)
                                     </a>
                                     <span>&nbsp; | &nbsp;</span>
                                     <a href="">
                                         <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
-                                        Cart (1)
+                                        Keranjang Belanja (1)
                                     </a>
 
                             </div>
@@ -55,7 +121,7 @@
                                     @if(auth()->user()->roles()->get()[0]->name == 'administrator')
                                         <div class="text-center">
                                             <a href="{{ url('/admin') }}" class="nav-link">
-                                                <span class="btn primary">
+                                                <span class="btn btn-primary">
                                                     <i class="fas fa-home"></i>
                                                     &nbsp;Home
                                                 </span>
@@ -81,7 +147,8 @@
                                         </div>
                                     @endif
                                 @else
-                                    <div class="text-center">
+                                {{--hr.navbar-divider--}}
+                                    <div class="text-left loginregister d-lg-block">
                                         <a href="{{ route('login') }}" class="nav-link">
                                             <span class="btn btn-primary">
                                                 <i class="fas fa-sign-in-alt"></i>
@@ -91,8 +158,8 @@
                                     </div>
 
                                     @if (Route::has('register'))
-                                        <div class="text-center">
-                                            <a href="{{ route('register') }}">
+                                        <div class="text-left loginregister d-lg-block">
+                                            <a href="{{ route('register') }}" class="nav-link">
                                                 <span class="btn btn-primary">
                                                     <i class="fas fa-sign-in-alt"></i>
                                                     &nbsp;Daftar
@@ -273,27 +340,29 @@
                                             <a class="dropdown-item" href="#">Action</a>
                                             <a class="dropdown-item" href="#">Another action</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- Card Body -->
-                                <div class="card-body justify-content-around row">
-                                    @for($i=0; $i<8; $i++ )
-                                    <div class="col-sm-3 card text-center mt-4 mx-1">
-                                        <img src="{{ asset('images/produk/bunder.png') }}" class="card-img-top p-3">
-                                        <hr>
-                                        <div class="card-body">
-                                            <h5 class="card-title"><b>Card title</b></h5>
-                                            <p class="card-text text-primary">ٌRp100.000,-</p>
-                                            <p class="card-text">Some quick example text to build on.</p>
-                                            <a href="#" class="btn btn-primary btn-sm">Bungkus</a>
+                                <div class="container">
+                                    <!-- Card Body -->
+                                        <div class="row text-center justify-content-around">
+                                            @for($i=0; $i<8; $i++ )
+                                                
+                                                    <div class="col-md-3 col-sm-4 col-6 card">
+                                                        <img src="{{ asset('images/produk/bunder.png') }}" class="card-img-top p-3">
+                                                        <hr>
+                                                        <div class="card-body">
+                                                            <h5 class="card-title"><b>Produk</b></h5>
+                                                            <p class="card-text text-primary">ٌRp100.000,-</p>
+                                                            <p class="card-text">Isi Deskripsi Produk di Page Admin.</p>
+                                                            <a href="#" class="btn btn-primary btn-sm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Beli&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                                                        </div>
+                                                    </div>
+                                                    
+                                            @endfor
                                         </div>
-                                    </div>
-                                    @endfor
+                                    <!-- EndCard Body-->
                                 </div>
-
 
                             </div>
                         </div>
