@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Member\MemberController;
+use App\Http\Controllers\WelcomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +48,8 @@ Route::middleware(['auth', 'role:user'])->group(function () {
 Route::middleware(['auth', 'role:administrator'])->group(function () {
     Route::get('admin', [AdminController::class, 'index'])->name('admin');
     Route::resource('product', ProductController::class);
+    Route::post('/product/searchproducts', [ProductController::class, 'searchproducts']);
+    Route::post('/product/tampil', [ProductController::class, 'tampil']);
 });
 
 /*
@@ -70,6 +73,4 @@ Route::get('/home', [HomeController::class, 'index'])
 | Ini adalah Part Showcase atau index.
 |
 */
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [WelcomeController::class, 'index']);

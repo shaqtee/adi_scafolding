@@ -8,6 +8,13 @@
     .myCol{
         border:2px solid blue;
     }
+    .displayProduk{
+        width:100%;
+        transition: 0.3s;
+    }
+    .displayProduk:hover {
+        transform:scale(1.1);
+    }
 
     @media(min-width:0){
         #cart {
@@ -60,7 +67,7 @@
                                         <i class="fa fa-heart" aria-hidden="true"></i>
                                         &nbsp;Daftar Keinginan</a>
                                 </li>
-                                <li class="nav-item d-lg-none">
+                                <li class="nav-item d-lg-none memberauth d-block">
                                     @if (Route::has('login'))
                                 @auth
                                     @if(auth()->user()->roles()->get()[0]->name == 'administrator')
@@ -86,19 +93,23 @@
                                             </a>
                                     @endif
                                 @else
+
+
                                         <a href="{{ route('login') }}" class="nav-link active">
                                                 <i class="fas fa-sign-in-alt"></i>
                                                 &nbsp;Masuk
                                         </a>
+
                                     @if (Route::has('register'))
+                                    <div>
                                             <a href="{{ route('register') }}" class="nav-link active">
                                                     <i class="fas fa-sign-in-alt"></i>
                                                     &nbsp;Daftar
                                             </a>
+
                                     @endif
                                 @endauth
                             @endif
-
                                 </li>
                             </ul>
 
@@ -116,7 +127,7 @@
 
                             </div>
 
-                            @if (Route::has('login'))
+                            <div class="d-none d-lg-block">@if (Route::has('login'))
                                 @auth
                                     @if(auth()->user()->roles()->get()[0]->name == 'administrator')
                                         <div class="text-center">
@@ -168,7 +179,7 @@
                                         </div>
                                     @endif
                                 @endauth
-                            @endif
+                            @endif</div>
 
                         </div>
                     </nav>
@@ -346,25 +357,30 @@
                                 <div class="container">
                                     <!-- Card Body -->
                                         <div class="row text-center justify-content-around">
-                                            @for($i=0; $i<8; $i++ )
-                                                
-                                                    <div class="col-md-3 col-sm-4 col-6 card">
-                                                        <img src="{{ asset('images/produk/bunder.png') }}" class="card-img-top p-3">
+                                            @foreach($products as $product )
+
+                                                    <div class="col-md-3 col-sm-4 col-6 card m-2">
+                                                        <img src="{{ file_exists($product['foto']) ? 'https://place-hold.it/200x200' : asset('images/produk/' . $product['foto']) }}" class="card-img-top p-3 displayProduk">
                                                         <hr>
                                                         <div class="card-body">
-                                                            <h5 class="card-title"><b>Produk</b></h5>
-                                                            <p class="card-text text-primary">ٌRp100.000,-</p>
-                                                            <p class="card-text">Isi Deskripsi Produk di Page Admin.</p>
-                                                            <a href="#" class="btn btn-primary btn-sm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Beli&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                                                            <h5 class="list-item card-title"><b>{{ $product['nama_produk'] }}</b></h5>
+                                                            <p class="list-item card-text text-primary">Rp{{ number_format($product['harga'],0,",",".") }}</p>
+                                                            <p class="list-item card-text">{{ substr($product['deskripsi'],0,30).' ...' }}</p>
+                                                        </div>
+                                                        <div>
+
+                                                        </div>
+                                                        <div>
+                                                            <a href="#" class="mb-3 list-item btn btn-primary btn-sm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Detail&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
                                                         </div>
                                                     </div>
-                                                    
-                                            @endfor
-                                        </div>
+
+                                            @endforeach
                                     <!-- EndCard Body-->
                                 </div>
-
                             </div>
+                            <hr class="divider">
+                            <div class="align-self-center">{{ $products->links() }}</div>
                         </div>
 
                     </div>
