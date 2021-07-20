@@ -114,6 +114,16 @@
                 </a>
             </li>
 
+            @role('administrator')
+            <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin') }}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Admin Gate</span>
+                </a>
+            </li>
+            @endrole
+
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 

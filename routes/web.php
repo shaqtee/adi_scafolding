@@ -74,3 +74,4 @@ Route::get('/home', [HomeController::class, 'index'])
 |
 */
 Route::get('/', [WelcomeController::class, 'index']);
+Route::get('/cart', [WelcomeController::class, 'cart']);

@@ -13,4 +13,10 @@ class WelcomeController extends Controller
 
         return view('welcome');
     }
+
+    public function cart()
+    {
+
+        return view('cart');
+    }
 }
