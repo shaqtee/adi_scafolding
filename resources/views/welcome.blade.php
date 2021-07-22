@@ -2,6 +2,14 @@
 
 @section('css')
 <style>
+    *{
+    }
+    .mynav{
+            background-color:rgb(17,17,17);
+        }
+    .myfooter{
+            background-color:rgb(17,17,17);
+    }
     .myRow{
         border:2px solid red;
     }
@@ -16,6 +24,28 @@
         transform:scale(1.1);
     }
 
+
+
+    /* Scrollbar */
+    ::-webkit-scrollbar{
+        width:15px;
+    }
+    ::-webkit-scrollbar-track{
+        box-shadow: 0 0 5px rgb(0, 0, 0);
+        border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb{
+        background: rgb(202, 14, 155);
+        border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover{
+        background: #000000;
+    }
+
+    .arrowP{
+        position: relative;
+    }
+
     @media(min-width:0){
         #cart {
             display:none;
@@ -24,6 +54,53 @@
             display:none;
         }
     }
+
+    @media (min-width:0){
+        /* horizontal scroll */
+        .wrapperku{
+            height:370px;
+            width:1290px;
+            border: 1px solid #ddd;
+
+            background: #2193b0;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #6dd5ed, #2193b0);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #6dd5ed, #2193b0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+            display:flex;
+            overflow-x:scroll;
+            scrollbar-width:none;
+        }
+        .barang{
+            min-width:130px;
+            height:320px;
+            line-height:20px;
+            text-align:center;
+            background-color:rgb(255, 255, 255);
+            margin-right: 3px;
+            margin-top: 15px;
+            border-radius:5px;
+        }
+        .itemSatu{
+            margin-left:5px;
+        }
+        .iklan{
+            margin-top:150px;
+        }
+        .iklanThumbnail{
+            width:96%;
+            transition:0.5s;
+        }
+        .iklanThumbnail:hover{
+            transform: scale(1.2);
+        }
+        .loopBgKategori{
+            background: #E0EAFC;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #CFDEF3, #E0EAFC);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #CFDEF3, #E0EAFC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+    }
+
+
 </style>
 @endsection
 
@@ -33,312 +110,177 @@
     <div id="wrapper">
 
         <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content-wrapper" class="d-flex flex-column bg-dark">
 
             <!-- Main Content -->
             <div id="content">
 
                 <!-- Navbar -->
-                <div class="container-fluid bg-info">
-                    <nav class="navbar navbar-expand-lg navbar-dark bg-info">
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <img class="navbar-brand" src="{{ asset('images/brand/sudah2.png') }}" width="150" alt="">
-                        <div class="collapse navbar-collapse" id="navbarColor01">
+                <div class="container-fluid bg-dark">
+                    <div class="row mynav">
+                        <div class="col">
 
-                            <ul class="navbar-nav mr-auto">
-                                <li class="nav-item active">
-                                    <a class="nav-link" href="#">Beranda <span class="sr-only">(current)</span></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Dokumentasi</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('video') }}">Video</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Kontak</a>
-                                </li>
-                                <li class="nav-item d-lg-none">
-                                    <a class="nav-link" href="{{ url('/cart') }}">
-                                        <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
-                                        &nbsp;Keranjang Belanja</a>
-                                </li>
-                                <li class="nav-item d-lg-none">
-                                    <a class="nav-link" href="#">
-                                        <i class="fa fa-heart" aria-hidden="true"></i>
-                                        &nbsp;Daftar Keinginan</a>
-                                </li>
-                                <li class="nav-item d-lg-none memberauth d-block">
-                                    @if (Route::has('login'))
-                                        @auth
-                                            @if(auth()->user()->roles()->get()[0]->name == 'administrator')
-                                                    <a href="{{ url('/admin') }}" class="nav-link">
-                                                        <span class="btn btn-primary">
-                                                            <i class="fas fa-home"></i>
-                                                            &nbsp;Home
-                                                        </span>
-                                                    </a>
-                                            @elseif(auth()->user()->roles()->get()[0]->name == 'user')
-                                                    <a href="{{ url('/member') }}" class="nav-link">
-                                                        <span class="btn btn-primary">
-                                                            <i class="fas fa-home"></i>
-                                                            &nbsp;Home
-                                                        </span>
-                                                    </a>
+                            <nav class="navbar navbar-expand-lg navbar-dark mynav">
+                                <button class="navbar-toggler border border-primary" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+                                <img class="navbar-brand" src="{{ asset('images/brand/sudah1.png') }}" width="100" alt="">
+                                <div class="collapse navbar-collapse" id="navbarColor01">
+
+                                    <ul class="navbar-nav mr-auto">
+                                        <li class="nav-item active">
+                                            <a class="nav-link" href="#">Beranda <span class="sr-only">(current)</span></a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#">Dokumentasi</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ url('video') }}">Video</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#">Kontak</a>
+                                        </li>
+                                        <li class="nav-item d-lg-none">
+                                            <a class="nav-link" href="{{ url('/cart') }}">
+                                                <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+                                                &nbsp;Keranjang Belanja</a>
+                                        </li>
+                                        <li class="nav-item d-lg-none">
+                                            <a class="nav-link" href="#">
+                                                <i class="fa fa-heart" aria-hidden="true"></i>
+                                                &nbsp;Daftar Keinginan</a>
+                                        </li>
+                                        <li class="nav-item d-lg-none memberauth d-block">
+                                            @if (Route::has('login'))
+                                                @auth
+                                                    @if(auth()->user()->roles()->get()[0]->name == 'administrator')
+                                                            <a href="{{ url('/admin') }}" class="nav-link">
+                                                                <span class="btn btn-primary">
+                                                                    <i class="fas fa-home"></i>
+                                                                    &nbsp;Home
+                                                                </span>
+                                                            </a>
+                                                    @elseif(auth()->user()->roles()->get()[0]->name == 'user')
+                                                            <a href="{{ url('/member') }}" class="nav-link">
+                                                                <span class="btn btn-primary">
+                                                                    <i class="fas fa-home"></i>
+                                                                    &nbsp;Home
+                                                                </span>
+                                                            </a>
+                                                    @else
+                                                            <a href="{{ url('/home') }}" class="nav-link">
+                                                                <span class="btn btn-primary">
+                                                                    <i class="fas fa-home"></i>
+                                                                    &nbsp;Home
+                                                                </span>
+                                                            </a>
+                                                    @endif
                                             @else
-                                                    <a href="{{ url('/home') }}" class="nav-link">
-                                                        <span class="btn btn-primary">
-                                                            <i class="fas fa-home"></i>
-                                                            &nbsp;Home
-                                                        </span>
+                                                    <a href="{{ route('login') }}" class="nav-link active">
+                                                            <i class="fas fa-sign-in-alt"></i>
+                                                            &nbsp;Masuk
                                                     </a>
+
+                                                    @if (Route::has('register'))
+
+                                                        <a href="{{ route('register') }}" class="nav-link active">
+                                                                <i class="fas fa-sign-in-alt"></i>
+                                                                &nbsp;Daftar
+                                                        </a>
+
+                                                    @endif
+                                                @endauth
                                             @endif
-                                    @else
-                                            <a href="{{ route('login') }}" class="nav-link active">
-                                                    <i class="fas fa-sign-in-alt"></i>
-                                                    &nbsp;Masuk
+                                        </li>
+                                    </ul>
+
+                                    <div class="mr-5 d-lg-block" style="font-size:0.8em;" id="cart">
+
+                                            <a href="">
+                                                <i class="fa fa-heart" aria-hidden="true"></i>
+                                            </a>
+                                            &nbsp;&nbsp;
+                                            <a href="{{ url('/cart') }}">
+                                                <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
                                             </a>
 
-                                            @if (Route::has('register'))
+                                    </div>
 
-                                                <a href="{{ route('register') }}" class="nav-link active">
-                                                        <i class="fas fa-sign-in-alt"></i>
-                                                        &nbsp;Daftar
-                                                </a>
-
-                                            @endif
-                                        @endauth
-                                    @endif
-                                </li>
-                            </ul>
-
-                            <div class="badge badge-warning mr-5 d-lg-block" style="font-size:0.8em;" id="cart">
-
-                                    <a href="">
-                                        <i class="fa fa-heart" aria-hidden="true"></i>
-                                        Daftar Keinginan (1)
-                                    </a>
-                                    <span>&nbsp; | &nbsp;</span>
-                                    <a href="{{ url('/cart') }}">
-                                        <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
-                                        Keranjang Belanja (1)
-                                    </a>
-
-                            </div>
-
-                            <div class="d-none d-lg-block">
-                                @if (Route::has('login'))
-                                    @auth
-                                        @if(auth()->user()->roles()->get()[0]->name == 'administrator')
-                                            <div class="text-center">
-                                                <a href="{{ url('/admin') }}" class="nav-link">
-                                                    <span class="btn btn-primary">
-                                                        <i class="fas fa-home"></i>
-                                                        &nbsp;Home
-                                                    </span>
-                                                </a>
-                                            </div>
-                                        @elseif(auth()->user()->roles()->get()[0]->name == 'user')
-                                            <div class="text-center">
-                                                <a href="{{ url('/member') }}" class="nav-link">
-                                                    <span class="btn btn-primary">
-                                                        <i class="fas fa-home"></i>
-                                                        &nbsp;Home
-                                                    </span>
-                                                </a>
-                                            </div>
+                                    <div class="d-none d-lg-block">
+                                        @if (Route::has('login'))
+                                            @auth
+                                                @if(auth()->user()->roles()->get()[0]->name == 'administrator')
+                                                    <div class="text-center">
+                                                        <a href="{{ url('/admin') }}" class="nav-link">
+                                                            <span class="btn btn-primary">
+                                                                <i class="fas fa-home"></i>
+                                                                &nbsp;Home
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                @elseif(auth()->user()->roles()->get()[0]->name == 'user')
+                                                    <div class="text-center">
+                                                        <a href="{{ url('/member') }}" class="nav-link">
+                                                            <span class="btn btn-primary">
+                                                                <i class="fas fa-home"></i>
+                                                                &nbsp;Home
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                @else
+                                                    <div class="text-center">
+                                                        <a href="{{ url('/home') }}" class="nav-link">
+                                                            <span class="btn btn-primary">
+                                                                <i class="fas fa-home"></i>
+                                                                &nbsp;Home
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                @endif
                                         @else
-                                            <div class="text-center">
-                                                <a href="{{ url('/home') }}" class="nav-link">
-                                                    <span class="btn btn-primary">
-                                                        <i class="fas fa-home"></i>
-                                                        &nbsp;Home
-                                                    </span>
-                                                </a>
-                                            </div>
-                                        @endif
-                                @else
-                                        <div class="row">
-                                            <div class="col-lg-4 loginregister d-lg-block">
-                                                <a href="{{ route('login') }}" class="btn btn-primary">
-                                                        &nbsp;Masuk
-                                                </a>
-                                            </div>
+                                                <div class="row">
+                                                    <div class="col-lg-4 loginregister d-lg-block">
+                                                        <a href="{{ route('login') }}" class="btn btn-primary">
+                                                                &nbsp;Masuk
+                                                        </a>
+                                                    </div>
 
-                                            @if (Route::has('register'))
-                                                <div class="col-lg-4 loginregister d-lg-block">
-                                                    <a href="{{ route('register') }}" class="btn btn-primary ml-2">
-                                                            &nbsp;Daftar
-                                                    </a>
+                                                    @if (Route::has('register'))
+                                                        <div class="col-lg-4 loginregister d-lg-block">
+                                                            <a href="{{ route('register') }}" class="btn btn-primary ml-2">
+                                                                    &nbsp;Daftar
+                                                            </a>
+                                                        </div>
                                                 </div>
-                                        </div>
-                                            @endif
-                                    @endauth
-                                @endif
-                            </div>
+                                                    @endif
+                                            @endauth
+                                        @endif
+                                    </div>
+
+                                </div>
+                            </nav>
 
                         </div>
-                    </nav>
+                    </div>
                 </div>
                 <!-- End of Navbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                <div class="container-fluid bg-dark">
 
                     <!-- Content Row -->
-                    <div class="row mt-3">
-
-                        <!-- Left Column -->
-                        <div class="col-xl-3 col-lg-3">
-
-                            <!-- Search -->
-                            <div class="card shadow">
-                            <div class="input-group">
-                                <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                            <!-- Card Body Sortir -->
-                            <div class="card shadow mt-2">
-                                <div class="card-body sortirBody">
-                                    <form action="" method="">
-                                        <h4>Sort By :</h4>
-                                        <div class="form-check row">
-                                            <label class="form-check-label col-10" for="exampleRadios1">
-                                                Baru
-                                            </label>
-                                            <input class="form-check-input col-2" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-                                        </div>
-                                        <div class="form-check row">
-                                            <label class="form-check-label col-10" for="exampleRadios2">
-                                                Unggulan
-                                            </label>
-                                            <input class="form-check-input col-2" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                                        </div>
-                                        <div class="form-check row">
-                                            <label class="form-check-label col-10" for="exampleRadios2">
-                                                Obral
-                                            </label>
-                                            <input class="form-check-input col-2" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                                        </div>
-                                        <div class="form-check row">
-                                            <label class="form-check-label col-10" for="exampleRadios2">
-                                                Terendah - Tertinggi
-                                            </label>
-                                            <input class="form-check-input col-2" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                                        </div>
-                                        <div class="form-check row">
-                                            <label class="form-check-label col-10" for="exampleRadios2">
-                                                Tertinggi - Terendah
-                                            </label>
-                                            <input class="form-check-input col-2" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                                        </div>
-                                    </form>
-
-                                    <hr>
-
-                                    <form action="" method="">
-                                        <h4>Kategori :</h4>
-                                        <div class="form-check row">
-                                            <label class="form-check-label col-10" for="exampleRadios1">
-                                                Bahan Kue
-                                            </label>
-                                            <input class="form-check-input col-2" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-                                        </div>
-                                        <div class="form-check row">
-                                            <label class="form-check-label col-10" for="exampleRadios2">
-                                                Barang Bekas
-                                            </label>
-                                            <input class="form-check-input col-2" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                                        </div>
-                                        <div class="form-check row">
-                                            <label class="form-check-label col-10" for="exampleRadios2">
-                                                Digital
-                                            </label>
-                                            <input class="form-check-input col-2" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                                        </div>
-                                        <div class="form-check row">
-                                            <label class="form-check-label col-10" for="exampleRadios2">
-                                                Fashion
-                                            </label>
-                                            <input class="form-check-input col-2" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                                        </div>
-                                        <div class="form-check row">
-                                            <label class="form-check-label col-10" for="exampleRadios2">
-                                                Kesehatan
-                                            </label>
-                                            <input class="form-check-input col-2" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                                        </div>
-                                        <div class="form-check row">
-                                            <label class="form-check-label col-10" for="exampleRadios2">
-                                                Sembako
-                                            </label>
-                                            <input class="form-check-input col-2" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                                        </div>
-                                        <div class="form-check row">
-                                            <label class="form-check-label col-10" for="exampleRadios2">
-                                                Snack
-                                            </label>
-                                            <input class="form-check-input col-2" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                                        </div>
-                                    </form>
-
-                                    <div class="mt-4 text-center small">
-                                    <span class="mr-2">
-                                        <i class="fas fa-circle text-success"></i> Sort By
-                                    </span>
-                                    <span class="mr-2">
-                                        <i class="fas fa-circle text-info"></i> Categories
-                                    </span>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
+                    <div class="row-12 mt-3">
 
                         <!-- Product Area Right Column -->
-                        <div class="col-xl-9 col-lg-9">
+                        <div class="col-xl-12 col-lg-12">
                             <div class="card shadow mb-4">
 
                                 <!-- Card Header - Dropdown -->
-                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Product Lists</h6>
-
-                                    <div class="form-row sortirOption">
-                                        <form class="form-inline col" action="">
-                                            <div class="form-group">
-                                                <select class="form-control" id="exampleFormControlSelect1">
-                                                    <option>Sort By :</option>
-                                                    <option>Baru</option>
-                                                    <option>Unggulan</option>
-                                                    <option>Obral</option>
-                                                    <option>Low-High</option>
-                                                    <option><High-Low></High-Low></option>
-                                                </select>
-                                            </div>
-                                        </form>
-                                        <form class="form-inline col" action="">
-                                            <div class="form-group">
-                                                <select class="form-control" id="exampleFormControlSelect1">
-                                                    <option>Categories :</option>
-                                                    <option>Bahan Kue</option>
-                                                    <option>Barang Bekas</option>
-                                                    <option>Digital</option>
-                                                    <option>Fashion</option>
-                                                    <option>Kesehatan</option>
-                                                    <option>Sembako</option>
-                                                    <option>Snack</option>
-                                                </select>
-                                            </div>
-                                        </form>
-                                    </div>
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between" style="background: #141E30;  /* fallback for old browsers */
+                                background: -webkit-linear-gradient(to right, #243B55, #141E30);  /* Chrome 10-25, Safari 5.1-6 */
+                                background: linear-gradient(to right, #243B55, #141E30); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+                                ">
+                                    <h6 class="m-0 font-weight-bold text-white">Our Products</h6>
 
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -352,33 +294,216 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="container">
-                                    <!-- Card Body -->
-                                        <div class="row text-center justify-content-around">
-                                            @foreach($products as $product )
 
-                                                    <div class="col-md-3 col-sm-4 col-6 card m-2">
-                                                        <img src="{{ file_exists($product['foto']) ? 'https://place-hold.it/200x200' : asset('images/produk/' . $product['foto']) }}" class="card-img-top p-3 displayProduk">
-                                                        <hr>
-                                                        <div class="card-body">
-                                                            <h5 class="list-item card-title"><b>{{ $product['nama_produk'] }}</b></h5>
-                                                            <p class="list-item card-text text-primary">Rp{{ number_format($product['harga'],0,",",".") }}</p>
-                                                            <p class="list-item card-text">{{ substr($product['deskripsi'],0,30).' ...' }}</p>
-                                                        </div>
-                                                        <div>
-
-                                                        </div>
-                                                        <div>
-                                                            <a href="#" class="mb-3 list-item btn btn-primary btn-sm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Detail&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-                                                        </div>
-                                                    </div>
-
-                                            @endforeach
-                                    <!-- EndCard Body-->
+                                <div class="container-fluid loopBgKategori">
+                                <div class="d-flex h4 justify-content-start mt-5" style="font-size:1.1rem;">
+                                    <span class="">Kategori : Barang Bekas</span>
+                                    <a href="" class="ml-auto align-self-end" style="font-size:.9rem;">Lihat Semua</a>
                                 </div>
-                            </div>
-                            <hr class="divider">
-                            <div class="align-self-center">{{ $products->links() }}</div>
+                                </div>
+                                <div class="d-flex justify-content-center align-items-center rounded">
+                                    <div class="wrapperku">
+                                        <img src="{{ asset('images/brand/sudah1.png') }}" height="25" class="iklan px-2" alt="">
+                                        <div class="barang shadow itemSatu">
+                                            <img src="{{ asset('images/produk/tayo.jpg') }}" class="iklanThumbnail" alt="">
+                                            <hr class="bg-black">
+                                            <div class="mt-2">Rak Sepatu Sandal 5 Susun Portable</div>
+                                            <div class="mt-1"><b>Rp 500.000</b></div>
+                                            <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
+                                            <a href="#" class="btn btn-dark text-white btn-md mt-2">Detail</a>
+                                        </div>
+                                        @for($i=0;$i<9;$i++)
+                                        <div class="barang shadow">
+                                            <img src="{{ asset('images/produk/tayo.jpg') }}" class="iklanThumbnail" alt="">
+                                            <hr class="bg-black">
+                                            <div class="mt-2">Rak Sepatu Sandal 5 Susun Portable</div>
+                                            <div class="mt-1"><b>Rp 500.000</b></div>
+                                            <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
+                                            <a href="#" class="btn btn-dark text-white btn-md mt-2">Detail</a>
+                                        </div>
+                                        @endfor
+                                    </div>
+                                </div>
+
+                                <div class="container-fluid loopBgKategori">
+                                <div class="d-flex h4 justify-content-start mt-5" style="font-size:1.1rem;">
+                                    <span class="">Kategori : Bahan Kue</span>
+                                    <a href="" class="ml-auto align-self-end" style="font-size:.9rem;">Lihat Semua</a>
+                                </div>
+                                </div>
+                                <div class="d-flex justify-content-center align-items-center rounded">
+                                    <div class="wrapperku">
+                                        <img src="{{ asset('images/brand/sudah1.png') }}" height="25" class="iklan px-2" alt="">
+                                        <div class="barang shadow itemSatu">
+                                            <img src="{{ asset('images/produk/tayo.jpg') }}" class="iklanThumbnail" alt="">
+                                            <hr class="bg-black">
+                                            <div class="mt-2">Rak Sepatu Sandal 5 Susun Portable</div>
+                                            <div class="mt-1"><b>Rp 500.000</b></div>
+                                            <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
+                                            <a href="#" class="btn btn-dark text-white btn-md mt-2">Detail</a>
+                                        </div>
+                                        @for($i=0;$i<9;$i++)
+                                        <div class="barang shadow">
+                                            <img src="{{ asset('images/produk/tayo.jpg') }}" class="iklanThumbnail" alt="">
+                                            <hr class="bg-black">
+                                            <div class="mt-2">Rak Sepatu Sandal 5 Susun Portable</div>
+                                            <div class="mt-1"><b>Rp 500.000</b></div>
+                                            <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
+                                            <a href="#" class="btn btn-dark text-white btn-md mt-2">Detail</a>
+                                        </div>
+                                        @endfor
+                                    </div>
+                                </div>
+
+                                <div class="container-fluid loopBgKategori">
+                                <div class="d-flex h4 justify-content-start mt-5" style="font-size:1.1rem;">
+                                    <span class="">Kategori : Produk Digital</span>
+                                    <a href="" class="ml-auto align-self-end" style="font-size:.9rem;">Lihat Semua</a>
+                                </div>
+                                </div>
+                                <div class="d-flex justify-content-center align-items-center rounded">
+                                    <div class="wrapperku">
+                                        <img src="{{ asset('images/brand/sudah1.png') }}" height="25" class="iklan px-2" alt="">
+                                        <div class="barang shadow itemSatu">
+                                            <img src="{{ asset('images/produk/tayo.jpg') }}" class="iklanThumbnail" alt="">
+                                            <hr class="bg-black">
+                                            <div class="mt-2">Rak Sepatu Sandal 5 Susun Portable</div>
+                                            <div class="mt-1"><b>Rp 500.000</b></div>
+                                            <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
+                                            <a href="#" class="btn btn-dark text-white btn-md mt-2">Detail</a>
+                                        </div>
+                                        @for($i=0;$i<9;$i++)
+                                        <div class="barang shadow">
+                                            <img src="{{ asset('images/produk/tayo.jpg') }}" class="iklanThumbnail" alt="">
+                                            <hr class="bg-black">
+                                            <div class="mt-2">Rak Sepatu Sandal 5 Susun Portable</div>
+                                            <div class="mt-1"><b>Rp 500.000</b></div>
+                                            <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
+                                            <a href="#" class="btn btn-dark text-white btn-md mt-2">Detail</a>
+                                        </div>
+                                        @endfor
+                                    </div>
+                                </div>
+
+                                <div class="container-fluid loopBgKategori">
+                                <div class="d-flex h4 justify-content-start mt-5" style="font-size:1.1rem;">
+                                    <span class="">Kategori : Fashion</span>
+                                    <a href="" class="ml-auto align-self-end" style="font-size:.9rem;">Lihat Semua</a>
+                                </div>
+                                </div>
+                                <div class="d-flex justify-content-center align-items-center rounded">
+                                    <div class="wrapperku">
+                                        <img src="{{ asset('images/brand/sudah1.png') }}" height="25" class="iklan px-2" alt="">
+                                        <div class="barang shadow itemSatu">
+                                            <img src="{{ asset('images/produk/tayo.jpg') }}" class="iklanThumbnail" alt="">
+                                            <hr class="bg-black">
+                                            <div class="mt-2">Rak Sepatu Sandal 5 Susun Portable</div>
+                                            <div class="mt-1"><b>Rp 500.000</b></div>
+                                            <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
+                                            <a href="#" class="btn btn-dark text-white btn-md mt-2">Detail</a>
+                                        </div>
+                                        @for($i=0;$i<9;$i++)
+                                        <div class="barang shadow">
+                                            <img src="{{ asset('images/produk/tayo.jpg') }}" class="iklanThumbnail" alt="">
+                                            <hr class="bg-black">
+                                            <div class="mt-2">Rak Sepatu Sandal 5 Susun Portable</div>
+                                            <div class="mt-1"><b>Rp 500.000</b></div>
+                                            <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
+                                            <a href="#" class="btn btn-dark text-white btn-md mt-2">Detail</a>
+                                        </div>
+                                        @endfor
+                                    </div>
+                                </div>
+
+                                <div class="container-fluid loopBgKategori">
+                                <div class="d-flex h4 justify-content-start mt-5" style="font-size:1.1rem;">
+                                    <span class="">Kategori : Kesehatan</span>
+                                    <a href="" class="ml-auto align-self-end" style="font-size:.9rem;">Lihat Semua</a>
+                                </div>
+                                </div>
+                                <div class="d-flex justify-content-center align-items-center rounded">
+                                    <div class="wrapperku">
+                                        <img src="{{ asset('images/brand/sudah1.png') }}" height="25" class="iklan px-2" alt="">
+                                        <div class="barang shadow itemSatu">
+                                            <img src="{{ asset('images/produk/tayo.jpg') }}" class="iklanThumbnail" alt="">
+                                            <hr class="bg-black">
+                                            <div class="mt-2">Rak Sepatu Sandal 5 Susun Portable</div>
+                                            <div class="mt-1"><b>Rp 500.000</b></div>
+                                            <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
+                                            <a href="#" class="btn btn-dark text-white btn-md mt-2">Detail</a>
+                                        </div>
+                                        @for($i=0;$i<9;$i++)
+                                        <div class="barang shadow">
+                                            <img src="{{ asset('images/produk/tayo.jpg') }}" class="iklanThumbnail" alt="">
+                                            <hr class="bg-black">
+                                            <div class="mt-2">Rak Sepatu Sandal 5 Susun Portable</div>
+                                            <div class="mt-1"><b>Rp 500.000</b></div>
+                                            <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
+                                            <a href="#" class="btn btn-dark text-white btn-md mt-2">Detail</a>
+                                        </div>
+                                        @endfor
+                                    </div>
+                                </div>
+                                <div class="container-fluid loopBgKategori">
+                                <div class="d-flex h4 justify-content-start mt-5" style="font-size:1.1rem;">
+                                    <span class="">Kategori : Sembako</span>
+                                    <a href="" class="ml-auto align-self-end" style="font-size:.9rem;">Lihat Semua</a>
+                                </div>
+                                </div>
+                                <div class="d-flex justify-content-center align-items-center rounded">
+                                    <div class="wrapperku">
+                                        <img src="{{ asset('images/brand/sudah1.png') }}" height="25" class="iklan px-2" alt="">
+                                        <div class="barang shadow itemSatu">
+                                            <img src="{{ asset('images/produk/tayo.jpg') }}" class="iklanThumbnail" alt="">
+                                            <hr class="bg-black">
+                                            <div class="mt-2">Rak Sepatu Sandal 5 Susun Portable</div>
+                                            <div class="mt-1"><b>Rp 500.000</b></div>
+                                            <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
+                                            <a href="#" class="btn btn-dark text-white btn-md mt-2">Detail</a>
+                                        </div>
+                                        @for($i=0;$i<9;$i++)
+                                        <div class="barang shadow">
+                                            <img src="{{ asset('images/produk/tayo.jpg') }}" class="iklanThumbnail" alt="">
+                                            <hr class="bg-black">
+                                            <div class="mt-2">Rak Sepatu Sandal 5 Susun Portable</div>
+                                            <div class="mt-1"><b>Rp 500.000</b></div>
+                                            <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
+                                            <a href="#" class="btn btn-dark text-white btn-md mt-2">Detail</a>
+                                        </div>
+                                        @endfor
+                                    </div>
+                                </div>
+
+                                <div class="container-fluid loopBgKategori">
+                                <div class="d-flex h4 justify-content-start mt-5" style="font-size:1.1rem;">
+                                    <span class="">Kategori : Snack</span>
+                                    <a href="" class="ml-auto align-self-end" style="font-size:.9rem;">Lihat Semua</a>
+                                </div>
+                                </div>
+                                <div class="d-flex justify-content-center align-items-center rounded">
+                                    <div class="wrapperku">
+                                        <img src="{{ asset('images/brand/sudah1.png') }}" height="25" class="iklan px-2" alt="">
+                                        <div class="barang shadow itemSatu">
+                                            <img src="{{ asset('images/produk/tayo.jpg') }}" class="iklanThumbnail" alt="">
+                                            <hr class="bg-black">
+                                            <div class="mt-2">Rak Sepatu Sandal 5 Susun Portable</div>
+                                            <div class="mt-1"><b>Rp 500.000</b></div>
+                                            <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
+                                            <a href="#" class="btn btn-dark text-white btn-md mt-2">Detail</a>
+                                        </div>
+                                        @for($i=0;$i<9;$i++)
+                                        <div class="barang shadow">
+                                            <img src="{{ asset('images/produk/tayo.jpg') }}" class="iklanThumbnail" alt="">
+                                            <hr class="bg-black">
+                                            <div class="mt-2">Rak Sepatu Sandal 5 Susun Portable</div>
+                                            <div class="mt-1"><b>Rp 500.000</b></div>
+                                            <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
+                                            <a href="#" class="btn btn-dark text-white btn-md mt-2">Detail</a>
+                                        </div>
+                                        @endfor
+                                    </div>
+                                </div>
+
                         </div>
 
                     </div>
@@ -392,10 +517,10 @@
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; Your Website 2019</span>
+            <footer class="sticky-footer myfooter">
+                <div class="container">
+                    <div class="copyright text-center">
+                    <span class="text-white">Copyright &copy; Alfabet Digital 2019</span>
                     </div>
                 </div>
             </footer>
