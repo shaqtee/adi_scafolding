@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Image Zoom & Pan On Hover Demo</title>
+<link href="https://www.cssscript.com/wp-includes/css/sticky.css" rel="stylesheet" type="text/css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" rel="stylesheet" type="text/css">
+<style>
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  max-width: 100%;
+}
+
+body {
+  max-width: 100%;
+  padding: 1em 2em;
+}
+h1 { margin: 150px auto 50px auto; }
+
+.image-container {
+  display: inline-block;
+  padding: 1em;
+  max-width: 50%;
+  vertical-align: top;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.image-container:hover {
+  background-color: #cde;
+}
+
+.image {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  cursor: crosshair;
+  display: block;
+  max-width: 100%;
+  padding-bottom: 10em;
+  width: 100em;
+}</style>
+</head>
+
+<body>
+  <div id="css-script-menu">
+  <div class="css-script-center">
+    <ul>
+      <li><a href="https://www.cssscript.com/image-zoom-pan-hover-detail-view/">Download</a></li>
+      <li><a href="https://www.cssscript.com/">Back To CSS Script</a></li>
+    </ul>
+    <div class="css-script-ads">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- CSSScript Demo Page -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-2783044520727903"
+     data-ad-slot="3025259193"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+    <div class="css-script-clear"></div>
+  </div>
+</div>
+  <h1>Image Zoom & Pan On Hover Demo</h1>
+  <div class="image-container">
+    <div class="image detail-view" style="background-image: url(https://picsum.photos/1600/900/?random?4);"></div>
+  </div>
+  <script>
+    (function() {
+  // Get all images with the `detail-view` class
+  var zoomBoxes = document.querySelectorAll('.detail-view');
+
+  // Extract the URL
+  zoomBoxes.forEach(function(image) {
+    var imageCss = window.getComputedStyle(image, false),
+      imageUrl = imageCss.backgroundImage
+                         .slice(4, -1).replace(/['"]/g, '');
+
+    // Get the original source image
+    var imageSrc = new Image();
+    imageSrc.onload = function() {
+      var imageWidth = imageSrc.naturalWidth,
+          imageHeight = imageSrc.naturalHeight,
+          ratio = imageHeight / imageWidth;
+
+      // Adjust the box to fit the image and to adapt responsively
+      var percentage = ratio * 100 + '%';
+      image.style.paddingBottom = percentage;
+
+      // Zoom and scan on mousemove
+      image.onmousemove = function(e) {
+        // Get the width of the thumbnail
+        var boxWidth = image.clientWidth,
+            // Get the cursor position, minus element offset
+            x = e.pageX - this.offsetLeft,
+            y = e.pageY - this.offsetTop,
+            // Convert coordinates to % of elem. width & height
+            xPercent = x / (boxWidth / 100) + '%',
+            yPercent = y / (boxWidth * ratio / 100) + '%';
+
+        // Update styles w/actual size
+        Object.assign(image.style, {
+          backgroundPosition: xPercent + ' ' + yPercent,
+          backgroundSize: imageWidth + 'px'
+        });
+      };
+
+      // Reset when mouse leaves
+      image.onmouseleave = function(e) {
+        Object.assign(image.style, {
+          backgroundPosition: 'center',
+          backgroundSize: 'cover'
+        });
+      };
+    }
+    imageSrc.src = imageUrl;
+  });
+})();
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46156385-1', 'cssscript.com');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

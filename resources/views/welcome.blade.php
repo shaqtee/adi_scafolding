@@ -310,7 +310,7 @@
                                             <div class="mt-2">Rak Sepatu Sandal 5 Susun Portable</div>
                                             <div class="mt-1"><b>Rp 500.000</b></div>
                                             <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
-                                            <a href="#" class="btn btn-dark text-white btn-md mt-2">Detail</a>
+                                            <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md mt-2">Detail</a>
                                         </div>
                                         @for($i=0;$i<9;$i++)
                                         <div class="barang shadow">
@@ -319,7 +319,7 @@
                                             <div class="mt-2">Rak Sepatu Sandal 5 Susun Portable</div>
                                             <div class="mt-1"><b>Rp 500.000</b></div>
                                             <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
-                                            <a href="#" class="btn btn-dark text-white btn-md mt-2">Detail</a>
+                                            <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md mt-2">Detail</a>
                                         </div>
                                         @endfor
                                     </div>
@@ -340,7 +340,7 @@
                                             <div class="mt-2">Rak Sepatu Sandal 5 Susun Portable</div>
                                             <div class="mt-1"><b>Rp 500.000</b></div>
                                             <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
-                                            <a href="#" class="btn btn-dark text-white btn-md mt-2">Detail</a>
+                                            <a href="{{ url('single') }}" class="btn btn-dark text-white btn-md mt-2">Detail</a>
                                         </div>
                                         @for($i=0;$i<9;$i++)
                                         <div class="barang shadow">
@@ -349,17 +349,17 @@
                                             <div class="mt-2">Rak Sepatu Sandal 5 Susun Portable</div>
                                             <div class="mt-1"><b>Rp 500.000</b></div>
                                             <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
-                                            <a href="#" class="btn btn-dark text-white btn-md mt-2">Detail</a>
+                                            <a href="{{ url('single') }}" class="btn btn-dark text-white btn-md mt-2">Detail</a>
                                         </div>
                                         @endfor
                                     </div>
                                 </div>
 
                                 <div class="container-fluid loopBgKategori">
-                                <div class="d-flex h4 justify-content-start mt-5" style="font-size:1.1rem;">
-                                    <span class="">Kategori : Produk Digital</span>
-                                    <a href="" class="ml-auto align-self-end" style="font-size:.9rem;">Lihat Semua</a>
-                                </div>
+                                    <div class="d-flex h4 justify-content-start mt-5" style="font-size:1.1rem;">
+                                        <span class="">Kategori : Produk Digital</span>
+                                        <a href="" class="ml-auto align-self-end" style="font-size:.9rem;">Lihat Semua</a>
+                                    </div>
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center rounded">
                                     <div class="wrapperku">
@@ -370,7 +370,7 @@
                                             <div class="mt-2">Rak Sepatu Sandal 5 Susun Portable</div>
                                             <div class="mt-1"><b>Rp 500.000</b></div>
                                             <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
-                                            <a href="#" class="btn btn-dark text-white btn-md mt-2">Detail</a>
+                                            <a href="{{ url('single') }}" class="btn btn-dark text-white btn-md mt-2">Detail</a>
                                         </div>
                                         @for($i=0;$i<9;$i++)
                                         <div class="barang shadow">
@@ -379,7 +379,7 @@
                                             <div class="mt-2">Rak Sepatu Sandal 5 Susun Portable</div>
                                             <div class="mt-1"><b>Rp 500.000</b></div>
                                             <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
-                                            <a href="#" class="btn btn-dark text-white btn-md mt-2">Detail</a>
+                                            <a href="{{ url('single') }}" class="btn btn-dark text-white btn-md mt-2">Detail</a>
                                         </div>
                                         @endfor
                                     </div>
@@ -536,26 +536,6 @@
         <i class="fas fa-angle-up"></i>
     </a>
     <!-- End of Scroll to Top Button-->
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
-            </div>
-            </div>
-        </div>
-    </div>
-    <!-- End if Logout Modal-->
 
 @endsection
 

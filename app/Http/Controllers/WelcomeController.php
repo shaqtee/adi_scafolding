@@ -19,4 +19,9 @@ class WelcomeController extends Controller
 
         return view('cart');
     }
+
+    public function single()
+    {
+        return view('single');
+    }
 }

@@ -24,6 +24,7 @@
     <!-- Styles -->
     <link href="{{ asset('packages/sbadmin2/css/sb-admin-2.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
     @yield('css')
 </head>
 <body id="page-top" style="background-color:#1F1F1F;">
@@ -35,6 +36,7 @@
     <script src="{{ asset('packages/sbadmin2/vendor/chart.js/Chart.min.js') }}"></script>
     <script src="{{ asset('packages/sbadmin2/js/demo/chart-area-demo.js') }}"></script>
     <script src="{{ asset('packages/sbadmin2/js/demo/chart-pie-demo.js') }}"></script>
+    <!-- End Scripts-->
     @yield('js')
 </body>
 </html>

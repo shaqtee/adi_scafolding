@@ -57,7 +57,7 @@ Route::middleware(['auth', 'role:administrator'])->group(function () {
 | Public Routing All
 |--------------------------------------------------------------------------
 |
-| Part yang bersifat optional untuk menjalin interaksi dengan member
+| Part yang bersifat optional (validasi user) untuk menjalin interaksi dengan member
 | yang beru melakukan registrasi agar mau memfokuskan diri dengan
 | program ini sebagai member(agen) atau admin.
 |
@@ -70,8 +70,9 @@ Route::get('/home', [HomeController::class, 'index'])
 | Display Front Publicly
 |--------------------------------------------------------------------------
 |
-| Ini adalah Part Showcase atau index.
+| Ini adalah Part Showcase Products atau index products.
 |
 */
 Route::get('/', [WelcomeController::class, 'index']);
 Route::get('/cart', [WelcomeController::class, 'cart']);
+Route::get('/single', [WelcomeController::class, 'single']);
