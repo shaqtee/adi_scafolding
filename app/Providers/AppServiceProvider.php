@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Tag;
 use App\Models\Product;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
@@ -36,6 +37,7 @@ class AppServiceProvider extends ServiceProvider
 
         View::composer(['welcome', 'kategori'], function ($view) {
             $view->with('listKategori', (Product::select('kategori')->distinct()->get())->toArray());
+            $view->with('listTag', (Tag::select('name')->get())->toArray());
         });
     }
 }

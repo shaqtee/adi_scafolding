@@ -25,6 +25,7 @@
     <link href="{{ asset('packages/sbadmin2/css/sb-admin-2.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+    @include('layouts.public.css')
     @yield('css')
 </head>
 <body id="page-top" style="background-color:#1F1F1F;">

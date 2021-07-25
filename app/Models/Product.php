@@ -37,4 +37,14 @@ class Product extends Model
     {
         return  Carbon::parse($this->attributes['updated_at'])->diffForHumans();
     }
+
+    public function tags()
+    {
+        return $this->morphToMany(Tag::class, 'taggable');
+    }
+
+    public function files()
+    {
+        return $this->morphMany(File::class, 'fileable');
+    }
 }

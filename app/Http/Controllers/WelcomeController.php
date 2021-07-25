@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -62,17 +63,22 @@ class WelcomeController extends Controller
         ));
     }
 
-    public function productByCategory(Product $key)
+    public function showProductBy($key)
     {
-        $kategori = $key->kategori;
-        $products = Product::where('kategori', $kategori)->paginate(10);
-        //dd($products);
-        return view('kategori', compact('products', 'kategori'));
-    }
 
-    public function productByTag()
-    {
-        return view('tag');
+        if (!(Tag::where('name', $key)->get())->isEmpty()) {
+            $products = (Tag::with('products')
+                ->where('name', $key)
+                ->get())
+                ->toArray()[0]['products'];
+            $showCase = "Tag";
+        } else {
+
+            $products = Product::where('kategori', $key)->paginate(10);
+            $showCase = "Ketegori";
+        }
+
+        return view('kategori', compact('products', 'key', 'showCase'));
     }
 
     public function cart()

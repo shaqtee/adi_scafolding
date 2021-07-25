@@ -41,5 +41,9 @@ class ProductSeeder extends Seeder
         //$fileSnack = file_get_contents(base_path('/database/snack.json'));
         //$dataSnack = json_decode($fileSnack, true);
         //Product::insert($dataSnack);
+
+        $fileTag = file_get_contents(base_path('/database/tag.json'));
+        $dataTag = json_decode($fileTag, true);
+        \App\Models\Tag::insert($dataTag);
     }
 }

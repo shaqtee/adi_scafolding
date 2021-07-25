@@ -115,26 +115,6 @@
         }
     }
 
-    /* Scrollbar */
-    ::-webkit-scrollbar{
-        width:15px;
-    }
-    ::-webkit-scrollbar-track{
-        box-shadow: 0 0 5px rgb(0, 0, 0);
-        border-radius: 10px;
-    }
-    ::-webkit-scrollbar-thumb{
-        background: rgb(202, 14, 155);
-        border-radius: 10px;
-    }
-    ::-webkit-scrollbar-thumb:hover{
-        background: #000000;
-    }
-
-    .arrowP{
-        position: relative;
-    }
-
     #zoom-img {
         width: 338px;
         height: 338px;
