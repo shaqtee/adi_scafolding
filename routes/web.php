@@ -74,5 +74,7 @@ Route::get('/home', [HomeController::class, 'index'])
 |
 */
 Route::get('/', [WelcomeController::class, 'index']);
+Route::get('/kategori/{key:kategori}', [WelcomeController::class, 'productByCategory']);
+Route::get('/tag/{key:tag}', [WelcomeController::class, 'productByTag']);
 Route::get('/cart', [WelcomeController::class, 'cart']);
 Route::get('/single', [WelcomeController::class, 'single']);

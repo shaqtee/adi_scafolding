@@ -99,8 +99,6 @@
             background: linear-gradient(to right, #CFDEF3, #E0EAFC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
         }
     }
-
-
 </style>
 @endsection
 
@@ -288,8 +286,8 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                                             <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Kategori</a>
-                                            <a class="dropdown-item" href="#">Tag</a>
+                                            <button class="dropdown-item" data-toggle="modal" data-target="#modalKategori">Kategori</button>
+                                            <button class="dropdown-item" data-toggle="modal" data-target="#modalTag">Tag</button>
                                             <div class="dropdown-divider"></div>
                                         </div>
                                     </div>
@@ -298,7 +296,7 @@
                                 <div class="container-fluid loopBgKategori">
                                 <div class="d-flex h4 justify-content-start mt-5" style="font-size:1.1rem;">
                                     <span class="">Kategori : {{ $prodAds['kategori'] }}</span>
-                                    <a href="" class="ml-auto align-self-end" style="font-size:.9rem;">Lihat Semua</a>
+                                    <a href="{{ url('kategori/'.$prodAds['kategori']) }}" class="ml-auto align-self-end" style="font-size:.9rem;">Lihat Semua</a>
                                 </div>
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center rounded">
@@ -313,7 +311,7 @@
                                             <div class="mt-auto p-0 m-0 mb-3">
                                                 <div class="mt-1"><b>Rp {{ number_format($prodAds['harga'],0,",",".") }}</b></div>
                                                 <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
-                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Detail</a>
+                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Order</a>
                                             </div>
                                         </div>
 
@@ -327,7 +325,7 @@
                                             <div class="mt-auto p-0 m-0 mb-3">
                                                 <div class="mt-1"><b>Rp {{ number_format($prod['harga'],0,",",".") }}</b></div>
                                                 <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
-                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Detail</a>
+                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Order</a>
                                             </div>
                                         </div>
                                         @endforeach
@@ -337,7 +335,7 @@
                                 <div class="container-fluid loopBgKategori">
                                 <div class="d-flex h4 justify-content-start mt-5" style="font-size:1.1rem;">
                                     <span class="">Kategori : {{ $prodAds2['kategori'] }}</span>
-                                    <a href="" class="ml-auto align-self-end" style="font-size:.9rem;">Lihat Semua</a>
+                                    <a href="{{ url('kategori/'.$prodAds2['kategori']) }}" class="ml-auto align-self-end" style="font-size:.9rem;">Lihat Semua</a>
                                 </div>
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center rounded">
@@ -352,7 +350,7 @@
                                             <div class="mt-auto p-0 m-0 mb-3">
                                                 <div class="mt-1"><b>Rp {{ number_format($prodAds2['harga'],0,",",".") }}</b></div>
                                                 <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
-                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Detail</a>
+                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Order</a>
                                             </div>
                                         </div>
 
@@ -366,7 +364,7 @@
                                             <div class="mt-auto p-0 m-0 mb-3">
                                                 <div class="mt-1"><b>Rp {{ number_format($prod['harga'],0,",",".") }}</b></div>
                                                 <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
-                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Detail</a>
+                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Order</a>
                                             </div>
                                         </div>
                                         @endforeach
@@ -376,7 +374,7 @@
                                 <div class="container-fluid loopBgKategori">
                                     <div class="d-flex h4 justify-content-start mt-5" style="font-size:1.1rem;">
                                         <span class="">Kategori : {{ $prodAds3['kategori'] }}</span>
-                                        <a href="" class="ml-auto align-self-end" style="font-size:.9rem;">Lihat Semua</a>
+                                        <a href="{{ url('kategori/'.$prodAds3['kategori']) }}" class="ml-auto align-self-end" style="font-size:.9rem;">Lihat Semua</a>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center rounded">
@@ -391,7 +389,7 @@
                                             <div class="mt-auto p-0 m-0 mb-3">
                                                 <div class="mt-1"><b>Rp {{ number_format($prodAds3['harga'],0,",",".") }}</b></div>
                                                 <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
-                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Detail</a>
+                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Order</a>
                                             </div>
                                         </div>
 
@@ -405,7 +403,7 @@
                                             <div class="mt-auto p-0 m-0 mb-3">
                                                 <div class="mt-1"><b>Rp {{ number_format($prod['harga'],0,",",".") }}</b></div>
                                                 <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
-                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Detail</a>
+                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Order</a>
                                             </div>
                                         </div>
                                         @endforeach
@@ -415,7 +413,7 @@
                                 <div class="container-fluid loopBgKategori">
                                 <div class="d-flex h4 justify-content-start mt-5" style="font-size:1.1rem;">
                                     <span class="">Kategori : {{ $prodAds4['kategori'] }}</span>
-                                    <a href="" class="ml-auto align-self-end" style="font-size:.9rem;">Lihat Semua</a>
+                                    <a href="{{ url('kategori/'.$prodAds4['kategori']) }}" class="ml-auto align-self-end" style="font-size:.9rem;">Lihat Semua</a>
                                 </div>
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center rounded">
@@ -430,7 +428,7 @@
                                             <div class="mt-auto p-0 m-0 mb-3">
                                                 <div class="mt-1"><b>Rp {{ number_format($prodAds4['harga'],0,",",".") }}</b></div>
                                                 <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
-                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Detail</a>
+                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Order</a>
                                             </div>
                                         </div>
 
@@ -444,7 +442,7 @@
                                             <div class="mt-auto p-0 m-0 mb-3">
                                                 <div class="mt-1"><b>Rp {{ number_format($prod['harga'],0,",",".") }}</b></div>
                                                 <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
-                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Detail</a>
+                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Order</a>
                                             </div>
                                         </div>
                                         @endforeach
@@ -454,7 +452,7 @@
                                 <div class="container-fluid loopBgKategori">
                                 <div class="d-flex h4 justify-content-start mt-5" style="font-size:1.1rem;">
                                     <span class="">Kategori : {{ $prodAds5['kategori'] }}</span>
-                                    <a href="" class="ml-auto align-self-end" style="font-size:.9rem;">Lihat Semua</a>
+                                    <a href="{{ url('kategori/'.$prodAds5['kategori']) }}" class="ml-auto align-self-end" style="font-size:.9rem;">Lihat Semua</a>
                                 </div>
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center rounded">
@@ -469,7 +467,7 @@
                                             <div class="mt-auto p-0 m-0 mb-3">
                                                 <div class="mt-1"><b>Rp {{ number_format($prodAds5['harga'],0,",",".") }}</b></div>
                                                 <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
-                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Detail</a>
+                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Order</a>
                                             </div>
                                         </div>
 
@@ -483,7 +481,7 @@
                                             <div class="mt-auto p-0 m-0 mb-3">
                                                 <div class="mt-1"><b>Rp {{ number_format($prod['harga'],0,",",".") }}</b></div>
                                                 <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
-                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Detail</a>
+                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Order</a>
                                             </div>
                                         </div>
                                         @endforeach
@@ -492,7 +490,7 @@
                                 <div class="container-fluid loopBgKategori">
                                 <div class="d-flex h4 justify-content-start mt-5" style="font-size:1.1rem;">
                                     <span class="">Kategori : {{ $prodAds6['kategori'] }}</span>
-                                    <a href="" class="ml-auto align-self-end" style="font-size:.9rem;">Lihat Semua</a>
+                                    <a href="{{ url('kategori/'.$prodAds6['kategori']) }}" class="ml-auto align-self-end" style="font-size:.9rem;">Lihat Semua</a>
                                 </div>
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center rounded">
@@ -507,7 +505,7 @@
                                             <div class="mt-auto p-0 m-0 mb-3">
                                                 <div class="mt-1"><b>Rp {{ number_format($prodAds6['harga'],0,",",".") }}</b></div>
                                                 <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
-                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Detail</a>
+                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Order</a>
                                             </div>
                                         </div>
 
@@ -521,7 +519,7 @@
                                             <div class="mt-auto p-0 m-0 mb-3">
                                                 <div class="mt-1"><b>Rp {{ number_format($prod['harga'],0,",",".") }}</b></div>
                                                 <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
-                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Detail</a>
+                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Order</a>
                                             </div>
                                         </div>
                                         @endforeach
@@ -531,7 +529,7 @@
                                 <div class="container-fluid loopBgKategori">
                                 <div class="d-flex h4 justify-content-start mt-5" style="font-size:1.1rem;">
                                     <span class="">Kategori : {{ $prodAds7['kategori'] }}</span>
-                                    <a href="" class="ml-auto align-self-end" style="font-size:.9rem;">Lihat Semua</a>
+                                    <a href="{{ url('kategori/'.$prodAds7['kategori']) }}" class="ml-auto align-self-end" style="font-size:.9rem;">Lihat Semua</a>
                                 </div>
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center rounded">
@@ -546,7 +544,7 @@
                                             <div class="mt-auto p-0 m-0 mb-3">
                                                 <div class="mt-1"><b>Rp {{ number_format($prodAds7['harga'],0,",",".") }}</b></div>
                                                 <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
-                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Detail</a>
+                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Order</a>
                                             </div>
                                         </div>
 
@@ -560,7 +558,7 @@
                                             <div class="mt-auto p-0 m-0 mb-3">
                                                 <div class="mt-1"><b>Rp {{ number_format($prod['harga'],0,",",".") }}</b></div>
                                                 <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
-                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Detail</a>
+                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Order</a>
                                             </div>
                                         </div>
                                         @endforeach
@@ -593,6 +591,51 @@
         <!-- End of Content Wrapper -->
     </div>
     <!-- End of Page Wrapper -->
+
+    <!-- Modal Kategori -->
+<div class="modal fade" id="modalKategori">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">List Kategori :</h5>
+            </div>
+            <div class="modal-body">
+
+                @foreach($listKategori as $lk)
+                <a href="" class="badge badge-success">{{ $lk['kategori'] }}</a>
+                @endforeach
+                {{--<a href="">Barang Bekas</a> ,
+                <a href="">Bahan Kue</a> ,
+                <a href="">Produk Digital</a> ,
+                <a href="">Fashion</a> ,
+                <a href="">Kesehatan</a> ,
+                <a href="">Sembako</a> ,
+                <a href="">Snack</a>--}}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal Kategori -->
+
+<!-- Modal Tag -->
+<div class="modal fade" id="modalTag">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">List Tag :</h5>
+            </div>
+            <div class="modal-body">
+                <a href="" class="badge badge-success">Furniture</a>
+                <a href="" class="badge badge-success">Tas</a>
+                <a href="" class="badge badge-success">Peralatan</a>
+                <a href="" class="badge badge-success">Aksesoris</a>
+                <a href="" class="badge badge-success">Sweater</a>
+                <a href="" class="badge badge-success">Sepatu</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal Tag -->
 
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">

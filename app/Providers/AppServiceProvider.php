@@ -33,5 +33,9 @@ class AppServiceProvider extends ServiceProvider
         View::composer(['product.create'], function ($view) {
             $view->with('products', Product::latest()->paginate(6));
         });
+
+        View::composer(['welcome', 'kategori'], function ($view) {
+            $view->with('listKategori', (Product::select('kategori')->distinct()->get())->toArray());
+        });
     }
 }

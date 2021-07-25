@@ -62,6 +62,19 @@ class WelcomeController extends Controller
         ));
     }
 
+    public function productByCategory(Product $key)
+    {
+        $kategori = $key->kategori;
+        $products = Product::where('kategori', $kategori)->paginate(10);
+        //dd($products);
+        return view('kategori', compact('products', 'kategori'));
+    }
+
+    public function productByTag()
+    {
+        return view('tag');
+    }
+
     public function cart()
     {
 
