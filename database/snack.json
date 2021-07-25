@@ -1,0 +1,72 @@
+[
+    {
+        "nama_produk": "Kentang Goreng",
+        "harga": "5000",
+        "deskripsi": "Photos by Fernando",
+        "kategori": "Snack",
+        "foto": "https://source.unsplash.com/R3f2emOt1bU/600x600"
+    },
+    {
+        "nama_produk": "Love Corn",
+        "harga": "6000",
+        "deskripsi": "Photos by Tyler Nix",
+        "kategori": "Snack",
+        "foto": "https://source.unsplash.com/TF8Inmn3Dtw/600x600"
+    },
+    {
+        "nama_produk": "Zigzag Irvins",
+        "harga": "7000",
+        "deskripsi": "Photos by Tony Pham",
+        "kategori": "Snack",
+        "foto": "https://source.unsplash.com/4zetMBTnoT4/600x600"
+    },
+    {
+        "nama_produk": "Pulsitos",
+        "harga": "4500",
+        "deskripsi": "Pulsitos Brands",
+        "kategori": "Snack",
+        "foto": "https://source.unsplash.com/8-F4vwmZkPND4/600x600"
+    },
+    {
+        "nama_produk": "Muddy Bites",
+        "harga": "6500",
+        "deskripsi": "Photos by Tyler Nix",
+        "kategori": "Snack",
+        "foto": "https://source.unsplash.com/KLvJr6leOFg/600x600"
+    },
+    {
+        "nama_produk": "Hampers Lebaran",
+        "harga": "50000",
+        "deskripsi": "Photos by Tanaphong Toochinda",
+        "kategori": "Snack",
+        "foto": "https://source.unsplash.com/_f8S_o9xQK8/600x600"
+    },
+    {
+        "nama_produk": "Kacang Mente",
+        "harga": "325000",
+        "deskripsi": "Mockup Graphics",
+        "kategori": "Snack",
+        "foto": "https://source.unsplash.com/y6PeMgIa2Xo/600x600"
+    },
+    {
+        "nama_produk": "Popcorn",
+        "harga": "10000",
+        "deskripsi": "Photos by Sumeet B",
+        "kategori": "Snack",
+        "foto": "https://source.unsplash.com/M5DRKOFiv-o/600x600"
+    },
+    {
+        "nama_produk": "Coklat Gula-Gula",
+        "harga": "6500",
+        "deskripsi": "American Heritage Chocolate",
+        "kategori": "Snack",
+        "foto": "https://source.unsplash.com/uHHC3xS9u3o/600x600"
+    },
+    {
+        "nama_produk": "Sushi Set",
+        "harga": "98000",
+        "deskripsi": "Photos by Farhad Ibrahimzade",
+        "kategori": "Snack",
+        "foto": "https://source.unsplash.com/lKk2xzM0YFU/600x600"
+    }
+]

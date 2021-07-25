@@ -1,0 +1,72 @@
+[
+    {
+        "nama_produk": "Pot Bunga",
+        "harga": "120000",
+        "deskripsi": "Modern Style from Yojuma",
+        "kategori": "Barang Bekas",
+        "foto": "https://source.unsplash.com/aMMbyCb8fSo/600x600"
+    },
+    {
+        "nama_produk": "Furniture Set",
+        "harga": "650000",
+        "deskripsi": "Modern Style from Hannah Busing",
+        "kategori": "Barang Bekas",
+        "foto": "https://source.unsplash.com/nME9TubZtSo/600x600"
+    },
+    {
+        "nama_produk": "Tas Cantik",
+        "harga": "1250000",
+        "deskripsi": "Modern Style from Mohammad Metri",
+        "kategori": "Barang Bekas",
+        "foto": "https://source.unsplash.com/gw97geWhUPI/600x600"
+    },
+    {
+        "nama_produk": "Mesin Kopi Praktis",
+        "harga": "750000",
+        "deskripsi": "Modern Style from Joshua Davis",
+        "kategori": "Barang Bekas",
+        "foto": "https://source.unsplash.com/auuDZ0hglhM/600x600"
+    },
+    {
+        "nama_produk": "Sepeda Jadul",
+        "harga": "930000",
+        "deskripsi": "Modern Style from Laura Petrilli",
+        "kategori": "Barang Bekas",
+        "foto": "https://source.unsplash.com/tEFc4IUBGKA/600x600"
+    },
+    {
+        "nama_produk": "Tupperware Handmate",
+        "harga": "5000",
+        "deskripsi": "Modern Style from Chris King",
+        "kategori": "Barang Bekas",
+        "foto": "https://source.unsplash.com/JZw4AVP58d0/600x600"
+    },
+    {
+        "nama_produk": "Mesin Ketik Jadul",
+        "harga": "194000",
+        "deskripsi": "Modern Style from Rishi Laishram",
+        "kategori": "Barang Bekas",
+        "foto": "https://source.unsplash.com/orW_8JcNk4M/600x600"
+    },
+    {
+        "nama_produk": "Kursi Meja Cantik",
+        "harga": "145000",
+        "deskripsi": "Modern Style from Inside Weather",
+        "kategori": "Barang Bekas",
+        "foto": "https://source.unsplash.com/90ApxSJTTdg/600x600"
+    },
+    {
+        "nama_produk": "Kacamata Bunder",
+        "harga": "475900",
+        "deskripsi": "Modern Style from Charles Deluvio",
+        "kategori": "Barang Bekas",
+        "foto": "https://source.unsplash.com/1-nx1QR5dTE/600x600"
+    },
+    {
+        "nama_produk": "Sepatu Unik",
+        "harga": "60000",
+        "deskripsi": "Modern Style from Alexandra Gorn",
+        "kategori": "Barang Bekas",
+        "foto": "https://source.unsplash.com/CJ6SJO_yR5w/600x600"
+    }
+]

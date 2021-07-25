@@ -1,0 +1,72 @@
+[
+    {
+        "nama_produk": "Hand Sanitizer",
+        "harga": "35000",
+        "deskripsi": "Photos by Austin Piwinski",
+        "kategori": "Kesehatan",
+        "foto": "https://source.unsplash.com/9jUoQWGoOXw/600x600"
+    },
+    {
+        "nama_produk": "Nora Tropical",
+        "harga": "210000",
+        "deskripsi": "Nora Brands",
+        "kategori": "Kesehatan",
+        "foto": "https://source.unsplash.com/IbfC88l5u8c/600x600"
+    },
+    {
+        "nama_produk": "Omega3",
+        "harga": "195000",
+        "deskripsi": "Photos by Andreas M",
+        "kategori": "Kesehatan",
+        "foto": "https://source.unsplash.com/AizSoIlfKRc/600x600"
+    },
+    {
+        "nama_produk": "Masker Gas",
+        "harga": "111000",
+        "deskripsi": "Photos by Obi Onyeador",
+        "kategori": "Kesehatan",
+        "foto": "https://source.unsplash.com/zYq4ShRBnHs/600x600"
+    },
+    {
+        "nama_produk": "Jamu",
+        "harga": "165000",
+        "deskripsi": "Photos by Mehrshad",
+        "kategori": "Kesehatan",
+        "foto": "https://source.unsplash.com/P7MkoYvSnLI/600x600"
+    },
+    {
+        "nama_produk": "Masker Medis",
+        "harga": "20000",
+        "deskripsi": "Photos by Bud Nug",
+        "kategori": "Kesehatan",
+        "foto": "https://source.unsplash.com/6IF101xBjI0/600x600"
+    },
+    {
+        "nama_produk": "Masker Batik",
+        "harga": "15000",
+        "deskripsi": "Photos by Visual",
+        "kategori": "Kesehatan",
+        "foto": "https://source.unsplash.com/aWBzaYPcPDA/600x600"
+    },
+    {
+        "nama_produk": "Pink Stethoscope",
+        "harga": "35000",
+        "deskripsi": "Photos by Christopel Boswell",
+        "kategori": "Kesehatan",
+        "foto": "https://source.unsplash.com/GEzNsJarkGU/600x600"
+    },
+    {
+        "nama_produk": "Obat Batuk",
+        "harga": "70000",
+        "deskripsi": "Photos by Biolabs",
+        "kategori": "Kesehatan",
+        "foto": "https://source.unsplash.com/PcHu6W2sKpg/600x600"
+    },
+    {
+        "nama_produk": "Sabun Cair",
+        "harga": "27000",
+        "deskripsi": "Photos by Jonathan Cooper",
+        "kategori": "Kesehatan",
+        "foto": "https://source.unsplash.com/mQ-RCaADQxs/600x600"
+    }
+]

@@ -1,0 +1,72 @@
+[
+    {
+        "nama_produk": "Jeans Grosir",
+        "harga": "68000",
+        "deskripsi": "Photos by Maudefl",
+        "kategori": "Fashion",
+        "foto": "https://source.unsplash.com/EDSTj4kCUcw/600x600"
+    },
+    {
+        "nama_produk": "Detective Style Set",
+        "harga": "2100000",
+        "deskripsi": "Photos by Benjamin Rascoe",
+        "kategori": "Fashion",
+        "foto": "https://source.unsplash.com/ItqFmSxKnIg/600x600"
+    },
+    {
+        "nama_produk": "Chanel Parfum",
+        "harga": "235000",
+        "deskripsi": "Photos by Laura Chouette",
+        "kategori": "Fashion",
+        "foto": "https://source.unsplash.com/MrYhyccrNO0/600x600"
+    },
+    {
+        "nama_produk": "Jam Tangan",
+        "harga": "175000",
+        "deskripsi": "Photos by Krismawan Kadek",
+        "kategori": "Fashion",
+        "foto": "https://source.unsplash.com/9VYig9LmUmE/600x600"
+    },
+    {
+        "nama_produk": "Sepatu Kantoran",
+        "harga": "275000",
+        "deskripsi": "Photos by Iman Ameli",
+        "kategori": "Fashion",
+        "foto": "https://source.unsplash.com/jng0VFa-jRw/600x600"
+    },
+    {
+        "nama_produk": "Topi Piknik",
+        "harga": "99000",
+        "deskripsi": "Photos by Hans Jurgen",
+        "kategori": "Fashion",
+        "foto": "https://source.unsplash.com/Yz4jCyp9JiM/600x600"
+    },
+    {
+        "nama_produk": "Red Sweater",
+        "harga": "125000",
+        "deskripsi": "Photos by Alireza Kazemi",
+        "kategori": "Fashion",
+        "foto": "https://source.unsplash.com/80krFvBowBg/600x600"
+    },
+    {
+        "nama_produk": "Black Sweater",
+        "harga": "125000",
+        "deskripsi": "Photos by Alireza Esmaeeli",
+        "kategori": "Fashion",
+        "foto": "https://source.unsplash.com/BGSZ1t80rpM/600x600"
+    },
+    {
+        "nama_produk": "Blue Sweater",
+        "harga": "1250000",
+        "deskripsi": "Photos by Danny Protas",
+        "kategori": "Fashion",
+        "foto": "https://source.unsplash.com/EJoQus959qo/600x600"
+    },
+    {
+        "nama_produk": "Sepatu Lucu",
+        "harga": "1250000",
+        "deskripsi": "Photos by Mahabis Footwear",
+        "kategori": "Fashion",
+        "foto": "https://source.unsplash.com/DyUDs65NmBk/600x600"
+    }
+]

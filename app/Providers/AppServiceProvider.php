@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrap();
 
         //Membaca variable di spesifik view.
-        View::composer(['welcome', 'product.create'], function ($view) {
+        View::composer(['product.create'], function ($view) {
             $view->with('products', Product::latest()->paginate(6));
         });
     }

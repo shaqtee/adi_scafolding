@@ -288,8 +288,8 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                                             <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <a class="dropdown-item" href="#">Kategori</a>
+                                            <a class="dropdown-item" href="#">Tag</a>
                                             <div class="dropdown-divider"></div>
                                         </div>
                                     </div>
@@ -297,210 +297,273 @@
 
                                 <div class="container-fluid loopBgKategori">
                                 <div class="d-flex h4 justify-content-start mt-5" style="font-size:1.1rem;">
-                                    <span class="">Kategori : Barang Bekas</span>
+                                    <span class="">Kategori : {{ $prodAds['kategori'] }}</span>
                                     <a href="" class="ml-auto align-self-end" style="font-size:.9rem;">Lihat Semua</a>
                                 </div>
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center rounded">
                                     <div class="wrapperku">
-                                        <img src="{{ asset('images/brand/sudah1.png') }}" height="25" class="iklan px-2" alt="">
-                                        <div class="barang shadow itemSatu">
-                                            <img src="{{ asset('images/produk/tayo.jpg') }}" class="iklanThumbnail" alt="">
-                                            <hr class="bg-black">
-                                            <div class="mt-2">Rak Sepatu Sandal 5 Susun Portable</div>
-                                            <div class="mt-1"><b>Rp 500.000</b></div>
-                                            <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
-                                            <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md mt-2">Detail</a>
+                                        <img src="{{ asset('images/brand/aplikasi.png') }}" height="75" class="iklan rounded-circle shadow-lg px-2" alt="">
+                                        <div class="barang shadow itemSatu d-flex flex-column">
+                                            <div>
+                                                <img src="{{ $prodAds['foto'] }}" class="iklanThumbnail" alt="">
+                                                <hr class="bg-black">
+                                                <div class="mt-2">{{ $prodAds['nama_produk'] }}</div>
+                                            </div>
+                                            <div class="mt-auto p-0 m-0 mb-3">
+                                                <div class="mt-1"><b>Rp {{ number_format($prodAds['harga'],0,",",".") }}</b></div>
+                                                <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
+                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Detail</a>
+                                            </div>
                                         </div>
-                                        @for($i=0;$i<9;$i++)
-                                        <div class="barang shadow">
-                                            <img src="{{ asset('images/produk/tayo.jpg') }}" class="iklanThumbnail" alt="">
-                                            <hr class="bg-black">
-                                            <div class="mt-2">Rak Sepatu Sandal 5 Susun Portable</div>
-                                            <div class="mt-1"><b>Rp 500.000</b></div>
-                                            <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
-                                            <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md mt-2">Detail</a>
+
+                                        @foreach($products as $prod)
+                                        <div class="barang shadow d-flex flex-column">
+                                            <div>
+                                                <img src="{{ $prod['foto'] }}" class="iklanThumbnail" alt="">
+                                                <hr class="bg-black">
+                                                <div class="mt-2">{{ $prod['nama_produk'] }}</div>
+                                            </div>
+                                            <div class="mt-auto p-0 m-0 mb-3">
+                                                <div class="mt-1"><b>Rp {{ number_format($prod['harga'],0,",",".") }}</b></div>
+                                                <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
+                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Detail</a>
+                                            </div>
                                         </div>
-                                        @endfor
+                                        @endforeach
                                     </div>
                                 </div>
 
                                 <div class="container-fluid loopBgKategori">
                                 <div class="d-flex h4 justify-content-start mt-5" style="font-size:1.1rem;">
-                                    <span class="">Kategori : Bahan Kue</span>
+                                    <span class="">Kategori : {{ $prodAds2['kategori'] }}</span>
                                     <a href="" class="ml-auto align-self-end" style="font-size:.9rem;">Lihat Semua</a>
                                 </div>
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center rounded">
                                     <div class="wrapperku">
-                                        <img src="{{ asset('images/brand/sudah1.png') }}" height="25" class="iklan px-2" alt="">
-                                        <div class="barang shadow itemSatu">
-                                            <img src="{{ asset('images/produk/tayo.jpg') }}" class="iklanThumbnail" alt="">
-                                            <hr class="bg-black">
-                                            <div class="mt-2">Rak Sepatu Sandal 5 Susun Portable</div>
-                                            <div class="mt-1"><b>Rp 500.000</b></div>
-                                            <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
-                                            <a href="{{ url('single') }}" class="btn btn-dark text-white btn-md mt-2">Detail</a>
+                                        <img src="{{ asset('images/brand/aplikasi.png') }}" height="75" class="iklan rounded-circle shadow-lg px-2" alt="">
+                                        <div class="barang shadow itemSatu d-flex flex-column">
+                                            <div>
+                                                <img src="{{ $prodAds2['foto'] }}" class="iklanThumbnail" alt="">
+                                                <hr class="bg-black">
+                                                <div class="mt-2">{{ $prodAds2['nama_produk'] }}</div>
+                                            </div>
+                                            <div class="mt-auto p-0 m-0 mb-3">
+                                                <div class="mt-1"><b>Rp {{ number_format($prodAds2['harga'],0,",",".") }}</b></div>
+                                                <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
+                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Detail</a>
+                                            </div>
                                         </div>
-                                        @for($i=0;$i<9;$i++)
-                                        <div class="barang shadow">
-                                            <img src="{{ asset('images/produk/tayo.jpg') }}" class="iklanThumbnail" alt="">
-                                            <hr class="bg-black">
-                                            <div class="mt-2">Rak Sepatu Sandal 5 Susun Portable</div>
-                                            <div class="mt-1"><b>Rp 500.000</b></div>
-                                            <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
-                                            <a href="{{ url('single') }}" class="btn btn-dark text-white btn-md mt-2">Detail</a>
+
+                                        @foreach($products2 as $prod)
+                                        <div class="barang shadow d-flex flex-column">
+                                            <div>
+                                                <img src="{{ $prod['foto'] }}" class="iklanThumbnail" alt="">
+                                                <hr class="bg-black">
+                                                <div class="mt-2">{{ $prod['nama_produk'] }}</div>
+                                            </div>
+                                            <div class="mt-auto p-0 m-0 mb-3">
+                                                <div class="mt-1"><b>Rp {{ number_format($prod['harga'],0,",",".") }}</b></div>
+                                                <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
+                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Detail</a>
+                                            </div>
                                         </div>
-                                        @endfor
+                                        @endforeach
                                     </div>
                                 </div>
 
                                 <div class="container-fluid loopBgKategori">
                                     <div class="d-flex h4 justify-content-start mt-5" style="font-size:1.1rem;">
-                                        <span class="">Kategori : Produk Digital</span>
+                                        <span class="">Kategori : {{ $prodAds3['kategori'] }}</span>
                                         <a href="" class="ml-auto align-self-end" style="font-size:.9rem;">Lihat Semua</a>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center rounded">
                                     <div class="wrapperku">
-                                        <img src="{{ asset('images/brand/sudah1.png') }}" height="25" class="iklan px-2" alt="">
-                                        <div class="barang shadow itemSatu">
-                                            <img src="{{ asset('images/produk/tayo.jpg') }}" class="iklanThumbnail" alt="">
-                                            <hr class="bg-black">
-                                            <div class="mt-2">Rak Sepatu Sandal 5 Susun Portable</div>
-                                            <div class="mt-1"><b>Rp 500.000</b></div>
-                                            <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
-                                            <a href="{{ url('single') }}" class="btn btn-dark text-white btn-md mt-2">Detail</a>
+                                        <img src="{{ asset('images/brand/aplikasi.png') }}" height="75" class="iklan rounded-circle shadow-lg px-2" alt="">
+                                        <div class="barang shadow itemSatu d-flex flex-column">
+                                            <div>
+                                                <img src="{{ $prodAds3['foto'] }}" class="iklanThumbnail" alt="">
+                                                <hr class="bg-black">
+                                                <div class="mt-2">{{ $prodAds3['nama_produk'] }}</div>
+                                            </div>
+                                            <div class="mt-auto p-0 m-0 mb-3">
+                                                <div class="mt-1"><b>Rp {{ number_format($prodAds3['harga'],0,",",".") }}</b></div>
+                                                <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
+                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Detail</a>
+                                            </div>
                                         </div>
-                                        @for($i=0;$i<9;$i++)
-                                        <div class="barang shadow">
-                                            <img src="{{ asset('images/produk/tayo.jpg') }}" class="iklanThumbnail" alt="">
-                                            <hr class="bg-black">
-                                            <div class="mt-2">Rak Sepatu Sandal 5 Susun Portable</div>
-                                            <div class="mt-1"><b>Rp 500.000</b></div>
-                                            <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
-                                            <a href="{{ url('single') }}" class="btn btn-dark text-white btn-md mt-2">Detail</a>
+
+                                        @foreach($products3 as $prod)
+                                        <div class="barang shadow d-flex flex-column">
+                                            <div>
+                                                <img src="{{ $prod['foto'] }}" class="iklanThumbnail" alt="">
+                                                <hr class="bg-black">
+                                                <div class="mt-2">{{ $prod['nama_produk'] }}</div>
+                                            </div>
+                                            <div class="mt-auto p-0 m-0 mb-3">
+                                                <div class="mt-1"><b>Rp {{ number_format($prod['harga'],0,",",".") }}</b></div>
+                                                <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
+                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Detail</a>
+                                            </div>
                                         </div>
-                                        @endfor
+                                        @endforeach
                                     </div>
                                 </div>
 
                                 <div class="container-fluid loopBgKategori">
                                 <div class="d-flex h4 justify-content-start mt-5" style="font-size:1.1rem;">
-                                    <span class="">Kategori : Fashion</span>
+                                    <span class="">Kategori : {{ $prodAds4['kategori'] }}</span>
                                     <a href="" class="ml-auto align-self-end" style="font-size:.9rem;">Lihat Semua</a>
                                 </div>
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center rounded">
                                     <div class="wrapperku">
-                                        <img src="{{ asset('images/brand/sudah1.png') }}" height="25" class="iklan px-2" alt="">
-                                        <div class="barang shadow itemSatu">
-                                            <img src="{{ asset('images/produk/tayo.jpg') }}" class="iklanThumbnail" alt="">
-                                            <hr class="bg-black">
-                                            <div class="mt-2">Rak Sepatu Sandal 5 Susun Portable</div>
-                                            <div class="mt-1"><b>Rp 500.000</b></div>
-                                            <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
-                                            <a href="#" class="btn btn-dark text-white btn-md mt-2">Detail</a>
+                                        <img src="{{ asset('images/brand/aplikasi.png') }}" height="75" class="iklan rounded-circle shadow-lg px-2" alt="">
+                                        <div class="barang shadow itemSatu d-flex flex-column">
+                                            <div>
+                                                <img src="{{ $prodAds4['foto'] }}" class="iklanThumbnail" alt="">
+                                                <hr class="bg-black">
+                                                <div class="mt-2">{{ $prodAds4['nama_produk'] }}</div>
+                                            </div>
+                                            <div class="mt-auto p-0 m-0 mb-3">
+                                                <div class="mt-1"><b>Rp {{ number_format($prodAds4['harga'],0,",",".") }}</b></div>
+                                                <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
+                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Detail</a>
+                                            </div>
                                         </div>
-                                        @for($i=0;$i<9;$i++)
-                                        <div class="barang shadow">
-                                            <img src="{{ asset('images/produk/tayo.jpg') }}" class="iklanThumbnail" alt="">
-                                            <hr class="bg-black">
-                                            <div class="mt-2">Rak Sepatu Sandal 5 Susun Portable</div>
-                                            <div class="mt-1"><b>Rp 500.000</b></div>
-                                            <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
-                                            <a href="#" class="btn btn-dark text-white btn-md mt-2">Detail</a>
+
+                                        @foreach($products4 as $prod)
+                                        <div class="barang shadow d-flex flex-column">
+                                            <div>
+                                                <img src="{{ $prod['foto'] }}" class="iklanThumbnail" alt="">
+                                                <hr class="bg-black">
+                                                <div class="mt-2">{{ $prod['nama_produk'] }}</div>
+                                            </div>
+                                            <div class="mt-auto p-0 m-0 mb-3">
+                                                <div class="mt-1"><b>Rp {{ number_format($prod['harga'],0,",",".") }}</b></div>
+                                                <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
+                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Detail</a>
+                                            </div>
                                         </div>
-                                        @endfor
+                                        @endforeach
                                     </div>
                                 </div>
 
                                 <div class="container-fluid loopBgKategori">
                                 <div class="d-flex h4 justify-content-start mt-5" style="font-size:1.1rem;">
-                                    <span class="">Kategori : Kesehatan</span>
+                                    <span class="">Kategori : {{ $prodAds5['kategori'] }}</span>
                                     <a href="" class="ml-auto align-self-end" style="font-size:.9rem;">Lihat Semua</a>
                                 </div>
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center rounded">
                                     <div class="wrapperku">
-                                        <img src="{{ asset('images/brand/sudah1.png') }}" height="25" class="iklan px-2" alt="">
-                                        <div class="barang shadow itemSatu">
-                                            <img src="{{ asset('images/produk/tayo.jpg') }}" class="iklanThumbnail" alt="">
-                                            <hr class="bg-black">
-                                            <div class="mt-2">Rak Sepatu Sandal 5 Susun Portable</div>
-                                            <div class="mt-1"><b>Rp 500.000</b></div>
-                                            <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
-                                            <a href="#" class="btn btn-dark text-white btn-md mt-2">Detail</a>
+                                        <img src="{{ asset('images/brand/aplikasi.png') }}" height="75" class="iklan rounded-circle shadow-lg px-2" alt="">
+                                        <div class="barang shadow itemSatu d-flex flex-column">
+                                            <div>
+                                                <img src="{{ $prodAds5['foto'] }}" class="iklanThumbnail" alt="">
+                                                <hr class="bg-black">
+                                                <div class="mt-2">{{ $prodAds5['nama_produk'] }}</div>
+                                            </div>
+                                            <div class="mt-auto p-0 m-0 mb-3">
+                                                <div class="mt-1"><b>Rp {{ number_format($prodAds5['harga'],0,",",".") }}</b></div>
+                                                <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
+                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Detail</a>
+                                            </div>
                                         </div>
-                                        @for($i=0;$i<9;$i++)
-                                        <div class="barang shadow">
-                                            <img src="{{ asset('images/produk/tayo.jpg') }}" class="iklanThumbnail" alt="">
-                                            <hr class="bg-black">
-                                            <div class="mt-2">Rak Sepatu Sandal 5 Susun Portable</div>
-                                            <div class="mt-1"><b>Rp 500.000</b></div>
-                                            <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
-                                            <a href="#" class="btn btn-dark text-white btn-md mt-2">Detail</a>
+
+                                        @foreach($products5 as $prod)
+                                        <div class="barang shadow d-flex flex-column">
+                                            <div>
+                                                <img src="{{ $prod['foto'] }}" class="iklanThumbnail" alt="">
+                                                <hr class="bg-black">
+                                                <div class="mt-2">{{ $prod['nama_produk'] }}</div>
+                                            </div>
+                                            <div class="mt-auto p-0 m-0 mb-3">
+                                                <div class="mt-1"><b>Rp {{ number_format($prod['harga'],0,",",".") }}</b></div>
+                                                <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
+                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Detail</a>
+                                            </div>
                                         </div>
-                                        @endfor
+                                        @endforeach
                                     </div>
                                 </div>
                                 <div class="container-fluid loopBgKategori">
                                 <div class="d-flex h4 justify-content-start mt-5" style="font-size:1.1rem;">
-                                    <span class="">Kategori : Sembako</span>
+                                    <span class="">Kategori : {{ $prodAds6['kategori'] }}</span>
                                     <a href="" class="ml-auto align-self-end" style="font-size:.9rem;">Lihat Semua</a>
                                 </div>
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center rounded">
                                     <div class="wrapperku">
-                                        <img src="{{ asset('images/brand/sudah1.png') }}" height="25" class="iklan px-2" alt="">
-                                        <div class="barang shadow itemSatu">
-                                            <img src="{{ asset('images/produk/tayo.jpg') }}" class="iklanThumbnail" alt="">
-                                            <hr class="bg-black">
-                                            <div class="mt-2">Rak Sepatu Sandal 5 Susun Portable</div>
-                                            <div class="mt-1"><b>Rp 500.000</b></div>
-                                            <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
-                                            <a href="#" class="btn btn-dark text-white btn-md mt-2">Detail</a>
+                                        <img src="{{ asset('images/brand/aplikasi.png') }}" height="75" class="iklan rounded-circle shadow-lg px-2" alt="">
+                                        <div class="barang shadow itemSatu d-flex flex-column">
+                                            <div>
+                                                <img src="{{ $prodAds6['foto'] }}" class="iklanThumbnail" alt="">
+                                                <hr class="bg-black">
+                                                <div class="mt-2">{{ $prodAds6['nama_produk'] }}</div>
+                                            </div>
+                                            <div class="mt-auto p-0 m-0 mb-3">
+                                                <div class="mt-1"><b>Rp {{ number_format($prodAds6['harga'],0,",",".") }}</b></div>
+                                                <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
+                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Detail</a>
+                                            </div>
                                         </div>
-                                        @for($i=0;$i<9;$i++)
-                                        <div class="barang shadow">
-                                            <img src="{{ asset('images/produk/tayo.jpg') }}" class="iklanThumbnail" alt="">
-                                            <hr class="bg-black">
-                                            <div class="mt-2">Rak Sepatu Sandal 5 Susun Portable</div>
-                                            <div class="mt-1"><b>Rp 500.000</b></div>
-                                            <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
-                                            <a href="#" class="btn btn-dark text-white btn-md mt-2">Detail</a>
+
+                                        @foreach($products6 as $prod)
+                                        <div class="barang shadow d-flex flex-column">
+                                            <div>
+                                                <img src="{{ $prod['foto'] }}" class="iklanThumbnail" alt="">
+                                                <hr class="bg-black">
+                                                <div class="mt-2">{{ $prod['nama_produk'] }}</div>
+                                            </div>
+                                            <div class="mt-auto p-0 m-0 mb-3">
+                                                <div class="mt-1"><b>Rp {{ number_format($prod['harga'],0,",",".") }}</b></div>
+                                                <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
+                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Detail</a>
+                                            </div>
                                         </div>
-                                        @endfor
+                                        @endforeach
                                     </div>
                                 </div>
 
                                 <div class="container-fluid loopBgKategori">
                                 <div class="d-flex h4 justify-content-start mt-5" style="font-size:1.1rem;">
-                                    <span class="">Kategori : Snack</span>
+                                    <span class="">Kategori : {{ $prodAds7['kategori'] }}</span>
                                     <a href="" class="ml-auto align-self-end" style="font-size:.9rem;">Lihat Semua</a>
                                 </div>
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center rounded">
                                     <div class="wrapperku">
-                                        <img src="{{ asset('images/brand/sudah1.png') }}" height="25" class="iklan px-2" alt="">
-                                        <div class="barang shadow itemSatu">
-                                            <img src="{{ asset('images/produk/tayo.jpg') }}" class="iklanThumbnail" alt="">
-                                            <hr class="bg-black">
-                                            <div class="mt-2">Rak Sepatu Sandal 5 Susun Portable</div>
-                                            <div class="mt-1"><b>Rp 500.000</b></div>
-                                            <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
-                                            <a href="#" class="btn btn-dark text-white btn-md mt-2">Detail</a>
+                                        <img src="{{ asset('images/brand/aplikasi.png') }}" height="75" class="iklan rounded-circle shadow-lg px-2" alt="">
+                                        <div class="barang shadow itemSatu d-flex flex-column">
+                                            <div>
+                                                <img src="{{ $prodAds7['foto'] }}" class="iklanThumbnail" alt="">
+                                                <hr class="bg-black">
+                                                <div class="mt-2">{{ $prodAds7['nama_produk'] }}</div>
+                                            </div>
+                                            <div class="mt-auto p-0 m-0 mb-3">
+                                                <div class="mt-1"><b>Rp {{ number_format($prodAds7['harga'],0,",",".") }}</b></div>
+                                                <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
+                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Detail</a>
+                                            </div>
                                         </div>
-                                        @for($i=0;$i<9;$i++)
-                                        <div class="barang shadow">
-                                            <img src="{{ asset('images/produk/tayo.jpg') }}" class="iklanThumbnail" alt="">
-                                            <hr class="bg-black">
-                                            <div class="mt-2">Rak Sepatu Sandal 5 Susun Portable</div>
-                                            <div class="mt-1"><b>Rp 500.000</b></div>
-                                            <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
-                                            <a href="#" class="btn btn-dark text-white btn-md mt-2">Detail</a>
+
+                                        @foreach($products7 as $prod)
+                                        <div class="barang shadow d-flex flex-column">
+                                            <div>
+                                                <img src="{{ $prod['foto'] }}" class="iklanThumbnail" alt="">
+                                                <hr class="bg-black">
+                                                <div class="mt-2">{{ $prod['nama_produk'] }}</div>
+                                            </div>
+                                            <div class="mt-auto p-0 m-0 mb-3">
+                                                <div class="mt-1"><b>Rp {{ number_format($prod['harga'],0,",",".") }}</b></div>
+                                                <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
+                                                <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Detail</a>
+                                            </div>
                                         </div>
-                                        @endfor
+                                        @endforeach
                                     </div>
                                 </div>
 

@@ -1,0 +1,72 @@
+[
+    {
+        "nama_produk": "Editing Video",
+        "harga": "1000000",
+        "deskripsi": "Photos by Emmanuel",
+        "kategori": "Produk Digital",
+        "foto": "https://source.unsplash.com/UVlmNi4CaBQ/600x600"
+    },
+    {
+        "nama_produk": "Mobile App Webview",
+        "harga": "20000000",
+        "deskripsi": "Photos by Rahul Chakraborty",
+        "kategori": "Produk Digital",
+        "foto": "https://source.unsplash.com/xsGxhtAsfSA/600x600"
+    },
+    {
+        "nama_produk": "Logo Design",
+        "harga": "300000",
+        "deskripsi": "Photos by Dylan Calluy",
+        "kategori": "Produk Digital",
+        "foto": "https://source.unsplash.com/sZ9Glt1wmgU/600x600"
+    },
+    {
+        "nama_produk": "T-Shirt Sablon Custom",
+        "harga": "135000",
+        "deskripsi": "Photos by Geofroy Danest",
+        "kategori": "Produk Digital",
+        "foto": "https://source.unsplash.com/uhKVcZNBv80/600x600"
+    },
+    {
+        "nama_produk": "T-Shirt Sablon Custom",
+        "harga": "135000",
+        "deskripsi": "Photos by Geofroy Danest",
+        "kategori": "Produk Digital",
+        "foto": "https://source.unsplash.com/uhKVcZNBv80/600x600"
+    },
+    {
+        "nama_produk": "Sesi Foto",
+        "harga": "1250000",
+        "deskripsi": "Photos by Dylann Ferreira",
+        "kategori": "Produk Digital",
+        "foto": "https://source.unsplash.com/aM-reLiIabA/600x600"
+    },
+    {
+        "nama_produk": "Audio Editing",
+        "harga": "1250000",
+        "deskripsi": "Photos by Axel Mencia",
+        "kategori": "Produk Digital",
+        "foto": "https://source.unsplash.com/5SoYbzKhqfA/600x600"
+    },
+    {
+        "nama_produk": "Social Media Maintain",
+        "harga": "4000000",
+        "deskripsi": "Photos by Deny Simanjuntak",
+        "kategori": "Produk Digital",
+        "foto": "https://source.unsplash.com/pYoj2nyokOg/600x600"
+    },
+    {
+        "nama_produk": "Foto Produk",
+        "harga": "1250000",
+        "deskripsi": "Photos by Laura Chouette",
+        "kategori": "Produk Digital",
+        "foto": "https://source.unsplash.com/0uO0m798HmU/600x600"
+    },
+    {
+        "nama_produk": "Instagram Maintain",
+        "harga": "1250000",
+        "deskripsi": "Photos by Charles Deluvio",
+        "kategori": "Produk Digital",
+        "foto": "https://source.unsplash.com/FdDkfYFHqe4/600x600"
+    }
+]

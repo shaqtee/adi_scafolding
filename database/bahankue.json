@@ -1,0 +1,72 @@
+[
+    {
+        "nama_produk": "Packaging Susu",
+        "harga": "10000",
+        "deskripsi": "Plant-Based. Build a better planet.",
+        "kategori": "Bahan Kue",
+        "foto": "https://source.unsplash.com/7mr6Yx-8WLc/600x600"
+    },
+    {
+        "nama_produk": "Marmit Peanut Butter",
+        "harga": "27000",
+        "deskripsi": "Photos by Brett Jordan",
+        "kategori": "Bahan Kue",
+        "foto": "https://source.unsplash.com/vbiFp8ro1Vw/600x600"
+    },
+    {
+        "nama_produk": "Spageti",
+        "harga": "30000",
+        "deskripsi": "Photos by Deva Darshan",
+        "kategori": "Bahan Kue",
+        "foto": "https://source.unsplash.com/F0ot6ma5Fdo/600x600"
+    },
+    {
+        "nama_produk": "Tepung Tapioka",
+        "harga": "25000",
+        "deskripsi": "Photos by David Fedulov",
+        "kategori": "Bahan Kue",
+        "foto": "https://source.unsplash.com/x6oBAbzzXo4/600x600"
+    },
+    {
+        "nama_produk": "Coklat Import",
+        "harga": "24000",
+        "deskripsi": "Photos by Scarlet Alt",
+        "kategori": "Bahan Kue",
+        "foto": "https://source.unsplash.com/I1CkORYYz6s/600x600"
+    },
+    {
+        "nama_produk": "Permen Hias",
+        "harga": "29500",
+        "deskripsi": "Photos by Amit Lahav",
+        "kategori": "Bahan Kue",
+        "foto": "https://source.unsplash.com/3oDQKoKPMng/600x600"
+    },
+    {
+        "nama_produk": "Vegan Bechamel Sauce",
+        "harga": "32750",
+        "deskripsi": "Import from Canada",
+        "kategori": "Bahan Kue",
+        "foto": "https://source.unsplash.com/DIcCGj91qOg/600x600"
+    },
+    {
+        "nama_produk": "Cakers Photomate",
+        "harga": "65000",
+        "deskripsi": "That's Her Business",
+        "kategori": "Bahan Kue",
+        "foto": "https://source.unsplash.com/7RWjlGWQ7S8/600x600"
+    },
+    {
+        "nama_produk": "Set Hampers Packaging",
+        "harga": "120000",
+        "deskripsi": "Photos by Nguyen Linh",
+        "kategori": "Bahan Kue",
+        "foto": "https://source.unsplash.com/rwatU6FCGRU/600x600"
+    },
+    {
+        "nama_produk": "Kemasan Kertas",
+        "harga": "2000",
+        "deskripsi": "Photos by Yu Hosoi",
+        "kategori": "Bahan Kue",
+        "foto": "https://source.unsplash.com/ViR3a0rx18w/600x600"
+    }
+]

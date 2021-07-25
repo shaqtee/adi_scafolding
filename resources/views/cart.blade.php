@@ -192,13 +192,13 @@
     <hr class="divider" style="background-color:#111111">
         <div class="container">
         <div class="row row-cols-2 py-2" >
+            <a class="col-md-3 col-12 ml-auto btn btn-dark text-white-50 border border-info my-3" id="basic-addon2">Perbaharui Keranjang</a>
             <div class="input-group mb-3 col-md-6 col-12 my-3 p-0">
                 <input type="text" class="form-control border border-info" placeholder="User's Coupon" aria-label="Recipient's username" aria-describedby="basic-addon2">
                 <div class="input-group-append">
                     <button class="input-group-text bg-dark border border-info text-white-50" id="basic-addon2">Terapkan Kupon</button>
                 </div>
             </div>
-            <a class="col-md-3 col-12 ml-auto btn btn-dark text-white-50 border border-info my-3" id="basic-addon2">Perbaharui Keranjang</a>
         </div>
         </div>
     <hr class="divider" style="background-color:#111111">

@@ -1,0 +1,72 @@
+[
+    {
+        "nama_produk": "Mandee Rice 5kg",
+        "harga": "245000",
+        "deskripsi": "Photos by Wahaj Sufian",
+        "kategori": "Sembako",
+        "foto": "https://source.unsplash.com/ocd_xKscv1I/600x600"
+    },
+    {
+        "nama_produk": "Kacang Arab",
+        "harga": "175000",
+        "deskripsi": "Mockup Graphics",
+        "kategori": "Sembako",
+        "foto": "https://source.unsplash.com/v_a3DWpOFc0/600x600"
+    },
+    {
+        "nama_produk": "Gula",
+        "harga": "50000",
+        "deskripsi": "Photos by Lena Myzovets",
+        "kategori": "Sembako",
+        "foto": "https://source.unsplash.com/SY_J8ud1pNo/600x600"
+    },
+    {
+        "nama_produk": "Telur",
+        "harga": "70000",
+        "deskripsi": "Photos by Fabizio",
+        "kategori": "Sembako",
+        "foto": "https://source.unsplash.com/8-V0kdrwNs4/600x600"
+    },
+    {
+        "nama_produk": "Jagung",
+        "harga": "64000",
+        "deskripsi": "Photos by Inticate Explorer",
+        "kategori": "Sembako",
+        "foto": "https://source.unsplash.com/j-GJ1Vqc1SI/600x600"
+    },
+    {
+        "nama_produk": "Garam",
+        "harga": "50000",
+        "deskripsi": "Photos by Curioso",
+        "kategori": "Sembako",
+        "foto": "https://source.unsplash.com/lnbR0E65Yn4/600x600"
+    },
+    {
+        "nama_produk": "Daging Sapi",
+        "harga": "89500",
+        "deskripsi": "Photos by John Cameron",
+        "kategori": "Sembako",
+        "foto": "https://source.unsplash.com/6-5Ul3I6vSE/600x600"
+    },
+    {
+        "nama_produk": "Daging Ayam",
+        "harga": "35000",
+        "deskripsi": "Photos by Huynt Quyet",
+        "kategori": "Sembako",
+        "foto": "https://source.unsplash.com/YgirePmHPZU/600x600"
+    },
+    {
+        "nama_produk": "Susu",
+        "harga": "35000",
+        "deskripsi": "Photos by Autum Hassett",
+        "kategori": "Sembako",
+        "foto": "https://source.unsplash.com/nOctn3PEC0E/600x600"
+    },
+    {
+        "nama_produk": "Cooking Oil",
+        "harga": "70000",
+        "deskripsi": "Photos by Lottie Griffiths",
+        "kategori": "Sembako",
+        "foto": "https://source.unsplash.com/fzPHKbIt1IE/600x600"
+    }
+]

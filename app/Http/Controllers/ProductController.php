@@ -116,7 +116,7 @@ class ProductController extends Controller
             'harga' => 'required|numeric|max:10000000000',
             'deskripsi' => 'required|max:100|string',
             'kategori' => 'required|max:20|string',
-            'foto' => 'required|image|unique:products'
+            'foto' => 'image|unique:products'
         ], [
             'nama_produk.max' => 'Maksimal 50 digit.',
             'nama_produk.string' => 'Harus termasuk tipe data string.',
@@ -126,7 +126,6 @@ class ProductController extends Controller
             'deskripsi.string' => 'Harus termasuk tipe data string',
             'kategori.max' => 'Tidak boleh lebih dari 20 karakter.',
             'kategori.string' => 'Harus termasuk tipe data string.',
-            'foto.required' => 'Harus upload foto.',
             'foto.image' => 'File ini tidak termasuk tipe data picture.'
         ]);
 
