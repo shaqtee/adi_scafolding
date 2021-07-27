@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Tag;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
 class WelcomeController extends Controller
 {
@@ -87,8 +88,66 @@ class WelcomeController extends Controller
         return view('cart');
     }
 
-    public function single()
+    public function single(Product $key)
     {
-        return view('single');
+        //dd(request()->session()->all());
+        $fotoOptional = $key->files->isEmpty() ? 'https://place-hold.it/100x100' : $key->files;
+        $tagProduk = $key->tags->isEmpty() ? '-' : $key->tags[0]->name;
+
+
+
+        return view('single', compact('key', 'fotoOptional', 'tagProduk'));
+    }
+
+    public function wishlistAction(Request $request)
+    {
+        if ($request->at === 'false') {
+            if ($request->session()->has('myWishlist')) {
+                $arr = $request->session()->get('myWishlist');
+                array_push($arr, $request->id);
+                $request->session()->put(['myWishlist' => $arr]);
+                $res = $request->session()->get('myWishlist');
+            } else {
+                $arr = [];
+                array_push($arr, $request->id);
+                $request->session()->put(['myWishlist' => $arr]);
+                $res = $request->session()->get('myWishlist');
+            }
+        } else {
+            if ($request->session()->has('myWishlist')) {
+                $a1 = $request->cs;
+                $a2 = [$request->cp];
+                $arr = array_values(array_diff($a1, $a2));
+                $request->session()->put(['myWishlist' => $arr]);
+                $res = $request->session()->get('myWishlist');
+            } else {
+                $res = 'gotcha!';
+            }
+        }
+
+        return Response::json($res);
+    }
+
+    public function wishlistDisAction(Request $request)
+    {
+        $a1 = $request->session()->get('myWishlist');
+        $a2 = [$request->id];
+        $arr = array_values(array_diff($a1, $a2));
+        $request->session()->put(['myWishlist' => $arr]);
+        $res = $request->session()->get('myWishlist');
+        return Response::json($res);
+    }
+
+    public function wishlist(Request $request)
+    {
+        //dd($request->session()->get('myWishlist'));
+        $arr = array_map(
+            'intval',
+            $request->session()->get('myWishlist')
+        );
+
+        $wishlist = Product::whereIn('id', $arr)->get();
+
+        return view('wishlist', compact('wishlist'));
     }
 }

@@ -388,9 +388,7 @@
     <script src="{{ asset('js/app.js') }}" ></script>
     <script src="{{ asset('packages/sbadmin2/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
     <script src="{{ asset('packages/sbadmin2/js/sb-admin-2.js') }}"></script>
-    <script src="{{ asset('packages/sbadmin2/vendor/chart.js/Chart.min.js') }}"></script>
-    <script src="{{ asset('packages/sbadmin2/js/demo/chart-area-demo.js') }}"></script>
-    <script src="{{ asset('packages/sbadmin2/js/demo/chart-pie-demo.js') }}"></script>
+    
     @yield('js')
 </body>
 </html>

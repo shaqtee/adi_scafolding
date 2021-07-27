@@ -264,4 +264,5 @@
 @endsection
 
 @section('js')
+@include('layouts.public.chart')
 @endsection

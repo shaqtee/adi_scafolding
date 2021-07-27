@@ -318,6 +318,7 @@
         $('#commitPengiriman').toggle(500);
     })
 
+    /* Button X */
     $('tbody tr th a').on('click', function(e){
         let namaKelas = e.target.className.toString();
         $('.' + namaKelas).parents()[1].remove();

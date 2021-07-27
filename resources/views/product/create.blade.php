@@ -332,7 +332,8 @@
         $('.hapusData').attr('action', `{{ url('product/${idHapus}') }}`)
     })
 
-    $('#searchTable').keyup(function(){
+    $('#searchTable').keyup(function(e){
+        e.preventDefault();
         $.ajax({
             url: "{{ url('/product/searchproducts') }}",
             dataType:'JSON',

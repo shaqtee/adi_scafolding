@@ -118,7 +118,6 @@
     #zoom-img {
         width: 338px;
         height: 338px;
-        background: url('images/produk/tayo.jpg');
         background-position: center;
         background-size: cover;
     }
@@ -178,7 +177,7 @@
                         </a>
                     </li>
                     <li class="nav-item mr-1">
-                        <a class="nav-link" href="#" style="color:white;">
+                        <a class="nav-link" href="{{url('/wishlist')}}" style="color:white;">
                             <i class="fa fa-heart" aria-hidden="true"></i>
                             <span class="myfitur">&nbsp; Daftar Keinginan</span>
                         </a>
@@ -217,28 +216,34 @@
     <div class="row mt-5 justify-content-center text-center text-white">
 
         <div class="col-md-2 col-4 text-right align-self-center">
-            <img class="mt-3" src="https://place-hold.it/100x100" alt="">
-            <img class="mt-3" src="https://place-hold.it/100x100" alt="">
-            <img class="mt-3" src="https://place-hold.it/100x100" alt="">
+            @if($fotoOptional === 'https://place-hold.it/100x100')
+                @for($i=0;$i<3;$i++)
+                <img class="mt-3 {{ 'fotoPlus'.$i }}" onclick="switchFoto(this)" src="{{ $fotoOptional }}" width="100" alt="">
+                @endfor
+            @else
+                @foreach($fotoOptional as $i => $fo)
+                <img class="mt-3 {{ 'fotoPlus'.$i }}" onclick="switchFoto(this)" src="{{ $fo->name }}" width="100" alt="">
+                @endforeach
+            @endif
         </div>
         <div class="col-md-5 col-8 text-left align-self-center">
-            <div class="mt-3 border border-primary" id="zoom-img" style="width:27vmax;"></div>
+            <div class="mt-3 border border-primary" id="zoom-img" style="width:27vmax;background:url('{{ $key->foto }}');"></div>
             {{--<img class="mt-3 border border-primary" style="width:27vmax;" src="{{ asset('images/produk/tayo.jpg') }}" alt="">--}}
         </div>
 
         <div class="col-md-5 mt-4 align-self-start text-center">
             <hr style="background-color:#aaa;">
-            <h1 class="mt-3">T-Shirt With Logo</h1>
-            <h4>Rp 100.000</h4>
+            <h1 class="mt-3">{{ $key->nama_produk }}</h1>
+            <h4>Rp {{ number_format($key->harga,0,",",".") }}</h4>
             <hr style="background-color:#aaa;">
-            <h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto, similique!</h5>
+            <h5>{{ $key->deskripsi }}</h5>
             <br>
             <div class="container row mx-auto justify-content-center">
                 <button class="text-white minus" style="width:30px;height:30px;border:1px solid #aaa;background-color:transparent;">-</button>
                 <input class="jumlahBarang mx-2 p-0 text-white text-center border border-primary" style="background-color:transparent;height:30px;width:50px;" type="text" value="0">
                 <button class="text-white plus" style="width:30px;height:30px;border:1px solid #aaa;background-color:transparent;">+</button>
                 <button class="btn btn-success btn-sm ml-4 align-self-center">Tambah ke keranjang</button>
-                <a href="" class="text-white align-self-center ml-3" id="wishlist">
+                <a href="" class="text-white align-self-center ml-3" id="wishlist" data-id="{{ $key->id }}">
                     <i class="fa fa-heart" aria-hidden="true"></i>
                 </a>
             </div>
@@ -283,10 +288,10 @@
     <div class="container mt-5">
         <div class="row justify-content-center text-center">
             <div class="col-6 border border-secondary p-3">
-                <span class="text-white-50">KATEGORI : <a href="#">DIGITAL</a></span>
+                <span class="text-white-50">KATEGORI : <a href="#">{{ strtoupper($key->kategori) }}</a></span>
             </div>
             <div class="col-6 border border-secondary p-3">
-                <span class="text-white-50">TAG : <a href="#">BARU</a>,<a href="#">SMILEY</a></span>
+                <span class="text-white-50">TAG : <a href="#">{{ strtoupper($tagProduk) }}</a></span>
             </div>
         </div>
 
@@ -340,6 +345,17 @@
 @endsection
 @section('js')
 <script>
+
+    /* Swap Foto onclick */
+    function switchFoto(req){
+        let fotoKlik = req.src;
+        let str = $('#zoom-img').attr('style');
+        let patt = /https:\/\/source\.unsplash\.com\/\S{11,}\/\d{3}x\d{3}/gm;
+        let fotoSwap = str.match(patt)[0];
+        let strReplace = str.replace(patt,req.src)
+        let fotoReplace = $('#zoom-img').attr('style',strReplace);
+        req.src = fotoSwap;
+    }
 
     /* Tombol Plus Minus */
     $('.minus').on('click', function(e){
@@ -403,10 +419,43 @@
     });
     /* End 5 Stars */
 
+    /* Wishlist Cek Session */
+    let cekses = @php echo json_encode(session()->get('myWishlist')) @endphp || "";
+    let cekprod = @php echo json_encode($key->id) @endphp || "";
+    if(cekses.includes(cekprod.toString())){
+        let cekClass = $('#wishlist').attr('class').split(' ')[0];
+        if(cekClass == 'text-white'){
+            $('#wishlist').toggleClass('text-white text-danger');
+        }
+    }
+    
+
     /* Wishlist */
     $('#wishlist').on('click', function(e){
         e.preventDefault();
         $(this).toggleClass('text-white text-danger');
+        let boolTrigger = $(this).attr('class').split(' ').pop();
+        if(boolTrigger == 'text-white'){
+            ajaxTrigger = true;
+        }else{
+            ajaxTrigger = false;
+        }
+
+        $.ajax({
+            url:"{{ url('/wishlistaction') }}",
+            type: "POST",
+            dataType:"JSON",
+            data: {
+                _token:"{{ csrf_token() }}",
+                at:ajaxTrigger,
+                id:$('#wishlist').attr('data-id'),
+                cs:cekses,
+                cp:cekprod
+            },
+            success: function (data){
+                
+            }
+        });
     })
     /* End Wishlist */
 

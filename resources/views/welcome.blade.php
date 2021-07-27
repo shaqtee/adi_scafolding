@@ -58,7 +58,7 @@
                                 <div class="mt-auto p-0 m-0 mb-3">
                                     <div class="mt-1"><b>Rp {{ number_format($prodAds['harga'],0,",",".") }}</b></div>
                                     <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
-                                    <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Order</a>
+                                    <a href="{{ url('/single/'.$prodAds['id']) }}" class="btn btn-dark text-white btn-md">Order</a>
                                 </div>
                             </div>
 
@@ -72,7 +72,7 @@
                                 <div class="mt-auto p-0 m-0 mb-3">
                                     <div class="mt-1"><b>Rp {{ number_format($prod['harga'],0,",",".") }}</b></div>
                                     <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
-                                    <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Order</a>
+                                    <a href="{{ url('/single/'.$prod['id']) }}" class="btn btn-dark text-white btn-md">Order</a>
                                 </div>
                             </div>
                             @endforeach
@@ -97,7 +97,7 @@
                                 <div class="mt-auto p-0 m-0 mb-3">
                                     <div class="mt-1"><b>Rp {{ number_format($prodAds2['harga'],0,",",".") }}</b></div>
                                     <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
-                                    <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Order</a>
+                                    <a href="{{ url('/single/'.$prodAds2['id']) }}" class="btn btn-dark text-white btn-md">Order</a>
                                 </div>
                             </div>
 
@@ -111,7 +111,7 @@
                                 <div class="mt-auto p-0 m-0 mb-3">
                                     <div class="mt-1"><b>Rp {{ number_format($prod['harga'],0,",",".") }}</b></div>
                                     <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
-                                    <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Order</a>
+                                    <a href="{{ url('/single/'.$prod['id']) }}" class="btn btn-dark text-white btn-md">Order</a>
                                 </div>
                             </div>
                             @endforeach
@@ -136,7 +136,7 @@
                                 <div class="mt-auto p-0 m-0 mb-3">
                                     <div class="mt-1"><b>Rp {{ number_format($prodAds3['harga'],0,",",".") }}</b></div>
                                     <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
-                                    <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Order</a>
+                                    <a href="{{ url('/single/'.$prodAds3['id']) }}" class="btn btn-dark text-white btn-md">Order</a>
                                 </div>
                             </div>
 
@@ -150,7 +150,7 @@
                                 <div class="mt-auto p-0 m-0 mb-3">
                                     <div class="mt-1"><b>Rp {{ number_format($prod['harga'],0,",",".") }}</b></div>
                                     <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
-                                    <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Order</a>
+                                    <a href="{{ url('/single/'.$prod['id']) }}" class="btn btn-dark text-white btn-md">Order</a>
                                 </div>
                             </div>
                             @endforeach
@@ -175,7 +175,7 @@
                                 <div class="mt-auto p-0 m-0 mb-3">
                                     <div class="mt-1"><b>Rp {{ number_format($prodAds4['harga'],0,",",".") }}</b></div>
                                     <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
-                                    <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Order</a>
+                                    <a href="{{ url('/single/'.$prodAds4['id']) }}" class="btn btn-dark text-white btn-md">Order</a>
                                 </div>
                             </div>
 
@@ -189,7 +189,7 @@
                                 <div class="mt-auto p-0 m-0 mb-3">
                                     <div class="mt-1"><b>Rp {{ number_format($prod['harga'],0,",",".") }}</b></div>
                                     <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
-                                    <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Order</a>
+                                    <a href="{{ url('/single/'.$prod['id']) }}" class="btn btn-dark text-white btn-md">Order</a>
                                 </div>
                             </div>
                             @endforeach
@@ -214,7 +214,7 @@
                                 <div class="mt-auto p-0 m-0 mb-3">
                                     <div class="mt-1"><b>Rp {{ number_format($prodAds5['harga'],0,",",".") }}</b></div>
                                     <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
-                                    <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Order</a>
+                                    <a href="{{ url('/single/'.$prodAds5['id']) }}" class="btn btn-dark text-white btn-md">Order</a>
                                 </div>
                             </div>
 
@@ -228,7 +228,7 @@
                                 <div class="mt-auto p-0 m-0 mb-3">
                                     <div class="mt-1"><b>Rp {{ number_format($prod['harga'],0,",",".") }}</b></div>
                                     <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
-                                    <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Order</a>
+                                    <a href="{{ url('/single/'.$prod['id']) }}" class="btn btn-dark text-white btn-md">Order</a>
                                 </div>
                             </div>
                             @endforeach
@@ -252,7 +252,7 @@
                                 <div class="mt-auto p-0 m-0 mb-3">
                                     <div class="mt-1"><b>Rp {{ number_format($prodAds6['harga'],0,",",".") }}</b></div>
                                     <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
-                                    <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Order</a>
+                                    <a href="{{ url('/single/'.$prodAds6['id']) }}" class="btn btn-dark text-white btn-md">Order</a>
                                 </div>
                             </div>
 
@@ -266,7 +266,7 @@
                                 <div class="mt-auto p-0 m-0 mb-3">
                                     <div class="mt-1"><b>Rp {{ number_format($prod['harga'],0,",",".") }}</b></div>
                                     <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
-                                    <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Order</a>
+                                    <a href="{{ url('/single/'.$prod['id']) }}" class="btn btn-dark text-white btn-md">Order</a>
                                 </div>
                             </div>
                             @endforeach
@@ -291,7 +291,7 @@
                                 <div class="mt-auto p-0 m-0 mb-3">
                                     <div class="mt-1"><b>Rp {{ number_format($prodAds7['harga'],0,",",".") }}</b></div>
                                     <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
-                                    <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Order</a>
+                                    <a href="{{ url('/single/'.$prodAds7['id']) }}" class="btn btn-dark text-white btn-md">Order</a>
                                 </div>
                             </div>
 
@@ -305,7 +305,7 @@
                                 <div class="mt-auto p-0 m-0 mb-3">
                                     <div class="mt-1"><b>Rp {{ number_format($prod['harga'],0,",",".") }}</b></div>
                                     <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
-                                    <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md">Order</a>
+                                    <a href="{{ url('/single/'.$prod['id']) }}" class="btn btn-dark text-white btn-md">Order</a>
                                 </div>
                             </div>
                             @endforeach
