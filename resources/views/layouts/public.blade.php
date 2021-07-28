@@ -34,7 +34,21 @@
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('packages/sbadmin2/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
     <script src="{{ asset('packages/sbadmin2/js/sb-admin-2.js') }}"></script>
-    
+    <script>
+        let formatter = new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+            //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+        });
+    </script>
+    <script>
+        let cekses = @php echo json_encode(session()->get('myWishlist')) @endphp || "";
+        $('.countWishlist').html(cekses.length);
+        /* Display Cart */
+        let countCart = @php echo json_encode(session()->get('myCart'));@endphp || "";
+        $('.countCart').html(countCart.length);
+    </script>
     <!-- End Scripts-->
     @yield('js')
 </body>

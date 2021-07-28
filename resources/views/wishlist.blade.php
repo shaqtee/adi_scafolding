@@ -52,18 +52,24 @@
                                 <th scope="col">Nama Produk</th>
                                 <th scope="col">Unit Price</th>
                                 <th scope="col">Stock Status</th>
+                                <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
+
                                 @foreach($wishlist as $i => $wl)
                                 <tr>
-                                <th scope="row"><a href="" class="{{'wishlist'.$i}}" data-id={{ $wl->id }}>x</a></th>
-                                <td> <img src="{{ $wl->foto }}" width="100"></td>
-                                <td>{{ $wl->nama_produk }}</td>
-                                <td>Rp {{ number_format($wl->harga,0,",",".") }}</td>
-                                <td>{{ $wl->status }}</td>
+
+                                <th class="align-middle" scope="row"><a href="" class="{{'wishlist'.$i}}" data-id={{ $wl->id }}>x</a></th>
+                                <td class="align-middle"> <img src="{{ $wl->foto }}" width="100"></td>
+                                <td class="align-middle"><a href="{{ url('/single/'.$wl->id) }}">{{ $wl->nama_produk }}</a></td>
+                                <td class="align-middle">Rp {{ number_format($wl->harga,0,",",".") }}</td>
+                                <td class="align-middle">{{ $wl->status }}</td>
+                                <td class="align-middle"><a href="#" class="badge badge-warning">add to cart</a></td>
+
                                 </tr>
                                 @endforeach
+
                             </tbody>
                         </table>
                         </div>
@@ -100,6 +106,7 @@
                 success: function(data){
                     console.log(data);
                     $('.' + namaKelas).parents()[1].remove();
+                    location.reload();
                 }
             })
         })

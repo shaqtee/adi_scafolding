@@ -75,9 +75,14 @@ Route::get('/home', [HomeController::class, 'index'])
 */
 Route::get('/', [WelcomeController::class, 'index']);
 Route::get('/showcase/{showkey}', [WelcomeController::class, 'showProductBy']);
-Route::get('/cart', [WelcomeController::class, 'cart']);
-//Route::get('/single', [WelcomeController::class, 'single']);
+
 Route::get('/single/{key:id}', [WelcomeController::class, 'single']);
+
+Route::get('/cart', [WelcomeController::class, 'cart']);
+Route::post('/cartaction', [WelcomeController::class, 'cartAction']);
+Route::post('/cartdisaction', [WelcomeController::class, 'cartDisAction']);
+Route::post('/cartupdateaction', [WelcomeController::class, 'cartUpdateAction']);
+
+Route::get('/wishlist', [WelcomeController::class, 'wishlist']);
 Route::post('/wishlistaction', [WelcomeController::class, 'wishlistAction']);
 Route::post('/wishlistdisaction', [WelcomeController::class, 'wishlistDisAction']);
-Route::get('/wishlist', [WelcomeController::class, 'wishlist']);

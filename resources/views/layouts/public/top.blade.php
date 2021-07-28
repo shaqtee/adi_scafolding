@@ -88,12 +88,12 @@
 
                                 <div class="mr-5 d-lg-block" style="font-size:0.8em;" id="cart">
 
-                                        <a href="">
-                                            <i class="fa fa-heart" aria-hidden="true"></i>
+                                        <a href="{{ url('/wishlist') }}">
+                                            <i class="fa fa-heart" aria-hidden="true"></i>&nbsp;<span class="badge badge-warning countWishlist"></span>
                                         </a>
                                         &nbsp;&nbsp;
                                         <a href="{{ url('/cart') }}">
-                                            <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+                                            <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>&nbsp;<span class="badge badge-warning countCart"></span>
                                         </a>
 
                                 </div>

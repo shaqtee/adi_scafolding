@@ -84,8 +84,72 @@ class WelcomeController extends Controller
 
     public function cart()
     {
+        //request()->session()->flush();
+        if (request()->session()->get('myCart') != []) {
+            $getRaw = request()->session()->get('myCart');
 
-        return view('cart');
+            for ($i = 0; $i < count($getRaw); $i++) {
+                $produk[] = [
+                    (Product::where('id', $getRaw[$i]['id'])->first())->toArray(),
+                    $getRaw[$i]
+                ];
+            }
+        } else {
+            $produk = [
+                [
+                    [
+                        'id' => "-",
+                        'nama_produk' => "Tidak Ada Produk di Keranjang",
+                        'foto' => "https://place-hold.it/100x100",
+                        'harga' => 0
+                    ],
+                    [
+                        'id' => "-",
+                        'qty' => 0
+                    ]
+                ]
+            ];
+        }
+        //dd($produk);
+        return view('cart', compact('produk'));
+    }
+
+    public function cartUpdateAction(Request $request)
+    {
+        $arr = $request->au;
+        $request->session()->put(['myCart' => $arr]);
+        $res = $request->session()->get('myCart');
+        return Response::json($res);
+    }
+
+    public function cartDisAction(Request $request)
+    {
+        $getRaw = $request->session()->get('myCart');
+        unset($getRaw[$request->key]);
+        $arr = array_values($getRaw);
+        $request->session()->put(['myCart' => $arr]);
+        $res = $request->session()->get('myCart');
+
+        return Response::json($res);
+    }
+
+    public function cartAction(Request $request)
+    {
+        if ($request->session()->has('myCart')) {
+            $arr = request()->session()->get('myCart');
+            $updateArr = [$request->mark => $request->id, $request->qty => $request->qb];
+            array_push($arr, $updateArr);
+            $request->session()->put(['myCart' => $arr]);
+            $res = $request->session()->get('myCart');
+        } else {
+            $arr = [];
+            $updateArr = [$request->mark => $request->id, $request->qty => $request->qb];
+            array_push($arr, $updateArr);
+            $request->session()->put(['myCart' => $arr]);
+            $res = $request->session()->get('myCart');
+        }
+
+        return Response::json($res);
     }
 
     public function single(Product $key)
@@ -140,10 +204,11 @@ class WelcomeController extends Controller
 
     public function wishlist(Request $request)
     {
-        //dd($request->session()->get('myWishlist'));
+        $getWishlist = $request->session()->has('myWishlist') ? $request->session()->get('myWishlist') : [];
+
         $arr = array_map(
             'intval',
-            $request->session()->get('myWishlist')
+            $getWishlist
         );
 
         $wishlist = Product::whereIn('id', $arr)->get();

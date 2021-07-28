@@ -130,9 +130,9 @@
                         </a>
                     </li>
                     <li class="nav-item mr-1">
-                        <a class="nav-link" href="#" style="color:white;">
+                        <a class="nav-link" href="{{ url('/wishlist') }}" style="color:white;">
                             <i class="fa fa-heart" aria-hidden="true"></i>
-                            <span class="myfitur">&nbsp; Daftar Keinginan</span>
+                            <span class="myfitur">&nbsp; Daftar Keinginan</span>&nbsp;<span class="badge badge-warning countWishlist"></span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -144,7 +144,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#" style="color:white;">
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                            <span class="myfitur">&nbsp; Keranjang</span>
+                            <span class="myfitur">&nbsp; Keranjang</span>&nbsp;<span class="badge badge-warning countCart"></span>
                         </a>
                     </li>
                 </ul>
@@ -174,25 +174,31 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @for($i=0;$i<3;$i++)
+                        @foreach($produk as $i => $p)
                         <tr class="{{ 'listKeranjang'.$i }}">
-                            <th class="align-middle" scope="row"><a href="#" class="{{ 'produkKeranjang'.$i }}">X</a></th>
-                            <td class="align-middle" scope="row"><img src="https://place-hold.it/100x100" alt=""></td>
-                            <td class="align-middle" scope="row">Baju</td>
-                            <td class="align-middle" scope="row">100.000</td>
-                            <td class="align-middle" scope="row" width="200"><input type="text" class="col-sm-4 p-0 bg-dark text-center text-white mx-auto" value="2"></td>
-                            <td class="align-middle" scope="row">100.000</td>
+                            <th class="align-middle" scope="row"><a href="#" class="{{ 'produkKeranjang'.$i }}" data-key="{{ $i }}">X</a></th>
+                            <td class="align-middle" scope="row"><img src="{{ $p[0]['foto'] }}" alt="" width="100"></td>
+                            <td class="align-middle" scope="row"><a href="@if($produk[0][0]['foto'] != "https://place-hold.it/100x100"){{ url('/single/'.$p[0]['id']) }}@else # @endif">{{ $p[0]['nama_produk'] }}</a></td>
+                            <td class="align-middle" scope="row">Rp {{ number_format($p[0]['harga'],0,",",".") }}</td>
+                            <td class="align-middle" scope="row" width="200"><input type="number" class="col-sm-4 p-0 bg-dark text-center text-white mx-auto inputUpdateQty" value="{{ $p[1]['qty'] }}" data-id="{{ $p[1]['id'] }}"></td>
+                            <td class="align-middle getSubTotal" scope="row" data-total="{{ $p[0]['harga'] * $p[1]['qty'] }}">Rp {{ number_format(($p[0]['harga'] * $p[1]['qty']),0,",",".") }}</td>
                         </tr>
-                        @endfor
+                        @endforeach
                     </tbody>
                 </table>
+                <div class="d-flex justify-content-end">
+                    {{--@php dd($produk[0][0]['foto'] != "https://place-hold.it/100x100") @endphp--}}
+                    @if($produk[0][0]['foto'] != "https://place-hold.it/100x100")
+                    <a class="btn col-sm-2 col-12 btn-dark text-white-50 border border-info my-3" id="btnUpdateKeranjang">Perbaharui Keranjang</a>
+                    @else
+                    @endif
+                </div>
             </div>
         </div>
     </div>
     <hr class="divider" style="background-color:#111111">
         <div class="container">
         <div class="row row-cols-2 py-2" >
-            <a class="col-md-3 col-12 ml-auto btn btn-dark text-white-50 border border-info my-3" id="basic-addon2">Perbaharui Keranjang</a>
             <div class="input-group mb-3 col-md-6 col-12 my-3 p-0">
                 <input type="text" class="form-control border border-info" placeholder="User's Coupon" aria-label="Recipient's username" aria-describedby="basic-addon2">
                 <div class="input-group-append">
@@ -208,7 +214,7 @@
     </div>
     <div class="d-flex flex-row justify-content-end align-items-stretch">
         <p class="p-2 pl-3 text-white col-md-3" style="background-color:rgb(26,26,26);">Subtotal</p>
-        <p class="p-2 pl-3 text-white col-md-3" style="background-color:rgb(26,26,26);">Rp 13.000</p>
+        <p class="p-2 pl-3 text-white col-md-3" style="background-color:rgb(26,26,26);" id="resultSubtotal"></p>
     </div>
     <div class="d-flex flex-row justify-content-end m-0 p-0">
         <p class="p-2 pl-3 text-white col-md-3" style="background-color:#1a1a1a;">Pengiriman</p>
@@ -320,9 +326,65 @@
 
     /* Button X */
     $('tbody tr th a').on('click', function(e){
-        let namaKelas = e.target.className.toString();
+        let namaKelas = e.target.className.toString(),
+            key = $(this).attr('data-key');
         $('.' + namaKelas).parents()[1].remove();
+        $.ajax({
+            url:"{{ url('/cartdisaction') }}",
+            type:"POST",
+            dataType:"JSON",
+            data: {
+                _token:"{{ csrf_token() }}",
+                key:key
+            },
+            success: function(data){
+                console.log(data);
+                location.reload();
+            }
+        })
     })
+
+    /* Subtotal */
+    let arrSubtotal = []
+
+    $('.getSubTotal').each(function(){
+        arrSubtotal.push($(this).data('total'));
+    });
+
+    let resultSubtotal = formatter.format(arrSubtotal.reduce(function(a,c){
+        return a+c;
+    }))
+
+    $('#resultSubtotal').text(resultSubtotal)
+    /* End Subtotal */
+
+    /* Perbaharui Keranjang */
+    $('.inputUpdateQty').on('keyup',function(e){
+        let updateHarga = $(this).val();
+        $('#btnUpdateKeranjang').removeClass('btn-dark').addClass('btn-primary')
+    });
+
+    $('#btnUpdateKeranjang').on('click', function(e){
+        e.preventDefault();
+        let arrUpdate = []
+        $('.inputUpdateQty').each(function(){
+            arrUpdate.push({"id":$(this).data('id'),"qty":$(this).val()})
+        });
+        $.ajax({
+            url:"{{ url('/cartupdateaction') }}",
+            type:"POST",
+            dataType:"JSON",
+            data:{
+                _token:"{{ csrf_token() }}",
+                au:arrUpdate
+            },
+            success: function(data){
+                console.log(data)
+                location.reload();
+            }
+        })
+        /*console.log(arrUpdate)*/
+    });
 
 </script>
 @endsection

@@ -179,7 +179,7 @@
                     <li class="nav-item mr-1">
                         <a class="nav-link" href="{{url('/wishlist')}}" style="color:white;">
                             <i class="fa fa-heart" aria-hidden="true"></i>
-                            <span class="myfitur">&nbsp; Daftar Keinginan</span>
+                            <span class="myfitur">&nbsp; Daftar Keinginan</span>&nbsp;<span class="badge badge-warning countWishlist"></span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -191,7 +191,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('/cart') }}" style="color:white;">
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                            <span class="myfitur">&nbsp; Keranjang</span>
+                            <span class="myfitur">&nbsp; Keranjang</span>&nbsp;<span class="badge badge-warning countCart"></span>
                         </a>
                     </li>
                 </ul>
@@ -207,7 +207,7 @@
             <br><span><a class="" href="{{ url('/') }}">Beranda</a> &nbsp;/&nbsp; <a href="#">Kategori</a> &nbsp;/&nbsp;Product</span>
         </div>
         <div class="col text-right">
-            <br><a class="btn btn-dark borden border-primary" href="{{ url('/cart') }}">Lihat Keranjang</a>
+            <br><a class="btn btn-dark borden border-primary" href="{{ url('/cart') }}" id="countCart">Lihat Keranjang - <span class="countCart"></span></a>
         </div>
     </div>
     <!-- End Page Address -->
@@ -242,7 +242,7 @@
                 <button class="text-white minus" style="width:30px;height:30px;border:1px solid #aaa;background-color:transparent;">-</button>
                 <input class="jumlahBarang mx-2 p-0 text-white text-center border border-primary" style="background-color:transparent;height:30px;width:50px;" type="text" value="0">
                 <button class="text-white plus" style="width:30px;height:30px;border:1px solid #aaa;background-color:transparent;">+</button>
-                <button class="btn btn-success btn-sm ml-4 align-self-center">Tambah ke keranjang</button>
+                <button class="btn btn-success btn-sm ml-4 align-self-center" id="cartSingle">Tambah ke keranjang</button>
                 <a href="" class="text-white align-self-center ml-3" id="wishlist" data-id="{{ $key->id }}">
                     <i class="fa fa-heart" aria-hidden="true"></i>
                 </a>
@@ -350,8 +350,9 @@
     function switchFoto(req){
         let fotoKlik = req.src;
         let str = $('#zoom-img').attr('style');
-        let patt = /https:\/\/source\.unsplash\.com\/\S{11,}\/\d{3}x\d{3}/gm;
+        let patt = /https:\/\/.+\/\d{3}x\d{3}/gm;
         let fotoSwap = str.match(patt)[0];
+        console.log(str)
         let strReplace = str.replace(patt,req.src)
         let fotoReplace = $('#zoom-img').attr('style',strReplace);
         req.src = fotoSwap;
@@ -420,7 +421,7 @@
     /* End 5 Stars */
 
     /* Wishlist Cek Session */
-    let cekses = @php echo json_encode(session()->get('myWishlist')) @endphp || "";
+
     let cekprod = @php echo json_encode($key->id) @endphp || "";
     if(cekses.includes(cekprod.toString())){
         let cekClass = $('#wishlist').attr('class').split(' ')[0];
@@ -428,7 +429,9 @@
             $('#wishlist').toggleClass('text-white text-danger');
         }
     }
-    
+
+
+    console.log(cekses.length);
 
     /* Wishlist */
     $('#wishlist').on('click', function(e){
@@ -453,11 +456,36 @@
                 cp:cekprod
             },
             success: function (data){
-                
+                $('.countWishlist').html(data.length);
             }
         });
     })
     /* End Wishlist */
+
+
+
+    /* Add To Cart */
+    $('#cartSingle').on('click', function(){
+        let qtyBarang = $('.jumlahBarang').val(),
+            id = $('#wishlist').attr('data-id');
+
+        $.ajax({
+            url:"{{ url('/cartaction') }}",
+            type:"POST",
+            dataType:"JSON",
+            data:{
+                _token:"{{ csrf_token() }}",
+                qb:qtyBarang,
+                id:id,
+                qty:"qty",
+                mark:'id'
+            },
+            success: function(data) {
+                console.log(data)
+                $('.countCart').html(data.length);
+            }
+        })
+    });
 
     /* Zoom FX */
     var addZoom = function (target) {
