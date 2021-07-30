@@ -3,9 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tag;
+use App\Models\City;
+use App\Models\Courier;
 use App\Models\Product;
+
+use App\Models\Province;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
+use Kavist\RajaOngkir\Facades\RajaOngkir;
+
 
 class WelcomeController extends Controller
 {
@@ -79,12 +85,25 @@ class WelcomeController extends Controller
             $showCase = "Ketegori";
         }
 
-        return view('kategori', compact('products', 'key', 'showCase'));
+        return view('display', compact('products', 'key', 'showCase'));
     }
 
     public function cart()
     {
         //request()->session()->flush();
+        if (request()->session()->get('select')) {
+            $dataOngkir = request()->session()->get('ongkir')['result'];
+            $kc = request()->session()->get('select')[0];
+            $kcp = request()->session()->get('select')[1];
+            $searchForOngkir = $this->searchForOngkir($kc, $kcp, $dataOngkir);
+        } else {
+            $searchForOngkir['kurir'] = '-';
+            $searchForOngkir['service'] = '-';
+            $searchForOngkir['price'] = 0;
+            $searchForOngkir['etd'] = '-';
+        }
+
+
         if (request()->session()->get('myCart') != []) {
             $getRaw = request()->session()->get('myCart');
 
@@ -110,8 +129,11 @@ class WelcomeController extends Controller
                 ]
             ];
         }
-        //dd($produk);
-        return view('cart', compact('produk'));
+
+        $province = $this->getProvince();
+        $couriers = $this->getCourier();
+        //dd($searchForOngkir);
+        return view('cart', compact('produk', 'province', 'couriers', 'searchForOngkir'));
     }
 
     public function cartUpdateAction(Request $request)
@@ -158,8 +180,6 @@ class WelcomeController extends Controller
         $fotoOptional = $key->files->isEmpty() ? 'https://place-hold.it/100x100' : $key->files;
         $tagProduk = $key->tags->isEmpty() ? '-' : $key->tags[0]->name;
 
-
-
         return view('single', compact('key', 'fotoOptional', 'tagProduk'));
     }
 
@@ -204,6 +224,7 @@ class WelcomeController extends Controller
 
     public function wishlist(Request $request)
     {
+        //dd(request()->session()->all());
         $getWishlist = $request->session()->has('myWishlist') ? $request->session()->get('myWishlist') : [];
 
         $arr = array_map(
@@ -214,5 +235,125 @@ class WelcomeController extends Controller
         $wishlist = Product::whereIn('id', $arr)->get();
 
         return view('wishlist', compact('wishlist'));
+    }
+
+    public function wishlistAddTocart(Request $request)
+    {
+        $arr = $request->session()->get('myCart');
+        $updateArr = ['id' => $request->id, 'qty' => "0"];
+        array_push($arr, $updateArr);
+        $request->session()->put(['myCart' => $arr]);
+        $ress = $request->session()->get('myCart');
+
+        return Response::json($ress);
+    }
+
+    public function store(Request $request)
+    {
+        //$courier = $request->input('courier');
+        $courier = $request->courier;
+
+        $id_origin = City::where('code', $request->city_origin)->first();
+        $desty = City::find($request->city_destination);
+
+        if ($courier) {
+            $data = [
+                'origin'        => $id_origin,
+                'destination'   => City::find($request->city_destination),
+                'weight'        => 1300,
+                'result'       => []
+            ];
+
+            foreach ($courier as $row) {
+                $ongkir = RajaOngkir::ongkosKirim([
+                    'origin'        => $request->city_origin,     // ID kota/kabupaten asal
+                    'destination'   => $desty->code,      // ID kota/kabupaten tujuan
+                    'weight'        => $data['weight'],    // berat barang dalam gram
+                    'courier'       => $row    // kode kurir pengiriman: ['jne', 'tiki', 'pos'] untuk starter
+                ])->get();
+
+                $data['result'][] = $ongkir;
+            }
+            $request->session()->put(['ongkir' => $data]);
+            return Response::json($data);
+        }
+        return redirect()->back();
+    }
+
+    public function getCourier()
+    {
+        return Courier::all();
+    }
+
+    public function getProvince()
+    {
+        return Province::pluck('title', 'code');
+    }
+
+    public function getCities($id)
+    {
+        return City::where('province_code', $id)->pluck('title', 'code');
+    }
+
+    public function searchCities(Request $request)
+    {
+        $search = $request->search;
+
+        if (empty($search)) {
+            $cities = City::orderBy('title', 'asc')
+                ->select('id', 'title')
+                ->limit(5)
+                ->get();
+        } else {
+            $cities = City::orderBy('title', 'asc')
+                ->where('title', 'like', '%' . $search . '%')
+                ->select('id', 'title')
+                ->limit(5)
+                ->get();
+        }
+
+        $response = [];
+        foreach ($cities as $city) {
+            $response[] = [
+                'id' => $city->id,
+                'text' => $city->title
+            ];
+        }
+
+        return json_encode($response);
+    }
+
+    public function selectongkir(Request $request)
+    {
+        $kc = $request->kc;
+        $kcp = $request->kcp;
+        $arr = [$kc, $kcp];
+        $request->session()->put(['select' => $arr]);
+        $ress = $request->session()->get('select');
+
+        return Response::json($ress);
+    }
+
+    public function searchForOngkir($key1, $key2, $array)
+    {
+        $tampung = [];
+        foreach ($array as $val) {
+            if ($val[0]['code'] === $key1) {
+                $costs = $val[0]['costs'];
+                $kurir = $val[0]['code'];
+                $tampung['kurir'] = $kurir;
+                foreach ($costs as $key => $cost) {
+                    if ($cost['service'] === $key2) {
+                        $service = $cost['service'];
+                        $tampung['service'] = $service;
+                        foreach ($cost as $c);
+                        $tampung['price'] = $c[0]['value'];
+                        $tampung['etd'] = $c[0]['etd'];
+                        return $tampung;
+                    }
+                }
+            }
+        }
+        return null;
     }
 }

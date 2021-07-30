@@ -65,7 +65,7 @@
                                 <td class="align-middle"><a href="{{ url('/single/'.$wl->id) }}">{{ $wl->nama_produk }}</a></td>
                                 <td class="align-middle">Rp {{ number_format($wl->harga,0,",",".") }}</td>
                                 <td class="align-middle">{{ $wl->status }}</td>
-                                <td class="align-middle"><a href="#" class="badge badge-warning">add to cart</a></td>
+                                <td class="align-middle"><a href="#" class="badge badge-warning addToCart">add to cart</a></td>
 
                                 </tr>
                                 @endforeach
@@ -106,6 +106,24 @@
                 success: function(data){
                     console.log(data);
                     $('.' + namaKelas).parents()[1].remove();
+                    location.reload();
+                }
+            })
+        })
+
+        /* Add To Cart */
+        $('.addToCart').on('click', function(){
+            let id = $('tbody tr th a').attr('data-id');
+            console.log(id);
+            $.ajax({
+                url:"wishlist/addtocart",
+                type:"POST",
+                dataType:"JSON",
+                data:{
+                    _token:"{{ csrf_token() }}",
+                    id:id
+                },
+                success: function(data){
                     location.reload();
                 }
             })

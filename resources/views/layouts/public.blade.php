@@ -8,8 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-
-
+    <link rel="shortcut icon" href="{{ asset('images/brand/aplikasi.png') }}">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -20,6 +19,9 @@
 
     <!-- Icon -->
     <link href="{{ asset('packages/sbadmin2/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
+
+    <!-- Select2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     <!-- Styles -->
     <link href="{{ asset('packages/sbadmin2/css/sb-admin-2.css') }}" rel="stylesheet">
@@ -34,6 +36,7 @@
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('packages/sbadmin2/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
     <script src="{{ asset('packages/sbadmin2/js/sb-admin-2.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         let formatter = new Intl.NumberFormat('id-ID', {
             style: 'currency',
@@ -50,6 +53,59 @@
         $('.countCart').html(countCart.length);
     </script>
     <!-- End Scripts-->
+
     @yield('js')
+
+    <!-- Ongkir -->
+    <script>
+        $('select[name="province_origin"]').on('change', function() {
+            let provinceId = $(this).val();
+
+            if(provinceId){
+                jQuery.ajax({
+                    url:'/api/province/'+provinceId+'/cities',
+                    type: 'GET',
+                    dataType: 'JSON',
+                    success: function(data){
+                        $('select[name="city_origin"]').empty();
+
+                        $.each(data, function(key, value){
+                            $('select[name="city_origin"]').append(`<option value="${key}">${value}</option`);
+
+                        });
+
+                    }
+                })
+            }else{
+                $('select[name="city_origin"]').empty();
+            }
+
+
+
+        })
+
+        $('#city_destination').select2({
+            ajax:{
+                url:'/api/cities',
+                type: 'post',
+                dataType: 'JSON',
+                delay: 150,
+                data: function(data){
+                    return {
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                        search: $.trim(data.term)
+                    }
+                },
+                processResults: function(response){
+
+                    return {
+                        results: response
+                    }
+                },
+                cache:true
+            }
+        })
+    </script>
+    <!-- End Ongkir -->
 </body>
 </html>

@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-
+    <link rel="shortcut icon" href="{{ asset('images/brand/aplikasi.png ') }}">
 
 
     <!-- Fonts -->
@@ -29,7 +29,7 @@
     <script src="{{ asset('js/app.js') }}" ></script>
     <script src="{{ asset('packages/sbadmin2/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
     <script src="{{ asset('packages/sbadmin2/js/sb-admin-2.js') }}"></script>
-    
+
     @yield('js')
 </body>
 </html>

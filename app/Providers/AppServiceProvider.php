@@ -35,9 +35,13 @@ class AppServiceProvider extends ServiceProvider
             $view->with('products', Product::latest()->paginate(6));
         });
 
-        View::composer(['welcome', 'kategori', 'wishlist'], function ($view) {
+        View::composer(['welcome', 'display', 'wishlist', 'costs'], function ($view) {
             $view->with('listKategori', (Product::select('kategori')->distinct()->get())->toArray());
             $view->with('listTag', (Tag::select('name')->get())->toArray());
+        });
+
+        View::composer(['cart'], function ($view) {
+            $view->with('dataOngkir', request()->session()->get('ongkir'));
         });
     }
 }

@@ -83,6 +83,13 @@ Route::post('/cartaction', [WelcomeController::class, 'cartAction']);
 Route::post('/cartdisaction', [WelcomeController::class, 'cartDisAction']);
 Route::post('/cartupdateaction', [WelcomeController::class, 'cartUpdateAction']);
 
+
+Route::post('/store', [WelcomeController::class, 'store'])->name('store');
+Route::post('/selectongkir', [WelcomeController::class, 'selectongkir']);
+Route::get('/api/province/{id}/cities', [WelcomeController::class, 'getCities']);
+Route::post('/api/cities', [WelcomeController::class, 'searchCities']);
+
 Route::get('/wishlist', [WelcomeController::class, 'wishlist']);
 Route::post('/wishlistaction', [WelcomeController::class, 'wishlistAction']);
 Route::post('/wishlistdisaction', [WelcomeController::class, 'wishlistDisAction']);
+Route::post('/wishlist/addtocart', [WelcomeController::class, 'wishlistAddToCart']);
