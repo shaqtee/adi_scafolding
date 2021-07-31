@@ -356,4 +356,9 @@ class WelcomeController extends Controller
         }
         return null;
     }
+
+    public function checkout()
+    {
+        return view('checkout');
+    }
 }

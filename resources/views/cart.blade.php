@@ -131,7 +131,7 @@
                 <div class="d-flex justify-content-end">
 
                     @if($produk[0][0]['foto'] != "https://place-hold.it/100x100")
-                    <a class="btn col-sm-2 col-12 btn-dark text-white-50 border border-info my-3" id="btnUpdateKeranjang">Perbaharui Keranjang</a>
+                    <a class="btn col-sm-2 col-12 btn-dark text-white border border-info my-3" id="btnUpdateKeranjang">Perbaharui Keranjang</a>
                     @else
                     @endif
                 </div>
@@ -385,7 +385,7 @@
     /* Perbaharui Keranjang */
     $('.inputUpdateQty').on('keyup',function(e){
         let updateHarga = $(this).val();
-        $('#btnUpdateKeranjang').removeClass('btn-dark').addClass('btn-primary')
+        $('#btnUpdateKeranjang').removeClass('btn-dark').addClass('btn-success')
     });
 
     $('#btnUpdateKeranjang').on('click', function(e){

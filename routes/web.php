@@ -4,9 +4,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Member\MemberController;
-use App\Http\Controllers\WelcomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -93,3 +93,5 @@ Route::get('/wishlist', [WelcomeController::class, 'wishlist']);
 Route::post('/wishlistaction', [WelcomeController::class, 'wishlistAction']);
 Route::post('/wishlistdisaction', [WelcomeController::class, 'wishlistDisAction']);
 Route::post('/wishlist/addtocart', [WelcomeController::class, 'wishlistAddToCart']);
+
+Route::get('/checkout', [WelcomeController::class, 'checkout']);
