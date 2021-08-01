@@ -246,7 +246,11 @@
         <p class="p-2 pl-3 text-warning col-md-3 finalTotal" style="background-color:rgb(26,26,26);">-</p>
     </div>
     <div class="d-flex flex-row justify-content-end m-0 p-0 mb-5">
-        <button class="btn btn-dark p-2 pl-3 text-white col-md-3 border border-info">Lanjutkan ke Checkout</button>
+        @if(Route::has('login'))
+            <a href="{{ url('/checkout') }}" class="btn btn-dark p-2 pl-3 text-white col-md-3 border border-info">Lanjutkan ke Checkout</a>
+        @else
+            <a href="{{ url('/login') }}" class="btn btn-dark p-2 pl-3 text-white col-md-3 border border-info">Lanjutkan ke Checkout</a>
+        @endif
     </div>
 </div>
 

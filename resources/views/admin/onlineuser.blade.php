@@ -21,33 +21,38 @@
 
         {{-- Here --}}
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Users</div>
 
                     <div class="card-body">
 
-                        @php $users = DB::table('users')->paginate(4); @endphp
+                        @php $users = DB::table('users')->orderBy('last_online', 'DESC')->paginate(4); @endphp
 
                         <div class="container produkLoop">
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>
                                     <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Status</th>
+                                    <th>Phone</th>
+                                    <th>Last Login</th>
+                                    <th>Last Logout</th>
+                                    <th>Online > 1 mnt</th>
+                                    <th>Live</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($users as $user)
                                     <tr>
                                         <td>{{$user->name}}</td>
-                                        <td>{{$user->email}}</td>
+                                        <td>{{$user->phone}}</td>
+                                        <td>{{$user->last_login}}</td>
+                                        <td>{{$user->last_online}}</td>
+                                        <td>{{$user->online}}</td>
                                         <td>
                                             @if(Cache::has('user-is-online-' . $user->id))
-                                                <span class="text-success">Online</span>
+                                                <span class="text-success">Yes</span>
                                             @else
-                                                <span class="text-secondary">Offline</span>
+                                                <span class="text-secondary">No</span>
                                             @endif
                                         </td>
                                     </tr>

@@ -71,15 +71,15 @@
                                                 @endif
                                         @else
                                                 <a href="{{ route('login') }}" class="nav-link active">
-                                                        <i class="fas fa-sign-in-alt"></i>
-                                                        &nbsp;Masuk
+                                                    <i class="fas fa-sign-in-alt"></i>
+                                                    &nbsp;Masuk
                                                 </a>
 
                                                 @if (Route::has('register'))
 
                                                     <a href="{{ route('register') }}" class="nav-link active">
-                                                            <i class="fas fa-sign-in-alt"></i>
-                                                            &nbsp;Daftar
+                                                        <i class="fas fa-sign-in-alt"></i>
+                                                        &nbsp;Daftar
                                                     </a>
 
                                                 @endif
