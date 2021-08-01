@@ -222,11 +222,12 @@ class WelcomeController extends Controller
         $arr = array_values(array_diff($a1, $a2));
         $request->session()->put(['myWishlist' => $arr]);
         $res = $request->session()->get('myWishlist');
-        return Response::json($res);
+        return Response::json($a2);
     }
 
     public function wishlist(Request $request)
     {
+
         $roleNavigator = $this->searchArr();
 
         $getWishlist = $request->session()->has('myWishlist') ? $request->session()->get('myWishlist') : [];
@@ -370,7 +371,7 @@ class WelcomeController extends Controller
     {
         $arr = empty(auth()->user()->roles) ? [] : auth()->user()->roles->toArray();
         //dd($arr);
-        $id = auth()->user()->id;
+        $id = empty(auth()->user()->id) ? [] : auth()->user()->id;
         $anggota = [];
         foreach ($arr as $a) {
             if ($a['pivot']['user_id'] === $id) {

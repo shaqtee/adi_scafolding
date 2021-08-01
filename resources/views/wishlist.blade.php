@@ -60,7 +60,7 @@
                                 @foreach($wishlist as $i => $wl)
                                 <tr>
 
-                                <th class="align-middle" scope="row"><a href="" class="{{'wishlist'.$i}}">x</a></th>
+                                <th class="align-middle" scope="row"><a href="" class="{{'wishlist'.$i}}" data-id={{ $wl->id }}>x</a></th>
                                 <td class="align-middle"> <img src="{{ $wl->foto }}" width="100"></td>
                                 <td class="align-middle"><a href="{{ url('/single/'.$wl->id) }}">{{ $wl->nama_produk }}</a></td>
                                 <td class="align-middle">Rp {{ number_format($wl->harga,0,",",".") }}</td>
