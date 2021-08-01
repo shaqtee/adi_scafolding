@@ -18,21 +18,7 @@ class WelcomeController extends Controller
 {
     public function index()
     {
-
-        function searchArr()
-        {
-            $arr = empty(auth()->user()->roles) ? [] : auth()->user()->roles->toArray();
-            $anggota = [];
-            foreach ($arr as $a) {
-                $tampung[] = $a['pivot'];
-                foreach ($tampung as $t) {
-                    $anggota[] = $t['role_id'];
-                }
-            }
-            return $anggota;
-        }
-        $roleNavigator = searchArr();
-        //dd($roleNavigator);
+        $roleNavigator = $this->searchArr();
 
         //kategori 1 (thumbnail)
         $prodAds = Product::latest()->where('kategori', 'Barang Bekas')->get()[0];
@@ -241,7 +227,8 @@ class WelcomeController extends Controller
 
     public function wishlist(Request $request)
     {
-        //dd(request()->session()->all());
+        $roleNavigator = $this->searchArr();
+
         $getWishlist = $request->session()->has('myWishlist') ? $request->session()->get('myWishlist') : [];
 
         $arr = array_map(
@@ -251,7 +238,7 @@ class WelcomeController extends Controller
 
         $wishlist = Product::whereIn('id', $arr)->get();
 
-        return view('wishlist', compact('wishlist'));
+        return view('wishlist', compact('wishlist', 'roleNavigator'));
     }
 
     public function wishlistAddTocart(Request $request)
@@ -377,5 +364,19 @@ class WelcomeController extends Controller
     public function checkout()
     {
         return view('checkout');
+    }
+
+    public function searchArr()
+    {
+        $arr = empty(auth()->user()->roles) ? [] : auth()->user()->roles->toArray();
+        //dd($arr);
+        $id = auth()->user()->id;
+        $anggota = [];
+        foreach ($arr as $a) {
+            if ($a['pivot']['user_id'] === $id) {
+                $anggota[] = $a['pivot']['role_id'];
+            }
+        }
+        return $anggota;
     }
 }
