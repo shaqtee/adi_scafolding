@@ -9,6 +9,7 @@ use App\Models\Product;
 
 use App\Models\Province;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Response;
 use Kavist\RajaOngkir\Facades\RajaOngkir;
 
@@ -17,6 +18,22 @@ class WelcomeController extends Controller
 {
     public function index()
     {
+
+        function searchArr()
+        {
+            $arr = empty(auth()->user()->roles) ? [] : auth()->user()->roles->toArray();
+            $anggota = [];
+            foreach ($arr as $a) {
+                $tampung[] = $a['pivot'];
+                foreach ($tampung as $t) {
+                    $anggota[] = $t['role_id'];
+                }
+            }
+            return $anggota;
+        }
+        $roleNavigator = searchArr();
+        //dd($roleNavigator);
+
         //kategori 1 (thumbnail)
         $prodAds = Product::latest()->where('kategori', 'Barang Bekas')->get()[0];
         $products = (Product::latest()->where('kategori', 'Barang Bekas')->get())->toArray();
@@ -66,10 +83,10 @@ class WelcomeController extends Controller
             'prodAds6',
             'products6',
             'prodAds7',
-            'products7'
+            'products7',
+            'roleNavigator'
         ));
     }
-
     public function showProductBy($key)
     {
 

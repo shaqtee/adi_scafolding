@@ -19,10 +19,11 @@ use App\Http\Controllers\Member\MemberController;
 |
 */
 
-Auth::routes();
+Auth::routes(['verify' => true]);
+
 /*
 |--------------------------------------------------------------------------
-| Member Routing All
+| Member (Agen) Routing All
 |--------------------------------------------------------------------------
 |
 | Member dan innovasi perkembangannya semisal menambahkan fitur Member
@@ -47,6 +48,7 @@ Route::middleware(['auth', 'role:user'])->group(function () {
 */
 Route::middleware(['auth', 'role:administrator'])->group(function () {
     Route::get('admin', [AdminController::class, 'index'])->name('admin');
+    Route::get('/admin/checkuseronline', [AdminController::class, 'checkUserOnline']);
     Route::resource('product', ProductController::class);
     Route::post('/product/searchproducts', [ProductController::class, 'searchproducts']);
     Route::post('/product/tampil', [ProductController::class, 'tampil']);
@@ -62,8 +64,15 @@ Route::middleware(['auth', 'role:administrator'])->group(function () {
 | program ini sebagai member(agen) atau admin.
 |
 */
-Route::get('/home', [HomeController::class, 'index'])
-    ->name('home');
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/home', [HomeController::class, 'index'])
+        ->name('home');
+
+    /* Fitur Penjualan Umum tanpa Bonus */
+    Route::get('/checkout', [WelcomeController::class, 'checkout']);
+});
+
 
 /*
 |--------------------------------------------------------------------------
@@ -78,6 +87,7 @@ Route::get('/showcase/{showkey}', [WelcomeController::class, 'showProductBy']);
 
 Route::get('/single/{key:id}', [WelcomeController::class, 'single']);
 
+/* Simulasi */
 Route::get('/cart', [WelcomeController::class, 'cart']);
 Route::post('/cartaction', [WelcomeController::class, 'cartAction']);
 Route::post('/cartdisaction', [WelcomeController::class, 'cartDisAction']);
@@ -89,9 +99,8 @@ Route::post('/selectongkir', [WelcomeController::class, 'selectongkir']);
 Route::get('/api/province/{id}/cities', [WelcomeController::class, 'getCities']);
 Route::post('/api/cities', [WelcomeController::class, 'searchCities']);
 
+/* Produk Favorit */
 Route::get('/wishlist', [WelcomeController::class, 'wishlist']);
 Route::post('/wishlistaction', [WelcomeController::class, 'wishlistAction']);
 Route::post('/wishlistdisaction', [WelcomeController::class, 'wishlistDisAction']);
 Route::post('/wishlist/addtocart', [WelcomeController::class, 'wishlistAddToCart']);
-
-Route::get('/checkout', [WelcomeController::class, 'checkout']);

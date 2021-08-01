@@ -278,7 +278,7 @@
         $('.vendor').toggle(500);
     })
 
-    
+
 
     /* Klik Ongkir */
     function getOngkir(radioOngkir){
@@ -444,6 +444,7 @@
         finalTotal = formatter.format(intTotal);
     $('.finalTotal').html(finalTotal);
 
+/* ---------------END-KALKULASI--------------------- */
 </script>
 @endsection
 

@@ -60,12 +60,12 @@
                                 @foreach($wishlist as $i => $wl)
                                 <tr>
 
-                                <th class="align-middle" scope="row"><a href="" class="{{'wishlist'.$i}}" data-id={{ $wl->id }}>x</a></th>
+                                <th class="align-middle" scope="row"><a href="" class="{{'wishlist'.$i}}">x</a></th>
                                 <td class="align-middle"> <img src="{{ $wl->foto }}" width="100"></td>
                                 <td class="align-middle"><a href="{{ url('/single/'.$wl->id) }}">{{ $wl->nama_produk }}</a></td>
                                 <td class="align-middle">Rp {{ number_format($wl->harga,0,",",".") }}</td>
                                 <td class="align-middle">{{ $wl->status }}</td>
-                                <td class="align-middle"><a href="#" class="badge badge-warning addToCart">add to cart</a></td>
+                                <td class="align-middle"><a href="#" class="badge badge-warning addToCart" data-id={{ $wl->id }} onclick="addToCart(this)">add to cart</a></td>
 
                                 </tr>
                                 @endforeach
@@ -112,8 +112,11 @@
         })
 
         /* Add To Cart */
-        $('.addToCart').on('click', function(){
-            let id = $('tbody tr th a').attr('data-id');
+
+
+        function addToCart(data){
+            let id = data.dataset.id;
+
             console.log(id);
             $.ajax({
                 url:"wishlist/addtocart",
@@ -127,6 +130,6 @@
                     location.reload();
                 }
             })
-        })
+        }
     </script>
 @endsection

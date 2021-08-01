@@ -65,11 +65,45 @@
                             </div>
                         </div>
 
+                        {{-- Phone --}}
+                        <div class="form-group row">
+                            <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('Phone') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone" autofocus>
+
+                                @error('phone')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        {{-- endPhone --}}
+                        {{-- City --}}
+                        <div class="form-group row">
+                            <label for="city" class="col-md-4 col-form-label text-md-right">{{ __('City ( now )') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="city" type="text" class="form-control @error('city') is-invalid @enderror" name="city" value="{{ old('city') }}" required autocomplete="city" autofocus>
+
+                                @error('city')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        {{-- endCity --}}
+                        <hr>
                         <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-warning">
+                            <div class="col-6 text-right">
+                                <button type="submit" class="btn btn-warning btn-block">
                                     {{ __('Daftar') }}
                                 </button>
+                            </div>
+                            <div class="col-6 text-left">
+                                <a href="{{ url('/') }}" class="btn btn-dark btn-block">&nbsp;&nbsp;Back&nbsp;&nbsp;</a>
                             </div>
                         </div>
                     </form>
@@ -77,8 +111,6 @@
             </div>
         </div>
     </div>
-    <div class="row justify-content-center mt-3">
-        <a href="{{ url('/') }}" class="btn btn-dark">Back</a>
-    </div>
+
 </div>
 @endsection

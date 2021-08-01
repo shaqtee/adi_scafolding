@@ -33,34 +33,36 @@
                                         <a class="nav-link" href="#">Kontak</a>
                                     </li>
                                     <li class="nav-item d-lg-none">
-                                        <a class="nav-link" href="{{ url('/cart') }}">
-                                            <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
-                                            &nbsp;Keranjang Belanja</a>
+                                        <a class="nav-link" href="{{ url('/cart') }}" style="color:white;">
+                                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                            <span class="myfitur">&nbsp; Keranjang</span>&nbsp;<span class="badge badge-warning countCart"></span>
+                                        </a>
                                     </li>
                                     <li class="nav-item d-lg-none">
-                                        <a class="nav-link" href="#">
+                                        <a class="nav-link" href="{{url('/wishlist')}}" style="color:white;">
                                             <i class="fa fa-heart" aria-hidden="true"></i>
-                                            &nbsp;Daftar Keinginan</a>
+                                            <span class="myfitur">&nbsp; Daftar Keinginan</span>&nbsp;<span class="badge badge-warning countWishlist"></span>
+                                        </a>
                                     </li>
                                     <li class="nav-item d-lg-none memberauth d-block">
                                         @if (Route::has('login'))
                                             @auth
-                                                @if(auth()->user()->roles()->get()[0]->name == 'administrator')
+                                                @if($roleNavigator === [])
+                                                        <a href="{{ url('/home') }}" class="nav-link">
+                                                            <span class="btn btn-primary">
+                                                                <i class="fas fa-home"></i>
+                                                                &nbsp;Home
+                                                            </span>
+                                                        </a>
+                                                @elseif(in_array(2, $roleNavigator))
                                                         <a href="{{ url('/admin') }}" class="nav-link">
                                                             <span class="btn btn-primary">
                                                                 <i class="fas fa-home"></i>
                                                                 &nbsp;Home
                                                             </span>
                                                         </a>
-                                                @elseif(auth()->user()->roles()->get()[0]->name == 'user')
-                                                        <a href="{{ url('/member') }}" class="nav-link">
-                                                            <span class="btn btn-primary">
-                                                                <i class="fas fa-home"></i>
-                                                                &nbsp;Home
-                                                            </span>
-                                                        </a>
                                                 @else
-                                                        <a href="{{ url('/home') }}" class="nav-link">
+                                                        <a href="{{ url('/member') }}" class="nav-link">
                                                             <span class="btn btn-primary">
                                                                 <i class="fas fa-home"></i>
                                                                 &nbsp;Home
@@ -101,7 +103,16 @@
                                 <div class="d-none d-lg-block">
                                     @if (Route::has('login'))
                                         @auth
-                                            @if(auth()->user()->roles()->get()[0]->name == 'administrator')
+                                            @if(((auth()->user()->roles)->toArray()) === [])
+                                                <div class="text-center">
+                                                    <a href="{{ url('/home') }}" class="nav-link">
+                                                        <span class="btn btn-primary">
+                                                            <i class="fas fa-home"></i>
+                                                            &nbsp;Home
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                            @elseif(auth()->user()->roles()->get()[0]->name == 'administrator')
                                                 <div class="text-center">
                                                     <a href="{{ url('/admin') }}" class="nav-link">
                                                         <span class="btn btn-primary">
