@@ -1,4 +1,4 @@
-@extends('layouts.blankadmin')
+@extends('admin.index')
 
 @section('css')
 <link href="{{ asset('packages/sbadmin2/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">

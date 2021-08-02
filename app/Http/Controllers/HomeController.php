@@ -24,6 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $role = 'Personal';
+        return view('personal.home', compact('role'));
     }
 }

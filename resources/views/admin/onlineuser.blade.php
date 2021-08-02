@@ -1,4 +1,4 @@
-@extends('layouts.blankadmin')
+@extends('admin.index')
 
 @section('css')
 @endsection
@@ -26,14 +26,14 @@
 
                     <div class="card-body">
 
-                        @php $users = DB::table('users')->orderBy('last_online', 'DESC')->paginate(4); @endphp
+                        @php $users = DB::table('users')->orderBy('last_login', 'DESC')->paginate(4); @endphp
 
                         <div class="container produkLoop">
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>
                                     <th>Name</th>
-                                    <th>Phone</th>
+                                    <th>Contact</th>
                                     <th>Last Login</th>
                                     <th>Last Logout</th>
                                     <th>Online > 1 mnt</th>

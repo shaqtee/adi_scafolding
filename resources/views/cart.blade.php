@@ -233,7 +233,9 @@
 
                     <div class="form-row">
                         <div class="col m-0 p-0">
-                            <a href="" class="btn btn-primary submitConfirm">Submit</a>
+                            <a href="" class="btn btn-primary submitConfirm text-center">
+                                Submit
+                            </a>
                         </div>
                     </div>
                 </form>
@@ -307,6 +309,7 @@
     /* Get Ongkir */
     $('.submitConfirm').on('click', function(e){
         e.preventDefault();
+        $('#mySpinner').toggleClass('d-none d-block');
 
         $('#grupFormPengiriman').fadeToggle(500)
         let kotaAsal = $('select[name="city_origin"] option').filter(':selected').val(),

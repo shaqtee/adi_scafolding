@@ -47,7 +47,7 @@
                                     <li class="nav-item d-lg-none memberauth d-block">
                                         @if (Route::has('login'))
                                             @auth
-                                                @if($roleNavigator === [])
+                                                @if(in_array(5, $roleNavigator))
                                                         <a href="{{ url('/home') }}" class="nav-link">
                                                             <span class="btn btn-primary">
                                                                 <i class="fas fa-home"></i>
@@ -103,7 +103,7 @@
                                 <div class="d-none d-lg-block">
                                     @if (Route::has('login'))
                                         @auth
-                                            @if(((auth()->user()->roles)->toArray()) === [])
+                                            @if(in_array(5, $roleNavigator))
                                                 <div class="text-center">
                                                     <a href="{{ url('/home') }}" class="nav-link">
                                                         <span class="btn btn-primary">
@@ -112,7 +112,7 @@
                                                         </span>
                                                     </a>
                                                 </div>
-                                            @elseif(auth()->user()->roles()->get()[0]->name == 'administrator')
+                                            @elseif(in_array(2, $roleNavigator))
                                                 <div class="text-center">
                                                     <a href="{{ url('/admin') }}" class="nav-link">
                                                         <span class="btn btn-primary">
@@ -121,18 +121,9 @@
                                                         </span>
                                                     </a>
                                                 </div>
-                                            @elseif(auth()->user()->roles()->get()[0]->name == 'user')
-                                                <div class="text-center">
-                                                    <a href="{{ url('/member') }}" class="nav-link">
-                                                        <span class="btn btn-primary">
-                                                            <i class="fas fa-home"></i>
-                                                            &nbsp;Home
-                                                        </span>
-                                                    </a>
-                                                </div>
                                             @else
                                                 <div class="text-center">
-                                                    <a href="{{ url('/home') }}" class="nav-link">
+                                                    <a href="{{ url('/member') }}" class="nav-link">
                                                         <span class="btn btn-primary">
                                                             <i class="fas fa-home"></i>
                                                             &nbsp;Home

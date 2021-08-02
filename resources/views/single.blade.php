@@ -142,8 +142,9 @@
         <div class="col">
             <br><span><a class="" href="{{ url('/') }}">Beranda</a> &nbsp;/&nbsp; <a href="#">Kategori</a> &nbsp;/&nbsp;Product</span>
         </div>
-        <div class="col text-right">
-            <br><a class="btn btn-dark borden border-primary" href="{{ url('/cart') }}" id="countCart">Lihat Keranjang - <span class="countCart"></span></a>
+        <div class="col-md-6 col-12 text-right">
+            <br><a class="btn btn-dark borden border-primary" href="{{ url('/') }}" id="countCart">Lanjut Belanja</a>
+            <a class="btn btn-dark borden border-primary" href="{{ url('/cart') }}" id="countCart">Lihat Keranjang - <span class="countCart"></span></a>
         </div>
     </div>
     <!-- End Page Address -->

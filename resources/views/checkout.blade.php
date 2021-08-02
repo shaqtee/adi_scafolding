@@ -110,7 +110,7 @@
                 <h2 class="text-center">Alamat Pengiriman</h2>
             </div>
             <div class="col-md-3 align-self-center p-1">
-                <a href="{{ url('cart') }}" class="badge badge-warning text-dark">Back To Cart</a>
+                <a href="#" onclick="window.history.back();" class="badge badge-warning text-dark p-2">Back</a>
             </div>
         </div>
 
@@ -176,9 +176,9 @@
 
             </div>
 
-            
+
             <div class="col-md-6 mb-4">
-                
+
                 <hr class="dropdown-divider my-4 bg-warning mydivider">
 
                 <form action="" method="" id="donation_form">
@@ -213,7 +213,7 @@
                                 </div>
 
                                 <div class="row">
-                                    
+
                                         <div class="col-md-4">
                                             <div class="input-group input-group-sm">
                                                 <div class="input-group-prepend">
@@ -244,12 +244,12 @@
                                                 <input type="text" class="form-control" aria-label="Text input with radio button" value="CV TIKI" disabled>
                                             </div>
                                         </div>
-                                    
+
                                 </div>
 
                                 <div class="row mt-3">
                                     <div class="col-md-12">
-                                        
+
                                         <div class="input-group input-group-sm mb-3">
                                             <div class="input-group-prepend">
                                             <label class="input-group-text" for="inputGroupSelect01">Services Option</label>
@@ -289,7 +289,7 @@
                                             <div class="px-2">
                                                 Total
                                                 <input class="float-right text-right bg-dark p-0 text-warning col-4" name="amount" id="amount" type="text" data-amount="50000" value="{{ 'Rp '. number_format(50000,0,",",".") }}" disabled>
-                                                
+
                                             </div>
                                         </div>
                                     </div>
@@ -308,7 +308,7 @@
             <hr class="dropdown-divider mb-4 bg-warning mydivider">
         </div>
     </div>
-    
+
     <!-- Finish Here -->
 </div>
 
@@ -327,7 +327,7 @@
     <i class="fas fa-angle-up"></i>
 </a>
 <!-- End of Scroll to Top Button-->
-    
+
 @endsection
 
 @section('js')
@@ -336,7 +336,7 @@
     data-client-key="{{ config('services.midtrans.clientKey')
 }}"></script>
 <script>
-    
+
     $("#donation_form").on('submit', function(event) {
         event.preventDefault();
 

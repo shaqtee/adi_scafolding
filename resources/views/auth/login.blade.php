@@ -69,9 +69,13 @@
             </div>
         </div>
     </div>
-
-    <div class="row justify-content-center mt-3">
-        <a href="{{ url('/') }}" class="btn btn-dark">Back</a>
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-right p-0 mt-3 pr-2">
+            <a href="#" class="btn btn-dark" onclick="window.history.back()">Back</a>
+        </div>
+        <div class="col-md-6 p-0 mt-3">
+            <a href="{{ url('/register') }}" class="btn btn-warning border-dark">Daftar</a>
+        </div>
     </div>
 </div>
 @endsection

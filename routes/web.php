@@ -32,7 +32,7 @@ Auth::routes(['verify' => true]);
 |
 */
 
-Route::middleware(['auth', 'role:user'])->group(function () {
+Route::middleware(['auth', 'role:user', 'verified'])->group(function () {
     Route::get('member', [MemberController::class, 'index'])->name('member');
 });
 
@@ -46,7 +46,7 @@ Route::middleware(['auth', 'role:user'])->group(function () {
 | usahakan perencanaannya disini.
 |
 */
-Route::middleware(['auth', 'role:administrator'])->group(function () {
+Route::middleware(['auth', 'role:administrator', 'verified'])->group(function () {
     Route::get('admin', [AdminController::class, 'index'])->name('admin');
     Route::get('/admin/checkuseronline', [AdminController::class, 'checkUserOnline']);
     Route::resource('product', ProductController::class);
@@ -65,13 +65,11 @@ Route::middleware(['auth', 'role:administrator'])->group(function () {
 |
 */
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'role:personal', 'verified'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])
         ->name('home');
-
-    /* Fitur Penjualan Umum tanpa Bonus */
-    Route::get('/checkout', [WelcomeController::class, 'checkout']);
 });
+
 
 
 /*
@@ -82,6 +80,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 | Ini adalah Part Showcase Products atau index products.
 |
 */
+/* Fitur Penjualan Umum tanpa Bonus */
+Route::get('/checkout', [WelcomeController::class, 'checkout'])->middleware('verified');
+
 Route::get('/', [WelcomeController::class, 'index']);
 Route::get('/showcase/{showkey}', [WelcomeController::class, 'showProductBy']);
 
