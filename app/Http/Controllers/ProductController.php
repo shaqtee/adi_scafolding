@@ -44,8 +44,7 @@ class ProductController extends Controller
             'nama_produk' => 'required|max:50|string|unique:products',
             'harga' => 'required|numeric|max:10000000000',
             'deskripsi' => 'required|max:100|string',
-            'kategori' => 'required|max:20|string',
-            'foto' => 'required|image|unique:products'
+            'kategori' => 'required|max:20|string'
         ], [
             'nama_produk.max' => 'Maksimal 50 digit.',
             'nama_produk.string' => 'Harus termasuk tipe data string.',
@@ -54,23 +53,27 @@ class ProductController extends Controller
             'deskripsi.max' => 'Tidak boleh lebih dari 100 karakter.',
             'deskripsi.string' => 'Harus termasuk tipe data string',
             'kategori.max' => 'Tidak boleh lebih dari 20 karakter.',
-            'kategori.string' => 'Harus termasuk tipe data string.',
-            'foto.required' => 'Harus upload foto.',
-            'foto.image' => 'File ini tidak termasuk tipe data picture.'
+            'kategori.string' => 'Harus termasuk tipe data string.'
         ]);
 
-        //upload foto produk ke public.
-        $dataFotoProduk = $request->file('foto');
-        $encNamaImage = mb_substr(base64_encode($dataFotoProduk->getClientOriginalName()), 0, 12);
-        $extImage = $dataFotoProduk->getClientOriginalExtension();
-        $namaFoto = "prod_{$encNamaImage}.{$extImage}";
-        $folderImageProduct = 'images/produk';
-        $dataFotoProduk->move($folderImageProduct, $namaFoto);
+
+        if (!empty($request->file('foto'))) {
+            //upload foto produk ke public.
+            $dataFotoProduk = $request->file('foto');
+            $encNamaImage = mb_substr(base64_encode($dataFotoProduk->getClientOriginalName()), 0, 12);
+            $extImage = $dataFotoProduk->getClientOriginalExtension();
+            $namaFoto = "prod_{$encNamaImage}.{$extImage}";
+            $folderImageProduct = 'images/produk';
+            $dataFotoProduk->move($folderImageProduct, $namaFoto);
+        } else {
+            $namaFoto = $request->link;
+        }
 
         //insert db.
         Product::create([
             'nama_produk' => $request->nama_produk,
             'harga' => $request->harga,
+            'berat' => $request->berat,
             'deskripsi' => $request->deskripsi,
             'kategori' => $request->kategori,
             'foto' => $namaFoto
@@ -115,8 +118,7 @@ class ProductController extends Controller
             'nama_produk' => 'required|max:50|string',
             'harga' => 'required|numeric|max:10000000000',
             'deskripsi' => 'required|max:100|string',
-            'kategori' => 'required|max:20|string',
-            'foto' => 'image|unique:products'
+            'kategori' => 'required|max:20|string'
         ], [
             'nama_produk.max' => 'Maksimal 50 digit.',
             'nama_produk.string' => 'Harus termasuk tipe data string.',
@@ -125,25 +127,29 @@ class ProductController extends Controller
             'deskripsi.max' => 'Tidak boleh lebih dari 100 karakter.',
             'deskripsi.string' => 'Harus termasuk tipe data string',
             'kategori.max' => 'Tidak boleh lebih dari 20 karakter.',
-            'kategori.string' => 'Harus termasuk tipe data string.',
-            'foto.image' => 'File ini tidak termasuk tipe data picture.'
+            'kategori.string' => 'Harus termasuk tipe data string.'
         ]);
 
-        //hapus foto produk di public.
-        unlink('images/produk/' . $product['foto']);
+        if (!empty($request->file('foto'))) {
+            //hapus foto produk di public.
+            unlink('images/produk/' . $product['foto']);
 
-        //upload foto produk ke public.
-        $dataFotoProduk = $request->file('foto');
-        $encNamaImage = mb_substr(base64_encode($dataFotoProduk->getClientOriginalName()), 0, 12);
-        $extImage = $dataFotoProduk->getClientOriginalExtension();
-        $namaFoto = "prod_{$encNamaImage}.{$extImage}";
-        $folderImageProduct = 'images/produk';
-        $dataFotoProduk->move($folderImageProduct, $namaFoto);
+            //upload foto produk ke public.
+            $dataFotoProduk = $request->file('foto');
+            $encNamaImage = mb_substr(base64_encode($dataFotoProduk->getClientOriginalName()), 0, 12);
+            $extImage = $dataFotoProduk->getClientOriginalExtension();
+            $namaFoto = "prod_{$encNamaImage}.{$extImage}";
+            $folderImageProduct = 'images/produk';
+            $dataFotoProduk->move($folderImageProduct, $namaFoto);
+        } else {
+            $namaFoto = $request->link;
+        }
 
         //insert db.
         Product::where('id', $id)->update([
             'nama_produk' => $request->nama_produk,
             'harga' => $request->harga,
+            'berat' => $request->berat,
             'deskripsi' => $request->deskripsi,
             'kategori' => $request->kategori,
             'foto' => $namaFoto

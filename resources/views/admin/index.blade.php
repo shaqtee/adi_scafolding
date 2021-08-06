@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-
+    <link rel="shortcut icon" href="{{ asset('images/brand/aplikasi.png') }}">
 
 
     <!-- Fonts -->
@@ -101,11 +101,11 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo4" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Broadcast</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseTwo4" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Components:</h6>
                         <a class="collapse-item" href="{{ route('product.create') }}">Message</a>
@@ -119,6 +119,14 @@
                 <a class="nav-link" href="{{ route('member') }}">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Pengiriman</span>
+                </a>
+            </li>
+
+            <!-- Nav Item - Charts -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('member') }}">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Stock</span>
                 </a>
             </li>
 
@@ -205,6 +213,7 @@
                         <a class="collapse-item" href="#">Company Profile</a>
                         <a class="collapse-item" href="#">Kebijakan Privasi</a>
                         <a class="collapse-item" href="#">Syarat dan Ketentuan</a>
+                        <a class="collapse-item" href="{{ url('admin/productmenu') }}">Menus</a>
                     </div>
                 </div>
             </li>

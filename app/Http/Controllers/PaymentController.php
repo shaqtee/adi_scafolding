@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use Midtrans\Snap;
+use App\Models\User;
 use Midtrans\Config;
+use App\Models\Mutasi;
+
+use App\Models\Deposit;
 use App\Models\Payment;
 use Midtrans\Notification;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Response;
 
 class PaymentController extends Controller
@@ -37,41 +41,56 @@ class PaymentController extends Controller
     {
         DB::transaction(function () use ($request) {
             $payment = Payment::create([
+                'invoice' => $request->invoice,
+                'item' => $request->item,
+                'unit_qty' => $request->unit_qty,
+                'unit_weight' => $request->unit_weight,
+                'unit_price' => $request->unit_price,
+                'courier_service' => $request->courier . "|" . $request->guest_type,
+                'subtotal' => $request->dbSubtotal,
+                'ongkir' => $request->dbOngkir,
+                'door' => $request->door,
+                'user_id' => $request->user_id,
+                'phone' => $request->phone,
+                'address' => $request->alamat,
+                'kodepos' => $request->kodepos,
+                'propinsi' => $request->propinsi,
+                'kota' => $request->kota,
+                'kota' => $request->kota,
                 'guest_name' => $request->guest_name,
                 'guest_email' => $request->guest_email,
-                'guest_type' => $request->guest_type,
                 'amount' => floatval($request->amount),
                 'note' => $request->note,
             ]);
 
-            $payload = [
-                'transaction_details' => [
-                    'order_id'      => $payment->id,
-                    'gross_amount'  => $payment->amount,
-                ],
-                'customer_details' => [
-                    'first_name'    => $payment->guest_name,
-                    'email'         => $payment->guest_email,
-                    // 'phone'         => '08888888888',
-                    // 'address'       => '',
-                ],
-                'item_details' => [
-                    [
-                        'id'       => $payment->guest_type,
-                        'price'    => $payment->amount,
-                        'quantity' => 1,
-                        'name'     => ucwords(str_replace('_', ' ', $payment->guest_type))
-                    ]
-                ]
-            ];
-            $snapToken = Snap::getSnapToken($payload);
-            $payment->snap_token = $snapToken;
-            $payment->save();
+            /* debit */
+            $setSaldoUser = User::find(intval($request->user_id));
 
-            $this->response['snap_token'] = $snapToken;
+            $getUserSaldo = $setSaldoUser->saldo;
+            $nominal = floatval($request->amount);
+            $userSaldoNew = $getUserSaldo - $nominal;
+
+            $setSaldoUser->saldo_before_trx = $getUserSaldo;
+            $setSaldoUser->saldo = $userSaldoNew;
+            $setSaldoUser->save();
+
+            $mutasi = Mutasi::create([
+                'user_id' => $setSaldoUser->id,
+                'uuid' => $request->invoice,
+                'type' => 'debit',
+                'nominal' => $nominal,
+                'saldo' => $userSaldoNew,
+                'note' => 'PENJUALAN UTAMA'
+            ]);
         });
 
-        return Response::json($this->response);
+        Session::put([
+            'myCart' => [],
+            'checkout' => [],
+            'ongkir' => [],
+            'select' => [],
+        ]);
+        return Response::json(200);
     }
 
     public function notification(Request $request)
@@ -113,5 +132,45 @@ class PaymentController extends Controller
         });
 
         return;
+    }
+
+    public function deposit(Request $request)
+    {
+        DB::transaction(function () use ($request) {
+            $payment = Deposit::create([
+                'deposit' => $request->deposit,
+                'user_id' => intval($request->user_id),
+                'amount' => floatval($request->amount),
+                'note' => $request->note
+            ]);
+
+            $payload = [
+                'transaction_details' => [
+                    'order_id'      => $payment->id,
+                    'gross_amount'  => $payment->amount,
+                ],
+                'customer_details' => [
+                    'first_name'    => $request->guest_name,
+                    'email'         => $request->guest_email,
+                    // 'phone'         => '08888888888',
+                    // 'address'       => '',
+                ],
+                'item_details' => [
+                    [
+                        'id'       => $payment->deposit,
+                        'price'    => $payment->amount,
+                        'quantity' => 1,
+                        'name'     => ucwords(str_replace('_', ' ', $payment->deposit))
+                    ]
+                ]
+            ];
+            $snapToken = Snap::getSnapToken($payload);
+            $payment->snap_token = $snapToken;
+            $payment->save();
+
+            $this->response['snap_token'] = $snapToken;
+        });
+
+        return Response::json($this->response);
     }
 }

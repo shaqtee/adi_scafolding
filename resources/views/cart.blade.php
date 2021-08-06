@@ -111,7 +111,9 @@
                         <th scope="col">Foto</th>
                         <th scope="col">Produk</th>
                         <th scope="col">Harga</th>
+                        <th scope="col">Berat</th>
                         <th scope="col">Jumlah</th>
+                        <th scope="col">SubWeight</th>
                         <th scope="col">Subtotal</th>
                         </tr>
                     </thead>
@@ -122,7 +124,9 @@
                             <td class="align-middle" scope="row"><img src="{{ $p[0]['foto'] }}" alt="" width="100"></td>
                             <td class="align-middle" scope="row"><a href="@if($produk[0][0]['foto'] != "https://place-hold.it/100x100"){{ url('/single/'.$p[0]['id']) }}@else # @endif">{{ $p[0]['nama_produk'] }}</a></td>
                             <td class="align-middle" scope="row">Rp {{ number_format($p[0]['harga'],0,",",".") }}</td>
+                            <td class="align-middle" scope="row">{{ $p[0]['berat'] }}</td>
                             <td class="align-middle" scope="row" width="200"><input type="number" class="col-sm-4 p-0 bg-dark text-center text-white mx-auto inputUpdateQty" value="{{ $p[1]['qty'] }}" data-id="{{ $p[1]['id'] }}"></td>
+                            <td class="align-middle getSubWeight" scope="row" data-total="{{ $p[0]['berat']*$p[1]['qty'] }}">{{ $p[0]['berat']*$p[1]['qty'] }}</td>
                             <td class="align-middle getSubTotal" scope="row" data-total="{{ $p[0]['harga'] * $p[1]['qty'] }}">Rp {{ number_format(($p[0]['harga'] * $p[1]['qty']),0,",",".") }}</td>
                         </tr>
                         @endforeach
@@ -166,10 +170,10 @@
             @else
             <span class="text-warning estimasiOngkir">-</span><br>
             Ongkos: <span class="text-warning kurirPrice">Rp {{ number_format($searchForOngkir['price'],0,",",".") }}</span>&nbsp;/kg&nbsp;&nbsp;<br>
-            Berat Total: <input type="number" class="col-2 m-0 p-0 text-center trialQty" value='1'> &nbsp;kg<br>
+            Berat Total: <input type="number" class="col-2 m-0 p-0 text-center trialQty" id="resultSubWeight" value='1' class="text-dark"> &nbsp;kg<br>
             Kota Asal : <span class="text-warning">{{ $dataOngkir['origin']['title'] }}</span> {{ ',' }}<br>
             Kota Tujuan: <span class="text-warning">{{ $dataOngkir['destination']['title'] }}</span>{{','}}<br>
-            Est(day)): <span class="text-warning">{{ $searchForOngkir['etd'] }}</span>,<br>
+            Est(day): <span class="text-warning">{{ $searchForOngkir['etd'] }}</span>,<br>
             Kurir: <span class="text-warning">{{ strtoupper($searchForOngkir['kurir']) }}&nbsp;-&nbsp;{{ $searchForOngkir['service'] }}</span> {{'.'}}
             @endif
         </p>
@@ -316,6 +320,8 @@
             kotaTujuan = $('select[name="city_destination"] option').filter(':selected').val(),
             kurir = [];
 
+            console.log(kotaAsal,kotaTujuan,kurir)
+
         $('input[name="courier[]"]:checked').each(function(){
             kurir.push($(this).val())
         })
@@ -375,7 +381,7 @@
         })
     })
 
-    /* Subtotal */
+    /* --- Subtotal --- */
     let arrSubtotal = []
 
     $('.getSubTotal').each(function(){
@@ -387,7 +393,21 @@
     }))
 
     $('#resultSubtotal').text(resultSubtotal)
-    /* End Subtotal */
+    /* --- End Subtotal --- */
+
+    /* --- SubWeight --- */
+    let arrSubWeight = []
+
+    $('.getSubWeight').each(function(){
+        arrSubWeight.push($(this).data('total'));
+    });
+
+    let resultSubWeight = arrSubWeight.reduce(function(a,c){
+        return a+c;
+    })
+
+    $('#resultSubWeight').val(resultSubWeight)
+    /* --- End SubWeight --- */
 
     /* Perbaharui Keranjang */
     $('.inputUpdateQty').on('keyup',function(e){
@@ -452,6 +472,8 @@
     $('.finalTotal').html(finalTotal);
 
 /* ---------------END-KALKULASI--------------------- */
+
+
 </script>
 @endsection
 

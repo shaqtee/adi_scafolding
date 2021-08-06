@@ -3,8 +3,10 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\PengirimanController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Member\MemberController;
 
@@ -49,6 +51,8 @@ Route::middleware(['auth', 'role:user', 'verified'])->group(function () {
 Route::middleware(['auth', 'role:administrator', 'verified'])->group(function () {
     Route::get('admin', [AdminController::class, 'index'])->name('admin');
     Route::get('/admin/checkuseronline', [AdminController::class, 'checkUserOnline']);
+    Route::get('/admin/productmenu', [AdminController::class, 'productmenu']);
+    Route::post('/admin/productmenu/store', [AdminController::class, 'productmenuStore']);
     Route::resource('product', ProductController::class);
     Route::post('/product/searchproducts', [ProductController::class, 'searchproducts']);
     Route::post('/product/tampil', [ProductController::class, 'tampil']);
@@ -68,6 +72,10 @@ Route::middleware(['auth', 'role:administrator', 'verified'])->group(function ()
 Route::middleware(['auth', 'role:personal', 'verified'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])
         ->name('home');
+
+    Route::get('/home/transferbank', [HomeController::class, 'transferbank']);
+    Route::get('/home/deposit', [HomeController::class, 'deposit']);
+    Route::get('/home/history/mainprod', [HomeController::class, 'mainProdHistory']);
 });
 
 
@@ -80,8 +88,7 @@ Route::middleware(['auth', 'role:personal', 'verified'])->group(function () {
 | Ini adalah Part Showcase Products atau index products.
 |
 */
-/* Fitur Penjualan Umum tanpa Bonus */
-Route::get('/checkout', [WelcomeController::class, 'checkout'])->middleware('verified');
+
 
 Route::get('/', [WelcomeController::class, 'index']);
 Route::get('/showcase/{showkey}', [WelcomeController::class, 'showProductBy']);
@@ -96,8 +103,10 @@ Route::post('/cartupdateaction', [WelcomeController::class, 'cartUpdateAction'])
 
 
 Route::post('/store', [WelcomeController::class, 'store'])->name('store');
+
 Route::post('/selectongkir', [WelcomeController::class, 'selectongkir']);
 Route::get('/api/province/{id}/cities', [WelcomeController::class, 'getCities']);
+Route::get('/api/{id}/province/citiesid', [WelcomeController::class, 'getCitiesId']);
 Route::post('/api/cities', [WelcomeController::class, 'searchCities']);
 
 /* Produk Favorit */
@@ -105,3 +114,16 @@ Route::get('/wishlist', [WelcomeController::class, 'wishlist']);
 Route::post('/wishlistaction', [WelcomeController::class, 'wishlistAction']);
 Route::post('/wishlistdisaction', [WelcomeController::class, 'wishlistDisAction']);
 Route::post('/wishlist/addtocart', [WelcomeController::class, 'wishlistAddToCart']);
+
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    /* Fitur Penjualan Umum tanpa Bonus */
+    Route::get('/checkout', [WelcomeController::class, 'checkout']);
+    Route::post('/checkout/getaddress', [WelcomeController::class, 'checkoutGetAddress']);
+    Route::post('/checkout/store', [WelcomeController::class, 'checkoutStore'])->name('checkoutStore');
+    Route::post('/payment', [PaymentController::class, 'store']);
+
+    /* Expedisi */
+    Route::get('/pengiriman', [PengirimanController::class, 'pengiriman']);
+    Route::post('/pengiriman/store', [PengirimanController::class, 'pengirimanStore']);
+});

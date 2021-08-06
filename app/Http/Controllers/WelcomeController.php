@@ -18,6 +18,7 @@ class WelcomeController extends Controller
 {
     public function index()
     {
+
         $roleNavigator = $this->searchArr();
 
         //kategori 1 (thumbnail)
@@ -93,7 +94,7 @@ class WelcomeController extends Controller
 
     public function cart()
     {
-        //request()->session()->flush();
+        //dd(request()->session()->all());
         if (request()->session()->get('select')) {
             $dataOngkir = request()->session()->get('ongkir')['result'];
             $kc = request()->session()->get('select')[0];
@@ -123,7 +124,8 @@ class WelcomeController extends Controller
                         'id' => "-",
                         'nama_produk' => "Tidak Ada Produk di Keranjang",
                         'foto' => "https://place-hold.it/100x100",
-                        'harga' => 0
+                        'harga' => 0,
+                        'berat' => 0
                     ],
                     [
                         'id' => "-",
@@ -135,7 +137,6 @@ class WelcomeController extends Controller
 
         $province = $this->getProvince();
         $couriers = $this->getCourier();
-        //dd($searchForOngkir);
         return view('cart', compact('produk', 'province', 'couriers', 'searchForOngkir'));
     }
 
@@ -300,6 +301,11 @@ class WelcomeController extends Controller
         return City::where('province_code', $id)->pluck('title', 'code');
     }
 
+    public function getCitiesId($id)
+    {
+        return City::where('province_code', $id)->pluck('title', 'id');
+    }
+
     public function searchCities(Request $request)
     {
         $search = $request->search;
@@ -343,6 +349,7 @@ class WelcomeController extends Controller
     {
         $tampung = [];
         foreach ($array as $val) {
+
             if ($val[0]['code'] === $key1) {
                 $costs = $val[0]['costs'];
                 $kurir = $val[0]['code'];
@@ -362,9 +369,80 @@ class WelcomeController extends Controller
         return null;
     }
 
-    public function checkout()
+    public function checkout(Request $request)
     {
-        return view('checkout');
+        //dd(session()->all());
+        $province = $this->getProvince();
+
+        if (request()->session()->get('myCart') != []) {
+            $getRaw = request()->session()->get('myCart');
+
+            for ($i = 0; $i < count($getRaw); $i++) {
+                $produk[] = [
+                    (Product::where('id', $getRaw[$i]['id'])->first())->toArray(),
+                    $getRaw[$i]
+                ];
+            }
+        } else {
+            $produk = [
+                [
+                    [
+                        'id' => "-",
+                        'nama_produk' => "Tidak Ada Data Cart",
+                        'foto' => "https://place-hold.it/100x100",
+                        'harga' => 0,
+                        'berat' => 0
+                    ],
+                    [
+                        'id' => "-",
+                        'qty' => 0
+                    ]
+                ]
+            ];
+        }
+
+        return view('checkout', compact('province', 'produk'));
+    }
+
+    public function checkoutGetAddress()
+    {
+
+        $address = (app('\App\Http\Controllers\PengirimanController')
+            ->pengiriman()['address']);
+        $address['user'] = auth()->user();
+        return Response::json($address);
+    }
+
+    public function checkoutStore(Request $request)
+    {
+        //$courier = $request->input('courier');
+        $courier = $request->courier;
+
+        $id_origin = City::where('code', $request->city_origin)->first();
+        $desty = City::find($request->city_destination);
+
+        if ($courier) {
+            $data = [
+                'origin'        => $id_origin,
+                'destination'   => City::find($request->city_destination),
+                'weight'        => 1300,
+                'result'       => []
+            ];
+
+            foreach ($courier as $row) {
+                $ongkir = RajaOngkir::ongkosKirim([
+                    'origin'        => $request->city_origin,     // ID kota/kabupaten asal
+                    'destination'   => $desty->code,      // ID kota/kabupaten tujuan
+                    'weight'        => $data['weight'],    // berat barang dalam gram
+                    'courier'       => $row    // kode kurir pengiriman: ['jne', 'tiki', 'pos'] untuk starter
+                ])->get();
+
+                $data['result'][] = $ongkir;
+            }
+            $request->session()->put(['checkout' => $data]);
+            return Response::json($data);
+        }
+        return redirect()->back();
     }
 
     public function searchArr()

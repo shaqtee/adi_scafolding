@@ -120,6 +120,22 @@
                     </div>
                 @enderror
             </div>
+            <!-- berat -->
+            <div class="input-group input-group-sm">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Berat</span>
+                </div>
+                <input type="number" name="berat" class="form-control @error('harga') is-invalid @enderror" id="basic-url" aria-describedby="basic-addon3" value="{{ old('berat') }}" required>
+
+            </div>
+            <!-- link foto jika ada (optional) -->
+            <div class="input-group input-group-sm">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">photolink</span>
+                </div>
+                <input type="text" name="link" class="form-control @error('harga') is-invalid @enderror" id="basic-url" aria-describedby="basic-addon3" value="{{ old('link') }}" required>
+
+            </div>
 
             <!-- deskripsi -->
             <div class="input-group input-group-sm">
@@ -162,7 +178,7 @@
                     <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
                 </div>
                 <div class="custom-file">
-                    <input type="file" name="foto" class="custom-file-input @error('foto') is-invalid @enderror" onchange="readURL(this)" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" value="old('foto')" required>
+                    <input type="file" name="foto" class="custom-file-input @error('foto') is-invalid @enderror" onchange="readURL(this)" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" value="old('foto')">
                     <label class="custom-file-label text-center" for="inputGroupFile01" id="namafile">Choose file</label>
                 </div>
             </div>
@@ -216,6 +232,22 @@
                         {{ $message }}
                     </div>
                 @enderror
+            </div>
+            <!-- berat -->
+            <div class="input-group input-group-sm">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Berat</span>
+                </div>
+                <input type="number" name="berat" class="form-control @error('berat') is-invalid @enderror" id="basic-url" aria-describedby="basic-addon3" value="{{ old('berat') }}" required>
+
+            </div>
+            <!-- link -->
+            <div class="input-group input-group-sm">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Photolink</span>
+                </div>
+                <input type="text" name="link" class="form-control @error('link') is-invalid @enderror" id="basic-url" aria-describedby="basic-addon3" value="{{ old('link') }}" required>
+
             </div>
 
             <!-- deskripsi -->
@@ -419,6 +451,8 @@
                 $(".updateform").attr('action', `/product/${response.id}`)
                 $("input[name=nama_produk]").val(`${response.nama_produk}`)
                 $("input[name=harga]").val(`${response.harga}`)
+                $("input[name=berat]").val(`${response.berat}`)
+                $("input[name=link]").val(`${response.foto}`)
                 $("input[name=deskripsi]").val(`${response.deskripsi}`)
                 $("input[name=kategori]").val(`${response.kategori}`)
                 $(".foto").attr("src", response.foto.length >= 22 ? 'https://place-hold.it/200x200/' : `{{ asset('images/produk/${response.foto}') }}`)

@@ -2,11 +2,11 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/'.$url) }}">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fa fa-user-edit" aria-hidden="true"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">{{ $role }} <sup>2</sup></div>
+        <div style="font-size:0.7em;" class="sidebar-brand-text mx-3">{{ $role }} <sup>2</sup></div>
     </a>
 
     <!-- Divider -->
@@ -14,7 +14,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ url('/'.$url) }}">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span>Dashboard</span></a>
     </li>
@@ -36,9 +36,11 @@
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Features:</h6>
-                <a class="collapse-item" href="#">Deposit Saldo</a>
+                <a class="collapse-item" href="{{ url('/home/deposit') }}">Deposit Saldo</a>
                 <a class="collapse-item" href="#">Kirim Saldo</a>
-                <a class="collapse-item" href="#">Withdrawal/Transfer</a>
+                <a class="collapse-item" href="{{ url('/home/transferbank') }}">Withdrawal/Transfer</a>
+                <h6 class="collapse-header">Setting:</h6>
+                <a class="collapse-item" href="{{ url('/pengiriman') }}">Alamat Pengiriman</a>
                 <div class="collapse-divider"></div>
                 <h6 class="collapse-header">Get Promo:</h6>
                 <a class="collapse-item" href="#">Redeem Voucher</a>
@@ -73,11 +75,9 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Riwayat:</h6>
-                <a class="collapse-item" href="#">Regular Order</a>
+                <a class="collapse-item" href="{{ url('/home/history/mainprod') }}">Regular Order</a>
                 <a class="collapse-item" href="#">Pulsa Order</a>
                 <a class="collapse-item" href="#">Withdrawal/Transfer</a>
-                <h6 class="collapse-header">Setting:</h6>
-                <a class="collapse-item" href="#">Alamat Pengiriman</a>
             </div>
         </div>
     </li>

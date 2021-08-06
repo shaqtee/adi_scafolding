@@ -79,9 +79,6 @@
             }else{
                 $('select[name="city_origin"]').empty();
             }
-
-
-
         })
 
         $('#city_destination').select2({

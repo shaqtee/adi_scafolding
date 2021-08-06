@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\BankSwiftController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,5 +27,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 |
 */
 
-Route::post('/donation', [PaymentController::class, 'store']);
+
+Route::post('/member/deposit', [PaymentController::class, 'deposit']);
 Route::post('/midtrans/notification', [PaymentController::class, 'notification']);
+
+/* List Banks */
+Route::post('/bankswifts', [BankSwiftController::class, 'index']);

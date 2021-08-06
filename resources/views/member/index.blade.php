@@ -10,7 +10,21 @@
 @endsection
 
 @section('content')
+    @php
+        $role_id = (\App\Models\Role::orderBy('id')->get())->toArray();
+        $role = auth()->user()->roles->first->name['name'];
 
+        if($role_id[3]['name'] == $role)
+        {
+            $url = 'home';
+        }elseif($role_id[2]['name'] == $role)
+        {
+            $url = 'member';
+        }elseif($role_id[1]['name'] == $role)
+        {
+            $url = 'admin';
+        }
+    @endphp
     <!-- Page Wrapper -->
     <div id="wrapper">
 

@@ -107,55 +107,59 @@
     <div class="container-fluid mt-5">
         <div class="row">
             <div class="col-md-3">
-                <h2 class="text-center">Alamat Pengiriman</h2>
+                <h2 class="text-center">Pengiriman Ke</h2>
             </div>
             <div class="col-md-3 align-self-center p-1">
-                <a href="#" onclick="window.history.back();" class="badge badge-warning text-dark p-2">Back</a>
+                <a href="#" onclick="window.history.back();" class="badge badge-warning text-dark p-2 px-3">&nbsp;Back&nbsp;</a>
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-6">
 
-                <form class="" action="">
+                <form class="" action="" method="" autocomplete="on">
+
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputEmail4">Nama</label>
                             <input type="text" class="form-control" id="guest_name" name="guest_name">
                         </div>
                         <div class="form-group col-md-6 align-self-end text-right">
-                            <a href="" class="btn btn-outline-success btn-block">Klik Pakai Alamat Akun</a>
+                            <a href="#" name="getAddress" class="btn btn-outline-success btn-block" onclick="getAddress(this)">Klik Pakai Alamat Akun</a>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6 col-6">
-                            <label for="inputEmail4">Telepon</label>
-                            <input type="email" class="form-control">
+                            <label for="phone">Telepon</label>
+                            <input type="text" name="phone" id="phone" class="form-control">
                         </div>
                         <div class="form-group col-md-6 col-6">
-                            <label for="inputEmail4">Email</label>
+                            <label for="guest_email">Email</label>
                             <input type="email" class="form-control" id="guest_email" name="guest_email">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6 col-6">
-                            <label for="inputEmail4">Alamat</label>
-                            <input type="email" class="form-control" id="inputEmail4">
+                            <label for="alamat">Alamat</label>
+                            <input type="text" name="alamat" class="form-control" id="alamat">
                         </div>
                         <div class="form-group col-md-6 col-6">
-                            <label for="inputEmail4">Kode Pos</label>
-                            <input type="email" class="form-control" id="inputEmail4">
+                            <label for="kodepos">Kode Pos</label>
+                            <input type="text" name="kodepos" class="form-control" id="kodepos">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <select class="form-control">
-                                <option>Kota / Kabupaten</option>
+                            <select class="form-control bg-dark text-white" name="province_origin">
+                                <option class="text-dark" value="">--Provinsi--</option>
+                                @foreach($province as $key => $value)
+                                <option value="{{ $key }}">{{ $value }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group col-md-6">
-                            <select class="form-control">
-                                <option>Propinsi</option>
+                            <select class="form-control bg-dark text-white" name="kota_origin">
+                                <option>--Kota/Kabupaten--</option>
                             </select>
                         </div>
                     </div>
@@ -168,8 +172,9 @@
                         </div>
                     </div>
                     <div class="form-row mt-3">
-                        <div class="input-group col-md-12">
-                            <a href="#" class="btn btn-outline-success btn-block" href="">Simpan</a>
+                        <div class="input-group col-md-12 justify-content-center">
+                            <a class="btn btn-outline-success btn-block" onclick="simpanAlamat()" href="">Simpan</a>
+                            <p class="bg-danger text-white px-2 simpanAlamatResponse mt-2"></p>
                         </div>
                     </div>
                 </form>
@@ -181,7 +186,7 @@
 
                 <hr class="dropdown-divider my-4 bg-warning mydivider">
 
-                <form action="" method="" id="donation_form">
+                <form action="" method="" id="payment_form">
                     <div class="card border-success bg-gradient-dark">
                         <div class="card-header">
                             Konfirmasi Pesanan
@@ -190,26 +195,22 @@
                                 <div class="row">
                                     <div class="input-group input-group-sm mb-3 col-md-6">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="inputGroup-sizing-sm">No. Order</span>
+                                            <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-sm">No. Order</span>
                                         </div>
-                                        <input type="text" class="form-control text-danger text-center" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="{{ uniqid() }}" disabled>
+                                        <input name="invoice" type="text" class="p-0 form-control text-danger text-center" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="{{ 'INV-'.uniqid() }}" disabled>
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    @for($i=0;$i<3;$i++)
+                                    @foreach($produk as $p)
                                     <div class="col-md-12">
-                                        <div class="input-group input-group-sm mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">Kacamata &nbsp;&nbsp;&nbsp;x 12</span>
-                                            </div>
-                                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">Rp 25.000 / Unit</span>
-                                            </div>
+                                        <div class="d-flex flex-wrap mb-3">
+                                            <span class="input-group-text bg-primary text-white checkCartSession">{{ $loop->iteration }}. {{ $p[0]['nama_produk'] }} &nbsp;&nbsp;&nbsp;{{ $p[0]['berat'] }} kg x {{ $p[1]['qty'] }} unit</span>
+                                            <span class="input-group-text bg-dark text-white">Rp{{ number_format($p[0]['harga'],0,",",".") }} / Unit</span>
+                                            <input type="text" class="px-2 form-control text-center getSubPricing" aria-label="Amount (to the nearest dollar)" data-total="{{ $p[0]['harga']*$p[1]['qty'] }}" data-weight="{{ $p[0]['berat']*$p[1]['qty'] }}" value="Rp{{ number_format(($p[0]['harga']*$p[1]['qty']),0,",",".") }} | {{ $p[0]['berat']*$p[1]['qty'] }}kg">
                                         </div>
                                     </div>
-                                    @endfor
+                                    @endforeach
                                 </div>
 
                                 <div class="row">
@@ -218,17 +219,17 @@
                                             <div class="input-group input-group-sm">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">
-                                                        <input class="" name="gridRadios" type="radio" aria-label="Radio button for following text input">
+                                                        <input data-kurir="jne" class="" name="gridRadios" type="radio" aria-label="Radio button for following text input">
                                                     </div>
                                                 </div>
-                                                <input type="text" class="form-control" aria-label="Text input with radio button" value="JNE Courier" disabled>
+                                                <input type="text" class="form-control" aria-label="Text input with radio button" data-kurir="jne" value="JNE Courier" disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="input-group input-group-sm">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">
-                                                        <input class="" name="gridRadios" type="radio" aria-label="Radio button for following text input">
+                                                        <input data-kurir="pos" class="" name="gridRadios" type="radio" aria-label="Radio button for following text input">
                                                     </div>
                                                 </div>
                                                 <input type="text" class="form-control" aria-label="Text input with radio button" value="POS Indonesia" disabled>
@@ -238,7 +239,7 @@
                                             <div class="input-group input-group-sm">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">
-                                                        <input class="" name="gridRadios" type="radio" aria-label="Radio button for following text input">
+                                                        <input data-kurir="tiki" class="" name="gridRadios" type="radio" aria-label="Radio button for following text input">
                                                     </div>
                                                 </div>
                                                 <input type="text" class="form-control" aria-label="Text input with radio button" value="CV TIKI" disabled>
@@ -252,15 +253,10 @@
 
                                         <div class="input-group input-group-sm mb-3">
                                             <div class="input-group-prepend">
-                                            <label class="input-group-text" for="inputGroupSelect01">Services Option</label>
+                                            <label class="input-group-text bg-dark text-white" for="inputGroupSelect01">Option</label>
                                         </div>
-                                        <select class="custom-select" id="guest_type" name="guest_type">
-                                            <option value="medis_kesehatan">Medis & Kesehatan</option>
-                                            <option value="kemanusiaan">Kemanusiaan</option>
-                                            <option value="bencana_alam">Bencana Alam</option>
-                                            <option value="rumah_ibadah">Rumah Ibadah</option>
-                                            <option value="beasiswa_pendidikan">Beasiswa & Pendidikan</option>
-                                            <option value="sarana_infrastruktur">Sarana & Infrastruktur</option>
+                                        <select class="custom-select bg-dark text-white" id="guest_type" name="guest_type">
+                                            <option value="">--Select Service--</option>
                                         </select>
                                         </div>
 
@@ -270,7 +266,7 @@
                                 <div class="row">
                                     <div class="col-md-12 ">
                                         <div class="p-2 alert alert-dark border-success" role="alert">
-                                            <b><u class="text-dark">Details</u></b>
+                                            <b class="text-dark door">Dikirim dari : <br>Jl.Permata Sukodono Raya C2 No.24 Sidoarjo, Jawa Timur - Indonesia.</b>
                                         </div>
                                     </div>
                                 </div>
@@ -280,15 +276,15 @@
                                         <div class="d-flex card bg-dark">
                                             <div class="px-2">
                                                 Subtotal
-                                                <span class="float-right">Rp 50.000</span>
+                                                <span id="resultSubPricing" class="float-right subtotal" data-subtotal="0">Rp 0</span>
                                             </div>
                                             <div class="px-2">
                                                 Pengiriman
-                                                <span class="float-right">Rp 50.000</span>
+                                                <span class="float-right priceOngkir" data-priceongkir="0">Rp 0</span>
                                             </div>
                                             <div class="px-2">
                                                 Total
-                                                <input class="float-right text-right bg-dark p-0 text-warning col-4" name="amount" id="amount" type="text" data-amount="50000" value="{{ 'Rp '. number_format(50000,0,",",".") }}" disabled>
+                                                <input class="float-right text-right bg-dark p-0 text-warning col-8 amount" name="amount" id="amount" type="text" data-amount="50000" value="" disabled>
 
                                             </div>
                                         </div>
@@ -297,7 +293,7 @@
 
                                 <div class="row mt-3">
                                     <div class="col-md-12 text-center">
-                                        <button type="submit" class="btn btn-success btn-block text-white">Buat Pesanan & Lanjutkan Pembayaran</button>
+                                        <button type="submit" class="showButtonPayment d-none btn btn-success btn-block text-white">Buat Pesanan & Lanjutkan Pembayaran</button>
                                     </div>
                                 </div>
                             </div>
@@ -328,6 +324,20 @@
 </a>
 <!-- End of Scroll to Top Button-->
 
+    {{-- parseData --}}
+    @php
+        foreach ($produk as $prod) {
+            $arr['item'][] = ($prod[0]['nama_produk']);
+            $arr['unit_qty'][] = $prod[1]['qty'];
+            $arr['unit_weight'][] = $prod[0]['berat'];
+            $arr['unit_price'][] = $prod[0]['harga'];
+        }
+        $item = implode("|", $arr['item']);
+        $unit_qty = implode("|", $arr['unit_qty']);
+        $unit_weight = implode("|", $arr['unit_weight']);
+        $unit_price = implode("|", $arr['unit_price']);
+    @endphp
+    {{-- endParseData --}}
 @endsection
 
 @section('js')
@@ -337,41 +347,234 @@
 }}"></script>
 <script>
 
-    $("#donation_form").on('submit', function(event) {
+
+
+    $("#payment_form").on('submit', function(event) {
         event.preventDefault();
 
         $.ajax({
-            url:"{{ url('/api/donation') }}",
+            url:"{{ url('/payment') }}",
             type:"POST",
             dataType:"JSON",
             data: {
                 _token:"{{ csrf_token() }}",
+                item: @php echo json_encode($item); @endphp,
+                unit_qty: @php echo json_encode($unit_qty); @endphp,
+                unit_weight: @php echo json_encode($unit_weight); @endphp,
+                unit_price: @php echo json_encode($unit_price); @endphp,
+                phone: $('input[name="phone"]').val(),
+                alamat: $('input[name="alamat"]').val(),
+                kodepos: $('input[name="kodepos"]').val(),
+                propinsi: $('select[name="province_origin"] option').filter(':selected').text(),
+                kota: $('select[name="kota_origin"] option').filter(':selected').val(),
+                invoice: $('input[name="invoice"]').val(),
+                courier: $('input[type="radio"][name="gridRadios"]:checked').attr('data-kurir'),
+                dbSubtotal: $('.subtotal').attr('data-subtotal'),
+                dbOngkir: $('.priceOngkir').attr('data-priceongkir'),
+                door: $('.door').text(),
+                user_id: @php echo json_encode(auth()->user()->id); @endphp,
                 guest_name: $('#guest_name').val(),
                 guest_email: $('#guest_email').val(),
                 guest_type: $('#guest_type').val(),
                 amount: $('#amount').attr('data-amount'),
                 note: $('#note').val()
             },
-            success: function (data, status){
-                console.log(data, status);
-                snap.pay(data.snap_token, {
-                    // Optional
-                    onSuccess: function (result) {
-                        location.reload();
-                    },
-                    // Optional
-                    onPending: function (result) {
-                        location.reload();
-                    },
-                    // Optional
-                    onError: function (result) {
-                        location.reload();
-                    }
-                });
+            success: function (data){
+                /*console.log(data.myCart);*/
+                if(data = 200){
+                    location.replace("{{ url('/home') }}")
+                }
+
                 return false;
             }
         });
 
     })
+
+    $('select[name="province_origin"]').on('change', function() {
+            let provinceId = $(this).val();
+
+            if(provinceId){
+                jQuery.ajax({
+                    url:'/api/'+provinceId+'/province/citiesid',
+                    type: 'GET',
+                    dataType: 'JSON',
+                    success: function(data){
+                        $('select[name="kota_origin"]').empty();
+
+                        $.each(data, function(key, value){
+
+                            $('select[name="kota_origin"]').append(`<option value="${key}">${value}</option>`);
+
+                        });
+
+                    }
+                })
+            }else{
+                $('select[name="city_origin"]').empty();
+            }
+
+
+
+        })
+
+        $('#city_destination').select2({
+            ajax:{
+                url:'/api/cities',
+                type: 'post',
+                dataType: 'JSON',
+                delay: 150,
+                data: function(data){
+                    return {
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                        search: $.trim(data.term)
+                    }
+                },
+                processResults: function(response){
+
+                    return {
+                        results: response
+                    }
+                },
+                cache:true
+            }
+        })
+
+    function getAddress(e){
+
+        $.ajax({
+            url:"{{ url('/checkout/getaddress') }}",
+            type:"POST",
+            dataType:"JSON",
+            data:{
+                _token:"{{ csrf_token() }}"
+            },
+            success: function(data){
+
+                $('#guest_name').val(data.user.name);
+                $('#phone').val(data.user.phone);
+                $('#guest_email').val(data.user.email);
+                $('#alamat').val(data.alamat);
+                $('#kodepos').val(data.kode_pos);
+                $('select[name="province_origin"] option:selected').text(data.propinsi);
+                $('select[name="kota_origin"] option:selected').text(data.kota);
+                $('select[name="kota_origin"] option:selected').attr('value', data.code);
+            }
+        })
+    }
+
+    function simpanAlamat(){
+        this.event.preventDefault()
+        console.log()
+        let arrAlamat = [
+            $('#guest_name').val(),
+            $('input[name="phone"]').val(),
+            $('#guest_email').val(),
+            $('input[name="alamat"]').val(),
+            $('input[name="kodepos"]').val(),
+            $('select[name="province_origin"] option').filter(':selected').text(),
+            $('select[name="kota_origin"] option').filter(':selected').val()
+        ];
+
+        if($('.checkCartSession').text().split(' ')[4] === "Cart"){
+            alert('Anda belum memasukkan produk ke dalam keranjang..')
+        }else if(arrAlamat[0] === ""){
+            alert('nama belum diisi')
+        }else if(arrAlamat[1] === ""){
+            alert('telepon belum diisi')
+        }else if(arrAlamat[2] === ""){
+            alert('email belum diisi')
+        }else if(arrAlamat[3] === ""){
+            alert('alamat belum diisi')
+        }else if(arrAlamat[4] === ""){
+            alert('kodepos belum diisi')
+        }else if(arrAlamat[5] === "--Provinsi--"){
+            alert('propinsi belum diseleksi')
+        }else if(arrAlamat[6] === "--Kota/Kabupaten--"){
+            alert('kota belum diseleksi')
+        }else{
+            $('.showButtonPayment').removeClass('d-none').addClass('d-block')
+        }
+        $('.simpanAlamatResponse').text('Pastikan produk & alamat pengiriman telah terisi dengan benar.')
+    }
+
+    $('input[type=radio][name="gridRadios"]').on('click', function(){
+        let dataKurir = [$('input[type=radio][name="gridRadios"]:checked').attr('data-kurir')],
+            kotaTujuan = $('select[name="kota_origin"] option').filter(':selected').val(),
+            kotaAsal = 409;
+
+        $.ajax({
+            url:"{{ route('checkoutStore') }}",
+            type:"POST",
+            dataType:"JSON",
+            data:{
+                _token:"{{ csrf_token() }}",
+                courier:dataKurir,
+                city_origin:kotaAsal,
+                city_destination:kotaTujuan
+            },
+            success: function(data){
+                $('select[name="guest_type"]').empty();
+
+                data.result[0][0].costs.forEach(function(item,index,arr){
+
+                    $('select[name="guest_type"]').append(`<option value="${item.service}-${item.cost[0].value}-${item.cost[0].etd}">${item.service} : ${formatter.format(item.cost[0].value)} | Est.day : ${item.cost[0].etd}</option>`);
+                })
+            }
+        })
+    })
+
+    $('select[name="guest_type"]').on('click', function(){
+        let dataOngkir = $('select[name="guest_type"] option').filter(':selected').val(),
+            priceOngkir = dataOngkir.split('-')[1];
+        $('.priceOngkir').attr('data-priceongkir', priceOngkir * resultSubWeight);
+        $('.priceOngkir').text(formatter.format(priceOngkir * resultSubWeight));
+
+
+        dataSubtotal = parseInt($('.subtotal').attr('data-subtotal')),
+        dataPriceOngkir = parseInt($('.priceOngkir').attr('data-priceongkir')),
+        dataFinalTotal = dataSubtotal + dataPriceOngkir;
+        console.log(dataSubtotal, dataPriceOngkir)
+        $('.amount').val(formatter.format(dataFinalTotal));
+        $('.amount').attr('data-amount',dataFinalTotal);
+
+    })
+
+    /* --- Subtotal --- */
+    let arrSubPricing = []
+
+    $('.getSubPricing').each(function(){
+        arrSubPricing.push($(this).data('total'));
+    });
+
+    let resultSubPricing = arrSubPricing.reduce(function(a,c){
+        return a+c;
+    })
+
+    $('#resultSubPricing').text(formatter.format(resultSubPricing))
+    $('#resultSubPricing').attr('data-subtotal',resultSubPricing)
+    /* --- End Subtotal --- */
+
+    let dataSubtotal = parseInt($('.subtotal').attr('data-subtotal')),
+        dataPriceOngkir = parseInt($('.priceOngkir').attr('data-priceongkir')),
+        dataFinalTotal = dataSubtotal + dataPriceOngkir;
+
+    $('.amount').val(formatter.format(dataFinalTotal));
+    $('.amount').attr('data-amount',dataFinalTotal);
+
+
+    /* --- SubWeight --- */
+
+    let arrSubWeight = []
+
+    $('.getSubPricing').each(function(){
+        arrSubWeight.push($(this).data('weight'));
+    });
+
+    let resultSubWeight = arrSubWeight.reduce(function(a,c){
+        return a+c;
+    })
+
+    /* --- End SubWeight --- */
 </script>
 @endsection
