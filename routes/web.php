@@ -73,9 +73,17 @@ Route::middleware(['auth', 'role:personal', 'verified'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])
         ->name('home');
 
+    Route::get('home/profile', [HomeController::class, 'profile']);
+
+
     Route::get('/home/transferbank', [HomeController::class, 'transferbank']);
     Route::get('/home/deposit', [HomeController::class, 'deposit']);
+
     Route::get('/home/history/mainprod', [HomeController::class, 'mainProdHistory']);
+    Route::post('/home/history/showdetails', [HomeController::class, 'showDetails']);
+
+    Route::get('/home/claim/form', [HomeController::class, 'showClaim']);
+    Route::post('/home/claim/store', [HomeController::class, 'storeClaim']);
 });
 
 

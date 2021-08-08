@@ -61,7 +61,7 @@
                     </div>
                     <div class="col-auto text-right">
 
-                        <a href="#" class="badge badge-primary px-2 text-white">
+                        <a href="{{ url('/home/claim/form') }}" class="badge badge-primary px-2 text-white">
                             <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
                             &nbsp;&nbsp;Claim
                             &nbsp;</a>
@@ -96,14 +96,7 @@
             <div class="card-body">
                 <div class="no-gutters align-items-center">
                     <div class="col mr-2">
-                        @if(session('status'))
-                        <div class="col-12 alert alert-success alert-dismissible fade show" role="alert">
-                            <strong>Berhasil!</strong> {{ session('status') }}
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        @endif
+
                         <div class="d-flex flex-row flex-wrap justify-content-center align-items-center secprod">
                         @foreach($icons as $icon)
                         <div style="width:125px;height:90px;" class="p-2 align-self-center secondary-product m-1 shadow-lg rounded-3 border border-white text-center text-white">

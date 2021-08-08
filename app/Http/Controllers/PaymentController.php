@@ -40,57 +40,64 @@ class PaymentController extends Controller
     public function store(Request $request)
     {
         DB::transaction(function () use ($request) {
-            $payment = Payment::create([
-                'invoice' => $request->invoice,
-                'item' => $request->item,
-                'unit_qty' => $request->unit_qty,
-                'unit_weight' => $request->unit_weight,
-                'unit_price' => $request->unit_price,
-                'courier_service' => $request->courier . "|" . $request->guest_type,
-                'subtotal' => $request->dbSubtotal,
-                'ongkir' => $request->dbOngkir,
-                'door' => $request->door,
-                'user_id' => $request->user_id,
-                'phone' => $request->phone,
-                'address' => $request->alamat,
-                'kodepos' => $request->kodepos,
-                'propinsi' => $request->propinsi,
-                'kota' => $request->kota,
-                'kota' => $request->kota,
-                'guest_name' => $request->guest_name,
-                'guest_email' => $request->guest_email,
-                'amount' => floatval($request->amount),
-                'note' => $request->note,
-            ]);
-
-            /* debit */
             $setSaldoUser = User::find(intval($request->user_id));
-
             $getUserSaldo = $setSaldoUser->saldo;
             $nominal = floatval($request->amount);
             $userSaldoNew = $getUserSaldo - $nominal;
 
-            $setSaldoUser->saldo_before_trx = $getUserSaldo;
-            $setSaldoUser->saldo = $userSaldoNew;
-            $setSaldoUser->save();
+            if ($userSaldoNew <= 0) {
+                $this->response = false;
+            } else {
+                Payment::create([
+                    'invoice' => $request->invoice,
+                    'item' => $request->item,
+                    'unit_qty' => $request->unit_qty,
+                    'unit_weight' => $request->unit_weight,
+                    'unit_price' => $request->unit_price,
+                    'courier_service' => $request->courier . "|" . $request->guest_type,
+                    'subtotal' => $request->dbSubtotal,
+                    'ongkir' => $request->dbOngkir,
+                    'door' => $request->door,
+                    'user_id' => $request->user_id,
+                    'phone' => $request->phone,
+                    'address' => $request->alamat,
+                    'kodepos' => $request->kodepos,
+                    'propinsi' => $request->propinsi,
+                    'kota' => $request->kota,
+                    'kota' => $request->kota,
+                    'guest_name' => $request->guest_name,
+                    'guest_email' => $request->guest_email,
+                    'amount' => floatval($request->amount),
+                    'note' => $request->note,
+                ]);
 
-            $mutasi = Mutasi::create([
-                'user_id' => $setSaldoUser->id,
-                'uuid' => $request->invoice,
-                'type' => 'debit',
-                'nominal' => $nominal,
-                'saldo' => $userSaldoNew,
-                'note' => 'PENJUALAN UTAMA'
-            ]);
+                /* debit */
+                $setSaldoUser->saldo_before_trx = $getUserSaldo;
+                $setSaldoUser->saldo = $userSaldoNew;
+                $setSaldoUser->save();
+
+                Mutasi::create([
+                    'user_id' => $setSaldoUser->id,
+                    'uuid' => $request->invoice,
+                    'type' => 'debit',
+                    'nominal' => $nominal,
+                    'saldo' => $userSaldoNew,
+                    'note' => 'PENJUALAN UTAMA'
+                ]);
+
+                Session::put([
+                    'myCart' => [],
+                    'checkout' => [],
+                    'ongkir' => [],
+                    'select' => [],
+                ]);
+
+                session()->flash('status', 'Pesanan anda diproses.');
+                $this->response = 200;
+            }
         });
 
-        Session::put([
-            'myCart' => [],
-            'checkout' => [],
-            'ongkir' => [],
-            'select' => [],
-        ]);
-        return Response::json(200);
+        return Response::json($this->response);
     }
 
     public function notification(Request $request)

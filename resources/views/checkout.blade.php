@@ -380,11 +380,12 @@
                 note: $('#note').val()
             },
             success: function (data){
-                /*console.log(data.myCart);*/
-                if(data = 200){
-                    location.replace("{{ url('/home') }}")
-                }
 
+                if(data === false){
+                    $('.simpanAlamatResponse').text('Saldo anda tidak Mencukupi untuk transaksi ini.')
+                }else if( data === 200){
+                    location.replace("{{ url('/home/history/mainprod') }}")
+                }
                 return false;
             }
         });
@@ -413,9 +414,6 @@
             }else{
                 $('select[name="city_origin"]').empty();
             }
-
-
-
         })
 
         $('#city_destination').select2({
@@ -465,7 +463,7 @@
 
     function simpanAlamat(){
         this.event.preventDefault()
-        console.log()
+
         let arrAlamat = [
             $('#guest_name').val(),
             $('input[name="phone"]').val(),
@@ -534,7 +532,7 @@
         dataSubtotal = parseInt($('.subtotal').attr('data-subtotal')),
         dataPriceOngkir = parseInt($('.priceOngkir').attr('data-priceongkir')),
         dataFinalTotal = dataSubtotal + dataPriceOngkir;
-        console.log(dataSubtotal, dataPriceOngkir)
+
         $('.amount').val(formatter.format(dataFinalTotal));
         $('.amount').attr('data-amount',dataFinalTotal);
 

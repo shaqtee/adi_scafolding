@@ -76,6 +76,7 @@ class WelcomeController extends Controller
     }
     public function showProductBy($key)
     {
+        $roleNavigator = $this->searchArr();
 
         if (!(Tag::where('name', $key)->get())->isEmpty()) {
             $products = (Tag::with('products')
@@ -89,7 +90,7 @@ class WelcomeController extends Controller
             $showCase = "Ketegori";
         }
 
-        return view('display', compact('products', 'key', 'showCase'));
+        return view('display', compact('products', 'key', 'showCase', 'roleNavigator'));
     }
 
     public function cart()
@@ -371,7 +372,7 @@ class WelcomeController extends Controller
 
     public function checkout(Request $request)
     {
-        //dd(session()->all());
+        //dd(50000 < auth()->user()->saldo);
         $province = $this->getProvince();
 
         if (request()->session()->get('myCart') != []) {

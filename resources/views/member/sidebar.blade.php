@@ -39,6 +39,7 @@
                 <a class="collapse-item" href="{{ url('/home/deposit') }}">Deposit Saldo</a>
                 <a class="collapse-item" href="#">Kirim Saldo</a>
                 <a class="collapse-item" href="{{ url('/home/transferbank') }}">Withdrawal/Transfer</a>
+                <a class="collapse-item" href="{{ url('/home/claim/form') }}">Claim Bonus</a>
                 <h6 class="collapse-header">Setting:</h6>
                 <a class="collapse-item" href="{{ url('/pengiriman') }}">Alamat Pengiriman</a>
                 <div class="collapse-divider"></div>
