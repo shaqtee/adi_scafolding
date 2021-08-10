@@ -74,4 +74,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->morphMany(Pengiriman::class, 'pengirimanable');
     }
+
+    public function banks()
+    {
+        return $this->hasOne(Bank::class);
+    }
 }

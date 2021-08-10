@@ -37,7 +37,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Features:</h6>
                 <a class="collapse-item" href="{{ url('/home/deposit') }}">Deposit Saldo</a>
-                <a class="collapse-item" href="#">Kirim Saldo</a>
+                <a class="collapse-item" href="{{ url('/home/send/form') }}">Kirim Saldo</a>
                 <a class="collapse-item" href="{{ url('/home/transferbank') }}">Withdrawal/Transfer</a>
                 <a class="collapse-item" href="{{ url('/home/claim/form') }}">Claim Bonus</a>
                 <h6 class="collapse-header">Setting:</h6>
@@ -78,7 +78,7 @@
                 <h6 class="collapse-header">Riwayat:</h6>
                 <a class="collapse-item" href="{{ url('/home/history/mainprod') }}">Regular Order</a>
                 <a class="collapse-item" href="#">Pulsa Order</a>
-                <a class="collapse-item" href="#">Withdrawal/Transfer</a>
+                <a class="collapse-item" href="{{ url('/home/history/transferbank') }}">Withdrawal/Transfer</a>
             </div>
         </div>
     </li>

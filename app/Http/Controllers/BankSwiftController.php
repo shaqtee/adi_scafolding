@@ -29,7 +29,7 @@ class BankSwiftController extends Controller
         foreach ($bankSwifts as $bank) {
             $response[] = [
                 'id' => $bank->code,
-                'text' => $bank->name
+                'text' => $bank->code . "-" . $bank->name
             ];
         }
         return Response::json($response);

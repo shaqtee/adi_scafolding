@@ -53,6 +53,10 @@ Route::middleware(['auth', 'role:administrator', 'verified'])->group(function ()
     Route::get('/admin/checkuseronline', [AdminController::class, 'checkUserOnline']);
     Route::get('/admin/productmenu', [AdminController::class, 'productmenu']);
     Route::post('/admin/productmenu/store', [AdminController::class, 'productmenuStore']);
+    Route::get('admin/history/transferbank', [AdminController::class, 'transferbankHistory']);
+    Route::post('admin/transferbank/success', [AdminController::class, 'transferbankSuccess']);
+    Route::post('admin/transferbank/failed', [AdminController::class, 'transferbankFailed']);
+
     Route::resource('product', ProductController::class);
     Route::post('/product/searchproducts', [ProductController::class, 'searchproducts']);
     Route::post('/product/tampil', [ProductController::class, 'tampil']);
@@ -72,18 +76,6 @@ Route::middleware(['auth', 'role:administrator', 'verified'])->group(function ()
 Route::middleware(['auth', 'role:personal', 'verified'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])
         ->name('home');
-
-    Route::get('home/profile', [HomeController::class, 'profile']);
-
-
-    Route::get('/home/transferbank', [HomeController::class, 'transferbank']);
-    Route::get('/home/deposit', [HomeController::class, 'deposit']);
-
-    Route::get('/home/history/mainprod', [HomeController::class, 'mainProdHistory']);
-    Route::post('/home/history/showdetails', [HomeController::class, 'showDetails']);
-
-    Route::get('/home/claim/form', [HomeController::class, 'showClaim']);
-    Route::post('/home/claim/store', [HomeController::class, 'storeClaim']);
 });
 
 
@@ -134,4 +126,32 @@ Route::middleware(['auth', 'verified'])->group(function () {
     /* Expedisi */
     Route::get('/pengiriman', [PengirimanController::class, 'pengiriman']);
     Route::post('/pengiriman/store', [PengirimanController::class, 'pengirimanStore']);
+
+    /* profile */
+    Route::get('home/profile', [HomeController::class, 'profile']);
+    Route::post('home/profile/bank', [HomeController::class, 'profileBank']);
+    Route::post('home/profile/password', [HomeController::class, 'profilePassword']);
+
+    /* deposit */
+    Route::get('/home/deposit', [HomeController::class, 'deposit']);
+
+    /* transferBank */
+    Route::get('/home/transferbank', [HomeController::class, 'transferbank']);
+    Route::post('/home/transferbank/datarekening', [HomeController::class, 'dataRekening']);
+    Route::post('/home/transferbank/store', [HomeController::class, 'transferbankStore']);
+    Route::post('/home/transferbank/list', [HomeController::class, 'transferbankList']);
+
+    /* history transfer bank */
+    Route::get('/home/history/transferbank', [HomeController::class, 'transferbankHistory']);
+    Route::get('/home/history/mainprod', [HomeController::class, 'mainProdHistory']);
+    Route::post('/home/history/showdetails', [HomeController::class, 'showDetails']);
+
+    /* claim */
+    Route::get('/home/claim/form', [HomeController::class, 'showClaim']);
+    Route::post('/home/claim/store', [HomeController::class, 'storeClaim']);
+
+    /* kirim saldo */
+    Route::get('/home/send/form', [HomeController::class, 'sendForm']);
+    Route::post('/home/send/searchphone', [HomeController::class, 'searchPhone']);
+    Route::post('/home/send/saldo', [HomeController::class, 'sendSaldo']);
 });
