@@ -70,10 +70,10 @@
         </div>
     </div>
     <div class="row justify-content-center">
-        <div class="col-md-6 text-right p-0 mt-3 pr-2">
+        <div class="col-md-6 col-6 text-right p-0 mt-3 pr-2">
             <a href="#" class="btn btn-dark" onclick="window.history.back()">Back</a>
         </div>
-        <div class="col-md-6 p-0 mt-3">
+        <div class="col-md-6 col-6 p-0 mt-3">
             <a href="{{ url('/register') }}" class="btn btn-warning border-dark">Daftar</a>
         </div>
     </div>

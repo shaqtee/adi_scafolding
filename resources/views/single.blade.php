@@ -203,23 +203,48 @@
     <div class="row mt-3 text-white ulasanDefault">
         <div class="col cobaUlasan">
             <h4>Ulasan :</h4>
-            <p class="text-white-50">Belum ada ulasan.</p>
-            <p class="text-white-50">Jadilah yang pertama memberikan ulasan "T-Shirt with Logo".</p>
-            <p class="text-white-50">Rating Anda *&nbsp;&nbsp;&nbsp;
-                <span class="bintang">
-                    @for($i=0;$i<5;$i++)
-                    <a href="" class="" id="star{{ $i }}" data-rating="{{ $i+1 }}">
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                    </a>
-                    @endfor
-                </span>
-                <span id="nilai"></span>
-            </p>
-            <div class="form-group">
-                <label class="text-white-50" for="exampleFormControlTextarea1">Ulasan Anda *</label>
-                <textarea class="form-control text-white-50" id="exampleFormControlTextarea1" rows="3" style="background-color:#3d413f"></textarea>
-            </div>
-            <button class="btn btn-success">Kirim</button>
+
+            @php
+                $ulasan = app('App\Models\Ulasan')->where('product_id', $key->id)->get();
+            @endphp
+
+            @if($ulasan->count() > 0)
+                @foreach($ulasan as $u)
+                    <span class="text-warning">
+                        @for($i=0;$i<$u['rating'];$i++)
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        @endfor
+                    </span>
+                    <p class="text-white-50">Kata <span class="text-info"><b>{{ $u['name'] }}</b></span>&nbsp;&nbsp; "{{ $u['ulasan'] }}"</p>
+                @endforeach
+            @endif
+
+            @php
+                $userUlasanId = auth()->user()->id ?? '0';
+                $cekIdUlasan = app('App\Models\Ulasan')
+                    ->where('user_id', $userUlasanId)
+                    ->where('product_id',$key->id)
+                    ->first()['user_id'] ?? '';
+            @endphp
+
+            @if($cekIdUlasan !== $userUlasanId)
+                <p class="text-white-50">Rating Anda *&nbsp;&nbsp;&nbsp;
+                    <span class="bintang">
+                        @for($i=0;$i<5;$i++)
+                        <a href="" class="" id="star{{ $i }}" data-rating="{{ $i+1 }}">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        </a>
+                        @endfor
+                    </span>
+                    <span id="nilai"></span>
+                </p>
+                <div class="form-group">
+                    <label class="text-white-50" for="exampleFormControlTextarea1">Ulasan Anda *</label>
+                    <textarea class="form-control text-white-50" id="kontenUlasan" rows="3" style="background-color:#3d413f"></textarea>
+                </div>
+                <button class="btn btn-success kirimUlasan">Kirim</button>
+            @endif
+
         </div>
     </div>
     <div class="container mt-5">
@@ -289,7 +314,7 @@
         let str = $('#zoom-img').attr('style');
         let patt = /https:\/\/.+\/\d{3}x\d{3}/gm;
         let fotoSwap = str.match(patt)[0];
-        console.log(str)
+
         let strReplace = str.replace(patt,req.src)
         let fotoReplace = $('#zoom-img').attr('style',strReplace);
         req.src = fotoSwap;
@@ -357,6 +382,30 @@
     });
     /* End 5 Stars */
 
+    /* button kirim ulasan */
+
+    $('.kirimUlasan').on('click', function(){
+        let kontenUlasan = $('#kontenUlasan').val()
+        $.ajax({
+            url:"{{ url('/single/ulasan') }}",
+            type:"POST",
+            dataType:"JSON",
+            data:{
+                _token:"{{ csrf_token() }}",
+                ulasan:kontenUlasan,
+                rating:rating,
+                product:@php echo json_encode($key->id); @endphp
+            },
+            success: function(data){
+                console.log(data)
+                location.reload()
+            }
+        })
+        console.log(kontenUlasan,rating)
+    })
+
+    /* end button kirim ulasan */
+
     /* Wishlist Cek Session */
 
     let cekprod = @php echo json_encode($key->id) @endphp || "";
@@ -366,9 +415,6 @@
             $('#wishlist').toggleClass('text-white text-danger');
         }
     }
-
-
-    console.log(cekses.length);
 
     /* Wishlist */
     $('#wishlist').on('click', function(e){
@@ -418,7 +464,7 @@
                 mark:'id'
             },
             success: function(data) {
-                console.log(data)
+
                 $('.countCart').html(data.length);
             }
         })

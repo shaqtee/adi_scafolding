@@ -57,29 +57,49 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing">Alamat</span>
                     </div>
+                    @if($address)
                     <input value="{{ $address['alamat'] }}" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" disabled>
+                    @else
+                    <input value="" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" disabled>
+                    @endif
                 </div>
                 <div class="input-group input-group-sm mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-sm">Kode POS</span>
                     </div>
+                    @if($address)
                     <input value="{{ $address['kode_pos'] }}" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" disabled>
+                    @else
+                    <input value="" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" disabled>
+                    @endif
                 </div>
                 <div class="input-group input-group-sm mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-sm">Kota / Kabupaten</span>
                     </div>
+                    @if($address)
                     <input value="{{ $address['kota'] }}" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" disabled>
+                    @else
+                    <input value="" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" disabled>
+                    @endif
                 </div>
                 <div class="input-group input-group-sm mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-sm">Propinsi</span>
                     </div>
+                    @if($address)
                     <input value="{{ $address['propinsi'] }}" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" disabled>
+                    @else
+                    <input value="" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" disabled>
+                    @endif
                 </div>
 
                 <h6 class="text-white">Last Updated : </h6>
+                @if($address)
                 <h5 class="text-warning">{{ date('d-m-Y', strtotime($address['updated_at'])) }}</h5>
+                @else
+                <h5 class="text-warning"></h5>
+                @endif
             </div>
         </div>
     </div>

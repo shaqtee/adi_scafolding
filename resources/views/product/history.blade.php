@@ -35,7 +35,7 @@
                     <th scope="col">Status</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody style="font-size:0.8em;">
                     @foreach($dataPayment as $dp)
                     <tr>
                         <th scope="row">{{ $loop->iteration }}</th>

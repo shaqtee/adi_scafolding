@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Tag;
 use App\Models\City;
+use App\Models\Ulasan;
 use App\Models\Courier;
-use App\Models\Product;
 
+use App\Models\Product;
 use App\Models\Province;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -458,5 +459,27 @@ class WelcomeController extends Controller
             }
         }
         return $anggota;
+    }
+
+    public function ulasan(Request $request)
+    {
+        $name = auth()->user()->name ?? 'anonymous';
+        $user_id = auth()->user()->id ?? null;
+
+        $cek = Ulasan::where('user_id', $user_id)
+            ->where('product_id', $request->product)->first();
+
+        if (empty($cek) || $name === 'anonymous') {
+            $ulasan = Ulasan::create([
+                'name' => $name,
+                'ulasan' => $request->ulasan,
+                'rating' => $request->rating,
+                'user_id' => $user_id,
+                'product_id' => intval($request->product)
+            ]);
+        } else {
+            $ulasan = false;
+        }
+        return Response::json($ulasan);
     }
 }

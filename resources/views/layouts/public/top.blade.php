@@ -134,7 +134,7 @@
                                     @else
                                             <div class="row">
                                                 <div class="col-lg-4 loginregister d-lg-block">
-                                                    <a href="{{ route('login') }}" class="btn btn-primary">
+                                                    <a href="{{ url('login') }}" class="btn btn-primary">
                                                             &nbsp;Masuk
                                                     </a>
                                                 </div>

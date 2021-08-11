@@ -335,4 +335,18 @@ class HomeController extends Controller
         };
         return redirect()->back()->with('status', 'Salah Password');
     }
+
+    public function saldoUtama()
+    {
+        $data = Mutasi::where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->paginate(10);
+
+        return view('member.saldoutama', compact('data'));
+    }
+
+    public function saldoBonus()
+    {
+        $data = MutasiBonus::where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->paginate(10);
+
+        return view('member.saldobonus', compact('data'));
+    }
 }

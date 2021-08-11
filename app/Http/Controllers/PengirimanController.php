@@ -15,6 +15,7 @@ class PengirimanController extends Controller
         $province = app('App\Http\Controllers\WelcomeController')->getProvince();
         $getAddress = (User::find(auth()->user()->id)->load('pengirimans'))->toArray()['pengirimans'];
         $address = last($getAddress);
+        //dd($address);
         return view('product.pengiriman', compact('role', 'province', 'address'));
     }
 

@@ -94,6 +94,7 @@ Route::get('/', [WelcomeController::class, 'index']);
 Route::get('/showcase/{showkey}', [WelcomeController::class, 'showProductBy']);
 
 Route::get('/single/{key:id}', [WelcomeController::class, 'single']);
+Route::post('/single/ulasan', [WelcomeController::class, 'ulasan']);
 
 /* Simulasi */
 Route::get('/cart', [WelcomeController::class, 'cart']);
@@ -154,4 +155,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/home/send/form', [HomeController::class, 'sendForm']);
     Route::post('/home/send/searchphone', [HomeController::class, 'searchPhone']);
     Route::post('/home/send/saldo', [HomeController::class, 'sendSaldo']);
+
+    /* mutasi saldo utama */
+    Route::get('/home/saldoutama', [HomeController::class, 'saldoUtama']);
+
+    /* mutasi saldo bonus */
+    Route::get('/home/saldobonus', [HomeController::class, 'saldoBonus']);
 });
