@@ -253,7 +253,13 @@
                 <span class="text-white-50">KATEGORI : <a href="#">{{ strtoupper($key->kategori) }}</a></span>
             </div>
             <div class="col-6 border border-secondary p-3">
-                <span class="text-white-50">TAG : <a href="#">{{ strtoupper($tagProduk) }}</a></span>
+                <span class="text-white-50">TAGS :
+                        @if($tagProduk !== "-")
+                        @foreach($tagProduk as $tp)
+                        <a href="#">{{ strtoupper($tp['name']) }}</a>&nbsp;|&nbsp;
+                        @endforeach
+                        @endif
+                </span>
             </div>
         </div>
 
@@ -261,24 +267,31 @@
         <div class="d-flex justify-content-center align-items-center rounded mt-4">
             <div class="wrapperku">
                 <img src="{{ asset('images/brand/sudah1.png') }}" height="25" class="iklan px-2" alt="">
-                <div class="barang shadow itemSatu">
-                    <img src="{{ asset('images/produk/tayo.jpg') }}" class="iklanThumbnail" alt="">
-                    <hr class="bg-black">
-                    <div class="mt-2">Rak Sepatu Sandal 5 Susun Portable</div>
-                    <div class="mt-1"><b>Rp 500.000</b></div>
-                    <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
-                    <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md mt-2">Detail</a>
-                </div>
-                @for($i=0;$i<9;$i++)
-                <div class="barang shadow">
-                    <img src="{{ asset('images/produk/tayo.jpg') }}" class="iklanThumbnail" alt="">
-                    <hr class="bg-black">
-                    <div class="mt-2">Rak Sepatu Sandal 5 Susun Portable</div>
-                    <div class="mt-1"><b>Rp 500.000</b></div>
-                    <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
-                    <a href="{{ url('/single') }}" class="btn btn-dark text-white btn-md mt-2">Detail</a>
-                </div>
-                @endfor
+
+                @if($productSortedByTags === false)
+                    @foreach($productSortedByCategory as $psc)
+                        <div class="barang shadow">
+                            <img src="{{ $psc['foto'] }}" width="125" height="125" class="iklanThumbnail" alt="">
+                            <hr class="bg-black">
+                            <div class="mt-2">{{ $psc['nama_produk'] }}</div>
+                            <div class="mt-1"><b>Rp {{ number_format($psc['harga'],0,",",".") }}</b></div>
+                            <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
+                            <a href="{{ url('/single'.$psc['id']) }}" class="btn btn-dark text-white btn-md mt-2">Detail</a>
+                        </div>
+                    @endforeach
+                @else
+                    @foreach($productSortedByTags as $pst)
+                        <div class="barang shadow">
+                            <img src="{{ $pst['foto'] }}" width="125" height="125" class="iklanThumbnail" alt="">
+                            <hr class="bg-black">
+                            <div class="mt-2">{{ $pst['nama_produk'] }}</div>
+                            <div class="mt-1"><b>Rp {{ number_format($pst['harga'],0,",",".") }}</b></div>
+                            <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
+                            <a href="{{ url('/single'.$pst['id']) }}" class="btn btn-dark text-white btn-md mt-2">Detail</a>
+                        </div>
+                    @endforeach
+                @endif
+
             </div>
         </div>
     </div>
@@ -360,6 +373,7 @@
             $('#'+e.currentTarget.id).toggleClass('text-warning');
         };
 
+        parseRating = parseInt($('#'+e.currentTarget.id).attr('data-rating'))
         rating = parseInt($('#'+e.currentTarget.id).attr('data-rating'))
         switch(rating){
             case 1:
@@ -393,15 +407,15 @@
             data:{
                 _token:"{{ csrf_token() }}",
                 ulasan:kontenUlasan,
-                rating:rating,
+                rating:parseRating,
                 product:@php echo json_encode($key->id); @endphp
             },
             success: function(data){
                 console.log(data)
-                location.reload()
+                /*location.reload()*/
             }
         })
-        console.log(kontenUlasan,rating)
+        console.log(kontenUlasan,parseRating)
     })
 
     /* end button kirim ulasan */

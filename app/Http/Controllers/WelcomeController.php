@@ -184,9 +184,36 @@ class WelcomeController extends Controller
     {
         //dd(request()->session()->all());
         $fotoOptional = $key->files->isEmpty() ? 'https://place-hold.it/100x100' : $key->files;
-        $tagProduk = $key->tags->isEmpty() ? '-' : $key->tags[0]->name;
+        $tagProduk = $key->tags->isEmpty() ? '-' : $key->tags->toArray();
 
-        return view('single', compact('key', 'fotoOptional', 'tagProduk'));
+        if ($tagProduk !== '-') {
+            foreach ($tagProduk as $kt) {
+                $getProductByCategory[] = (Tag::find($kt['id']))
+                    ->products
+                    ->toArray();
+            }
+
+            $becomeOneArr = call_user_func_array('array_merge', $getProductByCategory);
+            foreach ($becomeOneArr as $a) {
+                $getThoseId[] = $a['id'];
+            }
+
+            $productSortedByTags = (Product::whereIn('id', $getThoseId)
+                ->get())
+                ->toArray();
+        } else {
+            $productSortedByTags = false;
+        }
+
+        $productSortedByCategory = (Product::where('kategori', $key->kategori)->get())->toArray();
+        //dd($productSortedByTags);
+        return view('single', compact(
+            'key',
+            'fotoOptional',
+            'tagProduk',
+            'productSortedByCategory',
+            'productSortedByTags'
+        ));
     }
 
     public function wishlistAction(Request $request)
