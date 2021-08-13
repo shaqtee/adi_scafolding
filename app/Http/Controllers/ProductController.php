@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
 use App\Models\Product;
+use App\Models\Taggable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
 
@@ -26,8 +29,9 @@ class ProductController extends Controller
      */
     public function create(Request $request)
     {
-
-        return view('product.create');
+        $tags = (Tag::orderBy('id', 'ASC')->get())->toArray();
+        $prodToAttach = (Product::orderBy('id', 'ASC')->get())->toArray();
+        return view('product.create', compact('tags', 'prodToAttach'));
     }
 
     /**
@@ -194,5 +198,85 @@ class ProductController extends Controller
         $product = $request->id;
         $searchResult = (Product::where('id', $product)->get())->toArray()[0];
         return Response::json($searchResult);
+    }
+
+    public function createTag(Request $request)
+    {
+
+
+        $request->validate([
+            'name' => 'required|unique:tags',
+        ], [
+            'name.required' => 'inputan tidak boleh kosong',
+            'name.unique' => 'nama Tag tidak boleh sama'
+        ]);
+
+        Tag::create([
+            'name' => $request->name
+        ]);
+
+        return redirect()->back()->with('status', 'Tag ' . $request->name . ' masuk!');
+    }
+
+    public function deleteTag(Tag $id)
+    {
+        $id->delete();
+        return redirect()->back()->with('status', 'Berhasil dihapus.');
+    }
+
+    public function showTag(Request $request)
+    {
+        $show = Tag::find($request->id);
+        return Response::json($show);
+    }
+
+    public function updateTag(Request $request, Tag $id)
+    {
+
+        $request->validate([
+            'name' => 'required|unique:tags'
+        ]);
+
+        Tag::find($id->id)->update([
+            'name' => $request->name
+        ]);
+
+        return redirect()->back()->with('status', 'Updated!');
+    }
+
+    public function attachTag(Request $request)
+    {
+        $checkAttach =  Taggable::where('tag_id', $request->tagid)
+            ->where('taggable_id', $request->prodid)->get();
+
+        if (count($checkAttach) > 0) {
+            $response = 'double exec is failed';
+        } else {
+            Product::find($request->prodid)
+                ->tags()
+                ->attach($request->tagid);
+            $response = 'Successfully Attached!';
+        }
+
+        return Response::json($response);
+    }
+
+    public function detachTag(Request $request)
+    {
+        $checkAttach =  Taggable::where('tag_id', $request->tagid)
+            ->where('taggable_id', $request->prodid)->get();
+
+        if (count($checkAttach) > 0) {
+            Product::find($request->prodid)
+                ->tags()
+                ->detach($request->tagid);
+
+            $response = 'Detaching Success!';
+        } else {
+
+            $response = 'There is no such as attached...';
+        }
+
+        return Response::json($response);
     }
 }

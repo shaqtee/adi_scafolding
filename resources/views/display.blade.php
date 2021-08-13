@@ -66,7 +66,7 @@
                                     <h5 class="card-title">{{ $product['nama_produk'] }}</h5>
                                     <p class="card-text">{{ $product['deskripsi'] }}</p>
                                     <p><b>Rp {{ number_format($product['harga'],0,",",".") }}</b></p>
-                                    <a href="#" class="btn btn-primary">Order</a>
+                                    <a href="{{ url('/single/'.$product['id']) }}" class="btn btn-primary">Order</a>
                                 </div>
                             </div>
                             @endforeach

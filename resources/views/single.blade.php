@@ -250,13 +250,13 @@
     <div class="container mt-5">
         <div class="row justify-content-center text-center">
             <div class="col-6 border border-secondary p-3">
-                <span class="text-white-50">KATEGORI : <a href="#">{{ strtoupper($key->kategori) }}</a></span>
+                <span class="text-white-50">KATEGORI : <a href="{{ url('/showcase/'.$key->kategori) }}">{{ strtoupper($key->kategori) }}</a></span>
             </div>
             <div class="col-6 border border-secondary p-3">
                 <span class="text-white-50">TAGS :
                         @if($tagProduk !== "-")
                         @foreach($tagProduk as $tp)
-                        <a href="#">{{ strtoupper($tp['name']) }}</a>&nbsp;|&nbsp;
+                        <a href="{{ url('/showcase/'.$tp['name']) }}">{{ strtoupper($tp['name']) }}</a>&nbsp;|&nbsp;
                         @endforeach
                         @endif
                 </span>
@@ -270,25 +270,33 @@
 
                 @if($productSortedByTags === false)
                     @foreach($productSortedByCategory as $psc)
-                        <div class="barang shadow">
-                            <img src="{{ $psc['foto'] }}" width="125" height="125" class="iklanThumbnail" alt="">
+                    <div class="barang shadow d-flex flex-column">
+                        <div>
+                            <img src="{{ $psc['foto'] }}" width="120" height="120" class="iklanThumbnail" alt="">
                             <hr class="bg-black">
                             <div class="mt-2">{{ $psc['nama_produk'] }}</div>
+                        </div>
+                        <div class="mt-auto p-0 m-0 mb-3">
                             <div class="mt-1"><b>Rp {{ number_format($psc['harga'],0,",",".") }}</b></div>
                             <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
                             <a href="{{ url('/single'.$psc['id']) }}" class="btn btn-dark text-white btn-md mt-2">Detail</a>
                         </div>
+                    </div>
                     @endforeach
                 @else
                     @foreach($productSortedByTags as $pst)
-                        <div class="barang shadow">
+                    <div class="barang shadow d-flex flex-column">
+                        <div>
                             <img src="{{ $pst['foto'] }}" width="125" height="125" class="iklanThumbnail" alt="">
                             <hr class="bg-black">
                             <div class="mt-2">{{ $pst['nama_produk'] }}</div>
+                        </div>
+                        <div class="mt-auto p-0 m-0 mb-3">
                             <div class="mt-1"><b>Rp {{ number_format($pst['harga'],0,",",".") }}</b></div>
                             <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
                             <a href="{{ url('/single'.$pst['id']) }}" class="btn btn-dark text-white btn-md mt-2">Detail</a>
                         </div>
+                    </div>
                     @endforeach
                 @endif
 

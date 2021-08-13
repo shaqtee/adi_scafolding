@@ -60,6 +60,13 @@ Route::middleware(['auth', 'role:administrator', 'verified'])->group(function ()
     Route::resource('product', ProductController::class);
     Route::post('/product/searchproducts', [ProductController::class, 'searchproducts']);
     Route::post('/product/tampil', [ProductController::class, 'tampil']);
+
+    Route::post('product/tag/create', [ProductController::class, 'createTag']);
+    Route::get('product/tag/{id}/delete', [ProductController::class, 'deleteTag']);
+    Route::post('product/tag/show', [ProductController::class, 'showTag']);
+    Route::post('product/tag/update/{id}', [ProductController::class, 'updateTag']);
+    Route::post('product/tag/attach', [ProductController::class, 'attachTag']);
+    Route::post('product/tag/detach', [ProductController::class, 'detachTag']);
 });
 
 /*
