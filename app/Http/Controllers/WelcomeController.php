@@ -420,7 +420,9 @@ class WelcomeController extends Controller
                         'nama_produk' => "Tidak Ada Data Cart",
                         'foto' => "https://place-hold.it/100x100",
                         'harga' => 0,
-                        'berat' => 0
+                        'berat' => 0,
+                        'price_before_disc' => 0,
+                        'disc' => 0
                     ],
                     [
                         'id' => "-",

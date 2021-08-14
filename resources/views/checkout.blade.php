@@ -205,8 +205,12 @@
                                     @foreach($produk as $p)
                                     <div class="col-md-12">
                                         <div class="d-flex flex-wrap mb-3">
-                                            <span class="input-group-text bg-primary text-white checkCartSession">{{ $loop->iteration }}. {{ $p[0]['nama_produk'] }} &nbsp;&nbsp;&nbsp;{{ $p[0]['berat'] }} kg x {{ $p[1]['qty'] }} unit</span>
-                                            <span class="input-group-text bg-dark text-white">Rp{{ number_format($p[0]['harga'],0,",",".") }} / Unit</span>
+                                            <span class="mb-1 mr-1 input-group-text bg-primary text-white checkCartSession">{{ $loop->iteration }}. {{ $p[0]['nama_produk'] }} &nbsp;&nbsp;&nbsp;{{ $p[0]['berat'] }} kg x {{ $p[1]['qty'] }} unit</span>
+                                            @if($p[0]['disc'] != 0 || NULL)
+                                            <span class="mb-1 mr-1 input-group-text bg-dark text-white">Price : Rp{{ number_format($p[0]['price_before_disc'],0,",",".") }} / Unit</span>
+                                            <span class="mb-1 mr-1 input-group-text bg-dark text-white">Disc{{ number_format($p[0]['disc'],0) }}% : Rp {{ number_format(($p[0]['disc']/100)*$p[0]['price_before_disc'],0,",",".") }}/Unit</span>
+                                            @endif
+                                            <span class="mb-1 mr-1 input-group-text bg-dark text-white">Rp{{ number_format($p[0]['harga'],0,",",".") }} / Unit</span>
                                             <input type="text" class="px-2 form-control text-center getSubPricing" aria-label="Amount (to the nearest dollar)" data-total="{{ $p[0]['harga']*$p[1]['qty'] }}" data-weight="{{ $p[0]['berat']*$p[1]['qty'] }}" value="Rp{{ number_format(($p[0]['harga']*$p[1]['qty']),0,",",".") }} | {{ $p[0]['berat']*$p[1]['qty'] }}kg">
                                         </div>
                                     </div>
@@ -331,11 +335,19 @@
             $arr['unit_qty'][] = $prod[1]['qty'];
             $arr['unit_weight'][] = $prod[0]['berat'];
             $arr['unit_price'][] = $prod[0]['harga'];
+
+            $arr['unit_disc'][] = $prod[0]['disc'];
+            $arr['unit_disc_price'][] = ($prod[0]['disc']/100)*$prod[0]['price_before_disc'];
+            $arr['unit_price_before_disc'][] = $prod[0]['price_before_disc'];
         }
         $item = implode("|", $arr['item']);
         $unit_qty = implode("|", $arr['unit_qty']);
         $unit_weight = implode("|", $arr['unit_weight']);
         $unit_price = implode("|", $arr['unit_price']);
+
+        $unit_disc = implode("|", $arr['unit_disc']);
+        $unit_disc_price = implode("|", $arr['unit_disc_price']);
+        $unit_price_before_disc = implode("|", $arr['unit_price_before_disc']);
     @endphp
     {{-- endParseData --}}
 @endsection
@@ -362,6 +374,9 @@
                 unit_qty: @php echo json_encode($unit_qty); @endphp,
                 unit_weight: @php echo json_encode($unit_weight); @endphp,
                 unit_price: @php echo json_encode($unit_price); @endphp,
+                unit_disc: @php echo json_encode($unit_disc); @endphp,
+                unit_disc_price: @php echo json_encode($unit_disc_price); @endphp,
+                unit_price_before_disc: @php echo json_encode($unit_price_before_disc); @endphp,
                 phone: $('input[name="phone"]').val(),
                 alamat: $('input[name="alamat"]').val(),
                 kodepos: $('input[name="kodepos"]').val(),
@@ -383,6 +398,7 @@
 
                 if(data === false){
                     $('.simpanAlamatResponse').text('Saldo anda tidak Mencukupi untuk transaksi ini.')
+                    alert('Saldo anda tidak Mencukupi untuk transaksi ini.')
                 }else if( data === 200){
                     location.replace("{{ url('/home/history/mainprod') }}")
                 }

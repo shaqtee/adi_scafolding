@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use App\Models\Mutasi;
+use App\Models\Payment;
+use App\Models\Pengiriman;
 use App\Models\Productmenu;
 use Illuminate\Support\Str;
 use App\Models\BankTransfer;
@@ -11,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Response;
 
 class AdminController extends Controller
 {
@@ -47,6 +50,24 @@ class AdminController extends Controller
             ]
         );
         return redirect('admin/productmenu')->with('status', 'Menu berhasil ditambahkan.');
+    }
+
+    public function productmenuUpdate(Request $request, $key)
+    {
+        Productmenu::where('sort_menu', $key)->update([
+            'menu_name' => $request->menu,
+            'sort_menu' => $request->sort_id
+        ]);
+
+        return redirect()->back()->with('status', 'updated!');
+    }
+
+    public function productmenuDelete($key)
+    {
+        $id = (Productmenu::select('id')->where('sort_menu', $key)->first())->id;
+        Productmenu::find($id)->delete();
+
+        return redirect()->back()->with('status', 'deleted!');
     }
 
     public function transferbankHistory()
@@ -99,5 +120,74 @@ class AdminController extends Controller
             $user->save();
         });
         return redirect()->back()->with('status', 'Transaksi berhasil dibatalkan');
+    }
+
+    public function historyMainProd()
+    {
+        $dataPayment = Payment::orderBy('updated_at', 'desc')->paginate(10);
+
+        return view('admin.historymainprod', compact('dataPayment'));
+    }
+
+    public function showDetails(Request $request)
+    {
+        $invoice = Payment::where('invoice', $request->invoice)->first();
+        $invoice['price'] = explode("|", $invoice['unit_price']);
+        $invoice['weight'] = explode("|", $invoice['unit_weight']);
+        $invoice['u_item'] = explode("|", $invoice['item']);
+        $invoice['qty'] = explode("|", $invoice['unit_qty']);
+
+        $invoice['disc'] = explode("|", $invoice['unit_disc']);
+        $invoice['disc_price'] = explode("|", $invoice['unit_disc_price']);
+        $invoice['price_before_disc'] = explode("|", $invoice['unit_price_before_disc']);
+
+        return Response::json($invoice);
+    }
+
+    public function successMainProd(Request $request)
+    {
+        Payment::where('invoice', $request->invoiceUuid)->update([
+            'status' => 'resi: ' . $request->proof
+        ]);
+
+        return redirect()->back()->with('status', 'Status has been changed to "success"');
+    }
+
+    public function refundMainProd($inv)
+    {
+        $data = Mutasi::where('uuid', $inv)->first();
+        $check = Payment::select('status')->where('invoice', $inv)->first();
+
+        if ($check->status === 'process') {
+            $user = User::find($data->user_id);
+            $user->saldo_before_trx = $user->saldo;
+            $user->save();
+            $user->saldo += $data->nominal;
+            $user->save();
+
+            Payment::where('invoice', $inv)->update([
+                'status' => 'refund'
+            ]);
+
+
+            Mutasi::create([
+                'user_id' => $data->user_id,
+                'uuid' => $inv,
+                'type' => 'kredit',
+                'nominal' => $data->nominal,
+                'saldo' => $user->saldo,
+                'note' => 'REFUND PENJUALAN UTAMA'
+            ]);
+
+            return redirect()->back()->with('status', 'refund has done!');
+        } else {
+            return redirect()->back()->with('failed', 'double refund is rejected!');
+        }
+    }
+
+    public function dataPengiriman()
+    {
+        $pengiriman = (Pengiriman::orderBy('created_at', 'DESC')->get())->toArray();
+        return view('admin.datapengiriman', compact('pengiriman'));
     }
 }

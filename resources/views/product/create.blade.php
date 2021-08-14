@@ -154,7 +154,7 @@
                         </div>
 
                         <!-- harga -->
-                        <div class="input-group input-group-sm">
+                        {{--<div class="input-group input-group-sm">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroup-sizing-sm">Harga</span>
                             </div>
@@ -164,22 +164,37 @@
                                     {{ $message }}
                                 </div>
                             @enderror
-                        </div>
+                        </div>--}}
+
                         <!-- berat -->
                         <div class="input-group input-group-sm">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroup-sizing-sm">Berat</span>
                             </div>
-                            <input type="number" name="berat" class="form-control @error('harga') is-invalid @enderror"  aria-describedby="basic-addon3" value="{{ old('berat') }}" required>
-
+                            <input type="number" name="berat" class="form-control @error('berat') is-invalid @enderror"  aria-describedby="basic-addon3" value="{{ old('berat') }}" required>
                         </div>
+
+                        <!-- price before disc -->
+                        <div class="input-group input-group-sm">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-sm">Price Before Disc.</span>
+                            </div>
+                            <input type="number" name="price_before_disc" class="form-control @error('price_before_disc') is-invalid @enderror"  aria-describedby="basic-addon3" value="{{ old('price_before_disc') }}" required>
+                        </div>
+                        <!-- discount -->
+                        <div class="input-group input-group-sm">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-sm">Discount</span>
+                            </div>
+                            <input type="number" name="disc" class="form-control @error('disc') is-invalid @enderror"  aria-describedby="basic-addon3" value="{{ old('disc') }}" required>
+                        </div>
+
                         <!-- link foto jika ada (optional) -->
                         <div class="input-group input-group-sm">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroup-sizing-sm">photolink</span>
                             </div>
-                            <input type="text" name="link" class="form-control @error('harga') is-invalid @enderror"  aria-describedby="basic-addon3" value="{{ old('link') }}" required>
-
+                            <input type="text" name="link" class="form-control @error('link') is-invalid @enderror"  aria-describedby="basic-addon3" value="{{ old('link') }}" required>
                         </div>
 
                         <!-- deskripsi -->
@@ -269,7 +284,7 @@
                         </div>
 
                         <!-- harga -->
-                        <div class="input-group input-group-sm">
+                        {{--<div class="input-group input-group-sm">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroup-sizing-sm">Harga</span>
                             </div>
@@ -279,15 +294,31 @@
                                     {{ $message }}
                                 </div>
                             @enderror
-                        </div>
+                        </div>--}}
+
                         <!-- berat -->
                         <div class="input-group input-group-sm">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroup-sizing-sm">Berat</span>
                             </div>
                             <input type="number" name="berat" class="form-control @error('berat') is-invalid @enderror"  aria-describedby="basic-addon3" value="{{ old('berat') }}" required>
-
                         </div>
+
+                        <!-- price before disc -->
+                        <div class="input-group input-group-sm">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-sm">Price Before Disc.</span>
+                            </div>
+                            <input type="number" name="price_before_disc" class="form-control @error('price_before_disc') is-invalid @enderror"  aria-describedby="basic-addon3" value="{{ old('price_before_disc') }}" required>
+                        </div>
+                        <!-- disc -->
+                        <div class="input-group input-group-sm">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-sm">Discount</span>
+                            </div>
+                            <input type="number" name="disc" class="form-control @error('disc') is-invalid @enderror"  aria-describedby="basic-addon3" value="{{ old('disc') }}" required>
+                        </div>
+
                         <!-- link -->
                         <div class="input-group input-group-sm">
                             <div class="input-group-prepend">
@@ -495,6 +526,10 @@
                             $(".updateform").attr('action', `/product/${response.id}`)
                             $("input[name=nama_produk]").val(`${response.nama_produk}`)
                             $("input[name=harga]").val(`${response.harga}`)
+                            $("input[name=berat]").val(`${response.berat}`)
+                            $("input[name=disc]").val(`${response.disc}`)
+                            $("input[name=link]").val(`${response.foto}`)
+                            $("input[name=price_before_disc]").val(`${response.price_before_disc}`)
                             $("input[name=deskripsi]").val(`${response.deskripsi}`)
                             $("input[name=kategori]").val(`${response.kategori}`)
                             $(".foto").attr("src", response.foto.length >= 22 ? 'https://place-hold.it/200x200/' : `{{ asset('images/produk/${response.foto}') }}`)
@@ -531,7 +566,9 @@
                 $("input[name=nama_produk]").val(`${response.nama_produk}`)
                 $("input[name=harga]").val(`${response.harga}`)
                 $("input[name=berat]").val(`${response.berat}`)
+                $("input[name=disc]").val(`${response.disc}`)
                 $("input[name=link]").val(`${response.foto}`)
+                $("input[name=price_before_disc]").val(`${response.price_before_disc}`)
                 $("input[name=deskripsi]").val(`${response.deskripsi}`)
                 $("input[name=kategori]").val(`${response.kategori}`)
                 $(".foto").attr("src", response.foto.length >= 22 ? 'https://place-hold.it/200x200/' : `{{ asset('images/produk/${response.foto}') }}`)

@@ -124,6 +124,10 @@ class HomeController extends Controller
         $invoice['u_item'] = explode("|", $invoice['item']);
         $invoice['qty'] = explode("|", $invoice['unit_qty']);
 
+        $invoice['disc'] = explode("|", $invoice['unit_disc']);
+        $invoice['disc_price'] = explode("|", $invoice['unit_disc_price']);
+        $invoice['price_before_disc'] = explode("|", $invoice['unit_price_before_disc']);
+
         return Response::json($invoice);
     }
 

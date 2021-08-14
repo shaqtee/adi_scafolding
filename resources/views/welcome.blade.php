@@ -53,10 +53,14 @@
                                     <img src="{{ $prodAds['foto'] }}" class="iklanThumbnail" alt="">
                                     <hr class="bg-black">
                                     <div class="mt-2">{{ $prodAds['nama_produk'] }}</div>
+
+                                    <div class="mt-1"><b>Rp {{ number_format($prodAds['harga'],0,",",".") }}</b></div>
+                                    @if($prodAds['disc'] != 0 || null)
+                                    <div class="mt-1"><span class="badge badge-warning inline-block">{{ number_format($prodAds['disc'],0) }}%</span><div style="font-size:0.7rem"><del>Rp {{ number_format($prodAds['price_before_disc'],0,",",".") }}</del></div></div>
+                                    @endif
+
                                 </div>
                                 <div class="mt-auto p-0 m-0 mb-3">
-                                    <div class="mt-1"><b>Rp {{ number_format($prodAds['harga'],0,",",".") }}</b></div>
-                                    <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
                                     <a href="{{ url('/single/'.$prodAds['id']) }}" class="btn btn-dark text-white btn-md">Order</a>
                                 </div>
                             </div>
@@ -67,10 +71,14 @@
                                     <img src="{{ $prod['foto'] }}" class="iklanThumbnail" alt="">
                                     <hr class="bg-black">
                                     <div class="mt-2">{{ $prod['nama_produk'] }}</div>
+
+                                    <div class="mt-1"><b>Rp {{ number_format($prod['harga'],0,",",".") }}</b></div>
+                                    @if($prod['disc'] != 0 || null)
+                                    <div class="mt-1"><span class="badge badge-warning inline-block">{{ number_format($prod['disc'],0) }}%</span><div style="font-size:0.7rem"><del>Rp {{ number_format($prod['price_before_disc'],0,",",".") }}</del></div></div>
+                                    @endif
+
                                 </div>
                                 <div class="mt-auto p-0 m-0 mb-3">
-                                    <div class="mt-1"><b>Rp {{ number_format($prod['harga'],0,",",".") }}</b></div>
-                                    <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
                                     <a href="{{ url('/single/'.$prod['id']) }}" class="btn btn-dark text-white btn-md">Order</a>
                                 </div>
                             </div>
@@ -92,10 +100,14 @@
                                     <img src="{{ $prodAds2['foto'] }}" class="iklanThumbnail" alt="">
                                     <hr class="bg-black">
                                     <div class="mt-2">{{ $prodAds2['nama_produk'] }}</div>
+
+                                    <div class="mt-1"><b>Rp {{ number_format($prodAds2['harga'],0,",",".") }}</b></div>
+                                    @if($prodAds2['disc'] != 0 || null)
+                                    <div class="mt-1"><span class="badge badge-warning inline-block">{{ number_format($prodAds2['disc'],0) }}%</span><div style="font-size:0.7rem"><del>Rp {{ number_format($prodAds2['price_before_disc'],0,",",".") }}</del></div></div>
+                                    @endif
+
                                 </div>
                                 <div class="mt-auto p-0 m-0 mb-3">
-                                    <div class="mt-1"><b>Rp {{ number_format($prodAds2['harga'],0,",",".") }}</b></div>
-                                    <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
                                     <a href="{{ url('/single/'.$prodAds2['id']) }}" class="btn btn-dark text-white btn-md">Order</a>
                                 </div>
                             </div>
@@ -106,10 +118,14 @@
                                     <img src="{{ $prod['foto'] }}" class="iklanThumbnail" alt="">
                                     <hr class="bg-black">
                                     <div class="mt-2">{{ $prod['nama_produk'] }}</div>
+
+                                    <div class="mt-1"><b>Rp {{ number_format($prod['harga'],0,",",".") }}</b></div>
+                                    @if($prod['disc'] != 0 || null)
+                                    <div class="mt-1"><span class="badge badge-warning inline-block">{{ number_format($prod['disc'],0) }}%</span><div style="font-size:0.7rem"><del>Rp {{ number_format($prod['price_before_disc'],0,",",".") }}</del></div></div>
+                                    @endif
+
                                 </div>
                                 <div class="mt-auto p-0 m-0 mb-3">
-                                    <div class="mt-1"><b>Rp {{ number_format($prod['harga'],0,",",".") }}</b></div>
-                                    <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
                                     <a href="{{ url('/single/'.$prod['id']) }}" class="btn btn-dark text-white btn-md">Order</a>
                                 </div>
                             </div>
@@ -131,10 +147,14 @@
                                     <img src="{{ $prodAds3['foto'] }}" class="iklanThumbnail" alt="">
                                     <hr class="bg-black">
                                     <div class="mt-2">{{ $prodAds3['nama_produk'] }}</div>
+
+                                    <div class="mt-1"><b>Rp {{ number_format($prodAds3['harga'],0,",",".") }}</b></div>
+                                    @if($prodAds3['disc'] != 0 || null)
+                                    <div class="mt-1"><span class="badge badge-warning inline-block">{{ number_format($prodAds3['disc'],0) }}%</span><div style="font-size:0.7rem"><del>Rp {{ number_format($prodAds3['price_before_disc'],0,",",".") }}</del></div></div>
+                                    @endif
+
                                 </div>
                                 <div class="mt-auto p-0 m-0 mb-3">
-                                    <div class="mt-1"><b>Rp {{ number_format($prodAds3['harga'],0,",",".") }}</b></div>
-                                    <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
                                     <a href="{{ url('/single/'.$prodAds3['id']) }}" class="btn btn-dark text-white btn-md">Order</a>
                                 </div>
                             </div>
@@ -145,10 +165,14 @@
                                     <img src="{{ $prod['foto'] }}" class="iklanThumbnail" alt="">
                                     <hr class="bg-black">
                                     <div class="mt-2">{{ $prod['nama_produk'] }}</div>
+
+                                    <div class="mt-1"><b>Rp {{ number_format($prod['harga'],0,",",".") }}</b></div>
+                                    @if($prod['disc'] != 0 || null)
+                                    <div class="mt-1"><span class="badge badge-warning inline-block">{{ number_format($prod['disc'],0) }}%</span><div style="font-size:0.7rem"><del>Rp {{ number_format($prod['price_before_disc'],0,",",".") }}</del></div></div>
+                                    @endif
+
                                 </div>
                                 <div class="mt-auto p-0 m-0 mb-3">
-                                    <div class="mt-1"><b>Rp {{ number_format($prod['harga'],0,",",".") }}</b></div>
-                                    <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
                                     <a href="{{ url('/single/'.$prod['id']) }}" class="btn btn-dark text-white btn-md">Order</a>
                                 </div>
                             </div>
@@ -170,10 +194,14 @@
                                     <img src="{{ $prodAds4['foto'] }}" class="iklanThumbnail" alt="">
                                     <hr class="bg-black">
                                     <div class="mt-2">{{ $prodAds4['nama_produk'] }}</div>
+
+                                    <div class="mt-1"><b>Rp {{ number_format($prodAds4['harga'],0,",",".") }}</b></div>
+                                    @if($prodAds4['disc'] != 0 || null)
+                                    <div class="mt-1"><span class="badge badge-warning inline-block">{{ number_format($prodAds4['disc'],0) }}%</span><div style="font-size:0.7rem"><del>Rp {{ number_format($prodAds4['price_before_disc'],0,",",".") }}</del></div></div>
+                                    @endif
+
                                 </div>
                                 <div class="mt-auto p-0 m-0 mb-3">
-                                    <div class="mt-1"><b>Rp {{ number_format($prodAds4['harga'],0,",",".") }}</b></div>
-                                    <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
                                     <a href="{{ url('/single/'.$prodAds4['id']) }}" class="btn btn-dark text-white btn-md">Order</a>
                                 </div>
                             </div>
@@ -184,10 +212,14 @@
                                     <img src="{{ $prod['foto'] }}" class="iklanThumbnail" alt="">
                                     <hr class="bg-black">
                                     <div class="mt-2">{{ $prod['nama_produk'] }}</div>
+
+                                    <div class="mt-1"><b>Rp {{ number_format($prod['harga'],0,",",".") }}</b></div>
+                                    @if($prod['disc'] != 0 || null)
+                                    <div class="mt-1"><span class="badge badge-warning inline-block">{{ number_format($prod['disc'],0) }}%</span><div style="font-size:0.7rem"><del>Rp {{ number_format($prod['price_before_disc'],0,",",".") }}</del></div></div>
+                                    @endif
+
                                 </div>
                                 <div class="mt-auto p-0 m-0 mb-3">
-                                    <div class="mt-1"><b>Rp {{ number_format($prod['harga'],0,",",".") }}</b></div>
-                                    <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
                                     <a href="{{ url('/single/'.$prod['id']) }}" class="btn btn-dark text-white btn-md">Order</a>
                                 </div>
                             </div>
@@ -209,10 +241,14 @@
                                     <img src="{{ $prodAds5['foto'] }}" class="iklanThumbnail" alt="">
                                     <hr class="bg-black">
                                     <div class="mt-2">{{ $prodAds5['nama_produk'] }}</div>
+
+                                    <div class="mt-1"><b>Rp {{ number_format($prodAds5['harga'],0,",",".") }}</b></div>
+                                    @if($prodAds5['disc'] != 0 || null)
+                                    <div class="mt-1"><span class="badge badge-warning inline-block">{{ number_format($prodAds5['disc'],0) }}%</span><div style="font-size:0.7rem"><del>Rp {{ number_format($prodAds5['price_before_disc'],0,",",".") }}</del></div></div>
+                                    @endif
+
                                 </div>
                                 <div class="mt-auto p-0 m-0 mb-3">
-                                    <div class="mt-1"><b>Rp {{ number_format($prodAds5['harga'],0,",",".") }}</b></div>
-                                    <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
                                     <a href="{{ url('/single/'.$prodAds5['id']) }}" class="btn btn-dark text-white btn-md">Order</a>
                                 </div>
                             </div>
@@ -223,10 +259,14 @@
                                     <img src="{{ $prod['foto'] }}" class="iklanThumbnail" alt="">
                                     <hr class="bg-black">
                                     <div class="mt-2">{{ $prod['nama_produk'] }}</div>
+
+                                    <div class="mt-1"><b>Rp {{ number_format($prod['harga'],0,",",".") }}</b></div>
+                                    @if($prod['disc'] != 0 || null)
+                                    <div class="mt-1"><span class="badge badge-warning inline-block">{{ number_format($prod['disc'],0) }}%</span><div style="font-size:0.7rem"><del>Rp {{ number_format($prod['price_before_disc'],0,",",".") }}</del></div></div>
+                                    @endif
+
                                 </div>
                                 <div class="mt-auto p-0 m-0 mb-3">
-                                    <div class="mt-1"><b>Rp {{ number_format($prod['harga'],0,",",".") }}</b></div>
-                                    <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
                                     <a href="{{ url('/single/'.$prod['id']) }}" class="btn btn-dark text-white btn-md">Order</a>
                                 </div>
                             </div>
@@ -247,10 +287,14 @@
                                     <img src="{{ $prodAds6['foto'] }}" class="iklanThumbnail" alt="">
                                     <hr class="bg-black">
                                     <div class="mt-2">{{ $prodAds6['nama_produk'] }}</div>
+
+                                    <div class="mt-1"><b>Rp {{ number_format($prodAds6['harga'],0,",",".") }}</b></div>
+                                    @if($prodAds6['disc'] != 0 || null)
+                                    <div class="mt-1"><span class="badge badge-warning inline-block">{{ number_format($prodAds6['disc'],0) }}%</span><div style="font-size:0.7rem"><del>Rp {{ number_format($prodAds6['price_before_disc'],0,",",".") }}</del></div></div>
+                                    @endif
+
                                 </div>
                                 <div class="mt-auto p-0 m-0 mb-3">
-                                    <div class="mt-1"><b>Rp {{ number_format($prodAds6['harga'],0,",",".") }}</b></div>
-                                    <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
                                     <a href="{{ url('/single/'.$prodAds6['id']) }}" class="btn btn-dark text-white btn-md">Order</a>
                                 </div>
                             </div>
@@ -261,10 +305,14 @@
                                     <img src="{{ $prod['foto'] }}" class="iklanThumbnail" alt="">
                                     <hr class="bg-black">
                                     <div class="mt-2">{{ $prod['nama_produk'] }}</div>
+
+                                    <div class="mt-1"><b>Rp {{ number_format($prod['harga'],0,",",".") }}</b></div>
+                                    @if($prod['disc'] != 0 || null)
+                                    <div class="mt-1"><span class="badge badge-warning inline-block">{{ number_format($prod['disc'],0) }}%</span><div style="font-size:0.7rem"><del>Rp {{ number_format($prod['price_before_disc'],0,",",".") }}</del></div></div>
+                                    @endif
+
                                 </div>
                                 <div class="mt-auto p-0 m-0 mb-3">
-                                    <div class="mt-1"><b>Rp {{ number_format($prod['harga'],0,",",".") }}</b></div>
-                                    <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
                                     <a href="{{ url('/single/'.$prod['id']) }}" class="btn btn-dark text-white btn-md">Order</a>
                                 </div>
                             </div>
@@ -286,10 +334,14 @@
                                     <img src="{{ $prodAds7['foto'] }}" class="iklanThumbnail" alt="">
                                     <hr class="bg-black">
                                     <div class="mt-2">{{ $prodAds7['nama_produk'] }}</div>
+
+                                    <div class="mt-1"><b>Rp {{ number_format($prodAds7['harga'],0,",",".") }}</b></div>
+                                    @if($prodAds7['disc'] != 0 || null)
+                                    <div class="mt-1"><span class="badge badge-warning inline-block">{{ number_format($prodAds7['disc'],0) }}%</span><div style="font-size:0.7rem"><del>Rp {{ number_format($prodAds7['price_before_disc'],0,",",".") }}</del></div></div>
+                                    @endif
+
                                 </div>
                                 <div class="mt-auto p-0 m-0 mb-3">
-                                    <div class="mt-1"><b>Rp {{ number_format($prodAds7['harga'],0,",",".") }}</b></div>
-                                    <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
                                     <a href="{{ url('/single/'.$prodAds7['id']) }}" class="btn btn-dark text-white btn-md">Order</a>
                                 </div>
                             </div>
@@ -300,10 +352,14 @@
                                     <img src="{{ $prod['foto'] }}" class="iklanThumbnail" alt="">
                                     <hr class="bg-black">
                                     <div class="mt-2">{{ $prod['nama_produk'] }}</div>
+
+                                    <div class="mt-1"><b>Rp {{ number_format($prod['harga'],0,",",".") }}</b></div>
+                                    @if($prod['disc'] != 0 || null)
+                                    <div class="mt-1"><span class="badge badge-warning inline-block">{{ number_format($prod['disc'],0) }}%</span><div style="font-size:0.7rem"><del>Rp {{ number_format($prod['price_before_disc'],0,",",".") }}</del></div></div>
+                                    @endif
+
                                 </div>
                                 <div class="mt-auto p-0 m-0 mb-3">
-                                    <div class="mt-1"><b>Rp {{ number_format($prod['harga'],0,",",".") }}</b></div>
-                                    <div class="mt-1"><span class="badge badge-warning inline-block">0%</span><div style="font-size:0.7rem"><del>Rp 0</del></div></div>
                                     <a href="{{ url('/single/'.$prod['id']) }}" class="btn btn-dark text-white btn-md">Order</a>
                                 </div>
                             </div>

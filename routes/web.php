@@ -53,6 +53,9 @@ Route::middleware(['auth', 'role:administrator', 'verified'])->group(function ()
     Route::get('/admin/checkuseronline', [AdminController::class, 'checkUserOnline']);
     Route::get('/admin/productmenu', [AdminController::class, 'productmenu']);
     Route::post('/admin/productmenu/store', [AdminController::class, 'productmenuStore']);
+    Route::post('/admin/productmenu/update/{key}', [AdminController::class, 'productmenuUpdate']);
+    Route::get('/admin/productmenu/{key}/delete', [AdminController::class, 'productmenuDelete']);
+
     Route::get('admin/history/transferbank', [AdminController::class, 'transferbankHistory']);
     Route::post('admin/transferbank/success', [AdminController::class, 'transferbankSuccess']);
     Route::post('admin/transferbank/failed', [AdminController::class, 'transferbankFailed']);
@@ -67,6 +70,13 @@ Route::middleware(['auth', 'role:administrator', 'verified'])->group(function ()
     Route::post('product/tag/update/{id}', [ProductController::class, 'updateTag']);
     Route::post('product/tag/attach', [ProductController::class, 'attachTag']);
     Route::post('product/tag/detach', [ProductController::class, 'detachTag']);
+
+    Route::get('/admin/history/mainprod', [AdminController::class, 'historyMainProd']);
+    Route::post('/admin/history/showinvoice', [AdminController::class, 'showDetails']);
+    Route::post('/admin/history/success/', [AdminController::class, 'successMainProd']);
+    Route::post('/admin/history/refund/{inv}', [AdminController::class, 'refundMainProd']);
+
+    Route::get('/admin/data/pengiriman', [AdminController::class, 'dataPengiriman']);
 });
 
 /*

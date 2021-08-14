@@ -46,14 +46,12 @@ class ProductController extends Controller
         //$data = request()->toArray();
         $validator = $request->validate([
             'nama_produk' => 'required|max:50|string|unique:products',
-            'harga' => 'required|numeric|max:10000000000',
             'deskripsi' => 'required|max:100|string',
             'kategori' => 'required|max:20|string'
         ], [
             'nama_produk.max' => 'Maksimal 50 digit.',
             'nama_produk.string' => 'Harus termasuk tipe data string.',
             'nama_produk.unique' => 'Nama tersebut sudah ada.',
-            'harga.max' => 'Tidak boleh lebih dari 10 digit.',
             'deskripsi.max' => 'Tidak boleh lebih dari 100 karakter.',
             'deskripsi.string' => 'Harus termasuk tipe data string',
             'kategori.max' => 'Tidak boleh lebih dari 20 karakter.',
@@ -73,11 +71,16 @@ class ProductController extends Controller
             $namaFoto = $request->link;
         }
 
+        $discount = $request->disc / 100;
+        $harga = $request->price_before_disc - ($request->price_before_disc * $discount);
+
         //insert db.
         Product::create([
             'nama_produk' => $request->nama_produk,
-            'harga' => $request->harga,
+            'harga' => $harga,
             'berat' => $request->berat,
+            'disc' => $request->disc,
+            'price_before_disc' => $request->price_before_disc,
             'deskripsi' => $request->deskripsi,
             'kategori' => $request->kategori,
             'foto' => $namaFoto
@@ -120,14 +123,12 @@ class ProductController extends Controller
         $id = $product->toArray()['id'];
         $request->validate([
             'nama_produk' => 'required|max:50|string',
-            'harga' => 'required|numeric|max:10000000000',
             'deskripsi' => 'required|max:100|string',
             'kategori' => 'required|max:20|string'
         ], [
             'nama_produk.max' => 'Maksimal 50 digit.',
             'nama_produk.string' => 'Harus termasuk tipe data string.',
             'nama_produk.unique' => 'Nama tersebut sudah ada.',
-            'harga.max' => 'Tidak boleh lebih dari 10 digit.',
             'deskripsi.max' => 'Tidak boleh lebih dari 100 karakter.',
             'deskripsi.string' => 'Harus termasuk tipe data string',
             'kategori.max' => 'Tidak boleh lebih dari 20 karakter.',
@@ -149,11 +150,16 @@ class ProductController extends Controller
             $namaFoto = $request->link;
         }
 
+        $discount = $request->disc / 100;
+        $harga = $request->price_before_disc - ($request->price_before_disc * $discount);
+
         //insert db.
         Product::where('id', $id)->update([
             'nama_produk' => $request->nama_produk,
-            'harga' => $request->harga,
+            'harga' => $harga,
             'berat' => $request->berat,
+            'disc' => $request->disc,
+            'price_before_disc' => $request->price_before_disc,
             'deskripsi' => $request->deskripsi,
             'kategori' => $request->kategori,
             'foto' => $namaFoto

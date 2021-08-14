@@ -46,10 +46,12 @@
                             <td>
                                 @php
                                     $qty = explode("|",$dp['unit_qty']);
-                                    foreach(explode("|",$dp['unit_weight']) as $k => $v)
+                                    unset($w_unit);
+                                    foreach(explode("|",$dp['unit_weight']) as $k => $v){
                                     $w_unit[] = intval($v) * intval($qty[$k]);
+                                    }
                                 @endphp
-                                {{--{{ dump($w_unit) }}--}}
+
                                 {{ array_reduce($w_unit, function($acc, $item){return $acc+$item;}) }}
                             </td>
                         @else
@@ -86,10 +88,10 @@
                         <td>{{ number_format($dp['amount'],0,",",".") }}</td>
                         @if($dp['status'] === "process")
                             <td class="text-warning">{{ $dp['status'] }}</td>
-                        @elseif($dp['status'] === "done")
-                            <td class="text-success">{{ $dp['status'] }}</td>
-                        @elseif($dp['status'] === "expired")
+                        @elseif($dp['status'] === "refund")
                             <td class="text-danger">{{ $dp['status'] }}</td>
+                        @else
+                            <td class="text-success">{{ $dp['status'] }}</td>
                         @endif
                     </tr>
                     @endforeach
@@ -112,7 +114,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" style="font-size: 1em">
                         <div class="d-flex">
                             <div class="col align-self-center">
                                 <b>Uuid.</b>
@@ -121,24 +123,10 @@
                                 <input class="col-12" type="text" name="uuid" disabled>
                             </div>
                         </div>
-                        <div class="d-flex mt-3">
-                            <div class="col-3">
-                                <b>Item</b>
-                            </div>
-                            <div class="col-3">
-                                <b>Qty</b>
-                            </div>
-                            <div class="col-3">
-                                <b>Weight</b>
-                            </div>
-                            <div class="col-3">
-                                <b>price/unit</b>
-                            </div>
-                        </div>
-                        <div class="d-flex flex-wrap itemDetails">
+                        <div class="d-flex flex-column flex-wrap itemDetails mt-2">
 
                         </div>
-                        <div class="d-flex mt-4 p-0">
+                        <div class="d-flex p-0">
                             <div class="col">
                                 <b>Nama</b>
                             </div>
@@ -247,17 +235,25 @@
 
                     data.u_item.forEach(function(item,key,arr){
                         $('.itemDetails').append(`
-                                <div class="col-3">
-                                    ${item}
+                                <div class="col">
+                                    <b>Item :</b> ${item}
                                 </div>
-                                <div class="col-3">
-                                    ${data.qty[key]}
+                                <div class="col">
+                                    <b>Qty :</b> ${data.qty[key]}
                                 </div>
-                                <div class="col-3">
-                                    ${data.weight[key]}
+                                <div class="col">
+                                    <b>Price :</b> ${formatter.format(data.price_before_disc[key])}
                                 </div>
-                                <div class="col-3">
-                                    ${formatter.format(data.price[key])}
+
+                                <div class="col">
+                                    <b>Disc :</b> ${parseFloat(data.disc[key]).toFixed(0)+"% -"+formatter.format(data.disc_price[key])}
+                                </div>
+
+                                <div class="col">
+                                    <b>Weight :</b> ${data.weight[key]}
+                                </div>
+                                <div class="col">
+                                    <b>Price(ad) :</b> ${formatter.format(data.price[key])}
                                 </div><br>
                         `)
                     })

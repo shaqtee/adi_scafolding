@@ -68,8 +68,8 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Components:</h6>
                         <a class="collapse-item" href="{{ route('product.create') }}">Main Product</a>
-                        <a class="collapse-item" href="{{ route('product.index') }}">Prabayar Product</a>
-                        <a class="collapse-item" href="{{ route('product.index') }}">Pascabayar Product</a>
+                        <a class="collapse-item" href="#">Prabayar Product</a>
+                        <a class="collapse-item" href="#">Pascabayar Product</a>
                     </div>
                 </div>
             </li>
@@ -83,19 +83,19 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Data Pengguna:</h6>
-                    <a class="collapse-item" href="{{ url('/admin/checkuseronline') }}">Complete Data Reg</a>
+                    <a class="collapse-item" href="#">Complete Data Reg</a>
                     <a class="collapse-item" href="{{ url('/admin/checkuseronline') }}">User Online Status</a>
-                    <a class="collapse-item" href="{{ url('/admin/checkuseronline') }}">Jadwal Tagihan User</a>
-                    <a class="collapse-item" href="{{ url('/admin/checkuseronline') }}">Network</a>
+                    <a class="collapse-item" href="#">Jadwal Tagihan User</a>
+                    <a class="collapse-item" href="#">Network</a>
                     <h6 class="collapse-header">Fasilitas Pengguna:</h6>
-                    <a class="collapse-item" href="{{ url('/admin/checkuseronline') }}">Create Voucher</a>
-                    <a class="collapse-item" href="{{ url('/admin/checkuseronline') }}">Bonus Transaksi</a>
-                    <a class="collapse-item" href="{{ url('/admin/checkuseronline') }}">Bonus Recruitment</a>
+                    <a class="collapse-item" href="#">Create Voucher</a>
+                    <a class="collapse-item" href="#">Bonus Transaksi</a>
+                    <a class="collapse-item" href="#">Bonus Recruitment</a>
                     <h6 class="collapse-header">Request:</h6>
-                    <a class="collapse-item" href="{{ url('/admin/checkuseronline') }}">Pesan Masuk</a>
-                    <a class="collapse-item" href="{{ url('/admin/checkuseronline') }}">Testimonial Approve</a>
-                    <a class="collapse-item" href="{{ url('/admin/checkuseronline') }}">Blokir Nomor Celular</a>
-                    <a class="collapse-item" href="{{ url('/admin/checkuseronline') }}">Validasi User Upgrade</a>
+                    <a class="collapse-item" href="#">Pesan Masuk</a>
+                    <a class="collapse-item" href="#">Testimonial Approve</a>
+                    <a class="collapse-item" href="#">Blokir Nomor Celular</a>
+                    <a class="collapse-item" href="#">Validasi User Upgrade</a>
                 </div>
                 </div>
             </li>
@@ -108,15 +108,15 @@
                 <div id="collapseTwo4" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="{{ route('product.create') }}">Message</a>
-                        <a class="collapse-item" href="{{ route('product.index') }}">Direct Display</a>
+                        <a class="collapse-item" href="#">Message</a>
+                        <a class="collapse-item" href="#">Direct Display</a>
                     </div>
                 </div>
             </li>
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('member') }}">
+                <a class="nav-link" href="{{ url('/admin/data/pengiriman') }}">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Pengiriman</span>
                 </a>
@@ -124,7 +124,7 @@
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('member') }}">
+                <a class="nav-link" href="#">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Stock</span>
                 </a>
@@ -146,9 +146,9 @@
                 <div id="collapseTwo2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Category :</h6>
-                        <a class="collapse-item" href="{{ route('product.create') }}">Main Product</a>
-                        <a class="collapse-item" href="{{ route('product.index') }}">Prabayar Product</a>
-                        <a class="collapse-item" href="{{ route('product.index') }}">Pascabayar Product</a>
+                        <a class="collapse-item" href="{{ url('/admin/history/mainprod') }}">Main Product</a>
+                        <a class="collapse-item" href="#">Prabayar Product</a>
+                        <a class="collapse-item" href="#">Pascabayar Product</a>
                     </div>
                 </div>
             </li>
@@ -161,10 +161,10 @@
                 <div id="collapseTwo3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Category :</h6>
-                        <a class="collapse-item" href="{{ route('product.create') }}">Deposits</a>
+                        <a class="collapse-item" href="#">Deposits</a>
                         <a class="collapse-item" href="{{ url('admin/history/transferbank') }}">Transfer Bank</a>
-                        <a class="collapse-item" href="{{ route('product.index') }}">Mutasi Bonus User</a>
-                        <a class="collapse-item" href="{{ route('product.index') }}">Penggunaan Voucher</a>
+                        <a class="collapse-item" href="#">Mutasi Bonus User</a>
+                        <a class="collapse-item" href="#">Penggunaan Voucher</a>
                     </div>
                 </div>
             </li>
@@ -501,5 +501,13 @@
     <script src="{{ asset('packages/sbadmin2/js/sb-admin-2.js') }}"></script>
 
     @yield('js')
+    <script>
+        let formatter = new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+            //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+        });
+    </script>
 </body>
 </html>
