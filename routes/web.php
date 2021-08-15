@@ -77,6 +77,7 @@ Route::middleware(['auth', 'role:administrator', 'verified'])->group(function ()
     Route::post('/admin/history/refund/{inv}', [AdminController::class, 'refundMainProd']);
 
     Route::get('/admin/data/pengiriman', [AdminController::class, 'dataPengiriman']);
+    Route::get('/admin/data/bonus', [AdminController::class, 'dataBonus']);
 });
 
 /*

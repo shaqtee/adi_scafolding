@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Mutasi;
 use App\Models\Payment;
 use App\Models\Pengiriman;
+use App\Models\MutasiBonus;
 use App\Models\Productmenu;
 use Illuminate\Support\Str;
 use App\Models\BankTransfer;
@@ -19,7 +20,10 @@ class AdminController extends Controller
 {
     public function index()
     {
-        return view('admin.home');
+        $allUserSaldo = User::sum('saldo');
+        $allUserBonus = User::sum('saldo_bonus');
+
+        return view('admin.home', compact('allUserSaldo', 'allUserBonus'));
     }
 
     public function checkUserOnline()
@@ -189,5 +193,11 @@ class AdminController extends Controller
     {
         $pengiriman = (Pengiriman::orderBy('created_at', 'DESC')->get())->toArray();
         return view('admin.datapengiriman', compact('pengiriman'));
+    }
+
+    public function dataBonus()
+    {
+        $bonus = (MutasiBonus::orderBy('created_at', 'DESC')->get())->toArray();
+        return view('admin.databonus', compact('bonus'));
     }
 }

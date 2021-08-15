@@ -163,7 +163,7 @@
                         <h6 class="collapse-header">Category :</h6>
                         <a class="collapse-item" href="#">Deposits</a>
                         <a class="collapse-item" href="{{ url('admin/history/transferbank') }}">Transfer Bank</a>
-                        <a class="collapse-item" href="#">Mutasi Bonus User</a>
+                        <a class="collapse-item" href="{{ url('admin/data/bonus') }}">Mutasi Bonus User</a>
                         <a class="collapse-item" href="#">Penggunaan Voucher</a>
                     </div>
                 </div>
