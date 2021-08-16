@@ -15,15 +15,61 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Response;
+use Khill\Lavacharts\Lavacharts;
+use Lava;
 
 class AdminController extends Controller
 {
     public function index()
     {
+        /* ====================E-COMMERCE=================== */
+
+        $reasons = Lava::DataTable();
+
+        $reasons->addStringColumn('Reasons')
+            ->addNumberColumn('Percent')
+            ->addRow(['Check Reviews', 5])
+            ->addRow(['Watch Trailers', 2])
+            ->addRow(['See Actors Other Work', 4])
+            ->addRow(['Settle Argument', 89]);
+
+        Lava::PieChart('reasons', $reasons, [
+            'title'  => 'Produk Utama',
+            'is3D'   => true,
+            'slices' => [
+                ['offset' => 0.2],
+                ['offset' => 0.25],
+                ['offset' => 0.3]
+            ]
+        ]);
+        /* ====================End E-COMMERCE=================== */
+
+        /* ====================PPOB=================== */
+
+        $ppob = Lava::DataTable();
+
+        $ppob->addStringColumn('Reasons')
+            ->addNumberColumn('Percent')
+            ->addRow(['Check Reviews', 15])
+            ->addRow(['Watch Trailers', 10])
+            ->addRow(['See Actors Other Work', 50])
+            ->addRow(['Settle Argument', 25]);
+
+        Lava::PieChart('ppob', $ppob, [
+            'title'  => 'Produk PPOB',
+            'is3D'   => true,
+            'slices' => [
+                ['offset' => 0.2],
+                ['offset' => 0.25],
+                ['offset' => 0.3]
+            ]
+        ]);
+        /* ====================End PPOB=================== */
+
         $allUserSaldo = User::sum('saldo');
         $allUserBonus = User::sum('saldo_bonus');
 
-        return view('admin.home', compact('allUserSaldo', 'allUserBonus'));
+        return view('admin.home', compact('allUserSaldo', 'allUserBonus', 'reasons', 'ppob'));
     }
 
     public function checkUserOnline()

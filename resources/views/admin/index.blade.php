@@ -19,6 +19,13 @@
     <!-- Styles -->
     <link href="{{ asset('packages/sbadmin2/css/sb-admin-2.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <!-- JQuery-UI -->
+    <link href="{{ asset('packages/jquery-ui/jquery-ui.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('packages/jquery-ui/jquery-ui.structure.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('packages/jquery-ui/jquery-ui.theme.min.css') }}" rel="stylesheet">
+
+
     @yield('css')
 </head>
 <body id="page-top">
@@ -61,7 +68,7 @@
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
+                    <i class="fa fa-tasks" aria-hidden="true"></i>
                     <span>Product Lists</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -117,7 +124,7 @@
             <!-- Nav Item - Charts -->
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('/admin/data/pengiriman') }}">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                    <i class="fa fa-location-arrow" aria-hidden="true"></i>
                     <span>Pengiriman</span>
                 </a>
             </li>
@@ -125,7 +132,7 @@
             <!-- Nav Item - Charts -->
             <li class="nav-item">
                 <a class="nav-link" href="#">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                    <i class="fa fa-cubes" aria-hidden="true"></i>
                     <span>Stock</span>
                 </a>
             </li>
@@ -229,7 +236,7 @@
             <!-- Nav Item - Charts -->
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('member') }}">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                    <i class="fa fa-random" aria-hidden="true"></i>
                     <span>Member Gate</span>
                 </a>
             </li>
@@ -499,6 +506,10 @@
     <script src="{{ asset('js/app.js') }}" ></script>
     <script src="{{ asset('packages/sbadmin2/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
     <script src="{{ asset('packages/sbadmin2/js/sb-admin-2.js') }}"></script>
+
+    <!--JQuery-UI-->
+    <script src="{{ asset('packages/jquery-ui/jquery-ui.min.js') }}"></script>
+    <script type="text/javascript" src="packages/jquery-ui/jquery.mtz.monthpicker.js"></script>
 
     @yield('js')
     <script>

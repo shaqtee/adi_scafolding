@@ -206,7 +206,8 @@ class WelcomeController extends Controller
         }
 
         $productSortedByCategory = (Product::where('kategori', $key->kategori)->get())->toArray();
-        //dd($productSortedByTags);
+
+        //dd($fotoOptional);
         return view('single', compact(
             'key',
             'fotoOptional',

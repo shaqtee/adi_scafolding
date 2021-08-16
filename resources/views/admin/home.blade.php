@@ -1,15 +1,23 @@
 @extends('admin.index')
+@section('css')
+<style>
+    /*.changeMonth .ui-datepicker-calendar {
+        display: none;
+    }*/
+    </style>
+@endsection
 @section('content')
     <!-- Begin Page Content -->
     <div class="container-fluid">
-
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <div class="text-center">
-                <a href="/checkout" class=" btn btn-sm btn-warning shadow-sm">Back to Checkout</a>
-                <a href="/" class="btn btn-sm btn-success shadow-sm">Go Shop</a>
+                <a href="/checkout" class=" btn btn-sm btn-secondary shadow-sm border border-white">Back to Checkout</a>
+                <a href="/" class="btn btn-sm btn-secondary shadow-sm border border-white">Go Shop</a>
             </div>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                Live Mode
+            </a>
         </div>
 
         <!-- Content Row -->
@@ -25,7 +33,7 @@
                             <div class="h5 mb-0 font-weight-bold text-gray-800">Rp {{ number_format($allUserSaldo,0,",",".") }}</div>
                             </div>
                             <div class="col-auto">
-                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                <i class="fa fa-credit-card fa-2x text-gray-300"></i>
                             </div>
                         </div>
                     </div>
@@ -42,7 +50,7 @@
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">Rp {{ number_format($allUserBonus,0,",",".") }}</div>
                             </div>
                             <div class="col-auto">
-                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                <i class="fa fa-credit-card fa-2x text-gray-300"></i>
                             </div>
                         </div>
                     </div>
@@ -59,7 +67,7 @@
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">-</div>
                             </div>
                             <div class="col-auto">
-                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                <i class="fa fa-credit-card fa-2x text-gray-300"></i>
                             </div>
                         </div>
                     </div>
@@ -71,11 +79,11 @@
         <!-- Content Row -->
         <div class="row">
             <!-- Area Chart -->
-            <div class="col-xl-8 col-lg-7">
-                <div class="card shadow mb-4">
+            <div class="col-xl-6 col-lg-6">
+                <div class="card shadow mb-2">
                     <!-- Card Header - Dropdown -->
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+                    <div class="card-header d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Alfabet Shop Product</h6>
                         <div class="dropdown no-arrow">
                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -90,20 +98,19 @@
                             </div>
                         </div>
                         <!-- Card Body -->
-                        <div class="card-body">
-                            <div class="chart-area">
-                                <canvas id="myAreaChart"></canvas>
-                            </div>
+                        <div class="card-body p-0">
+                            <div id="reasons-div"></div>
+                            @piechart('reasons', 'reasons-div')
                         </div>
                     </div>
                 </div>
 
                 <!-- Pie Chart -->
-                <div class="col-xl-4 col-lg-5">
-                    <div class="card shadow mb-4">
+                <div class="col-xl-6 col-lg-6">
+                    <div class="card shadow mb-2">
                         <!-- Card Header - Dropdown -->
-                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+                        <div class="card-header d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">Alfabet PPOB</h6>
                             <div class="dropdown no-arrow">
                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -118,21 +125,9 @@
                         </div>
                     </div>
                     <!-- Card Body -->
-                    <div class="card-body">
-                        <div class="chart-pie pt-4 pb-2">
-                            <canvas id="myPieChart"></canvas>
-                            </div>
-                            <div class="mt-4 text-center small">
-                            <span class="mr-2">
-                                <i class="fas fa-circle text-primary"></i> Direct
-                            </span>
-                            <span class="mr-2">
-                                <i class="fas fa-circle text-success"></i> Social
-                            </span>
-                            <span class="mr-2">
-                                <i class="fas fa-circle text-info"></i> Referral
-                            </span>
-                        </div>
+                    <div class="card-body p-0">
+                        <div id="ppob-div"></div>
+                        @piechart('ppob', 'ppob-div')
                     </div>
                 </div>
             </div>
@@ -140,86 +135,23 @@
 
         <!-- Content Row -->
         <div class="row">
-
             <!-- Content Column -->
-            <div class="col-lg-6 mb-4">
-
-                <!-- Project Card Example -->
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
-                    </div>
-                    <div class="card-body">
-                    <h4 class="small font-weight-bold">Server Migration <span class="float-right">20%</span></h4>
-                    <div class="progress mb-4">
-                        <div class="progress-bar bg-danger" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <h4 class="small font-weight-bold">Sales Tracking <span class="float-right">40%</span></h4>
-                    <div class="progress mb-4">
-                        <div class="progress-bar bg-warning" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <h4 class="small font-weight-bold">Customer Database <span class="float-right">60%</span></h4>
-                    <div class="progress mb-4">
-                        <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <h4 class="small font-weight-bold">Payout Details <span class="float-right">80%</span></h4>
-                    <div class="progress mb-4">
-                        <div class="progress-bar bg-info" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <h4 class="small font-weight-bold">Account Setup <span class="float-right">Complete!</span></h4>
-                    <div class="progress">
-                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    </div>
-                </div>
-
+            <div class="col-lg-6 my-2">
                 <!-- Color System -->
                 <div class="row">
-                    <div class="col-lg-6 mb-4">
+                    <div class="col-lg-6 mb-2">
                     <div class="card bg-primary text-white shadow">
-                        <div class="card-body">
-                        Primary
-                        <div class="text-white-50 small">#4e73df</div>
+                        <div class="card-body text-center">
+                        Transaksi
+                        <div class="text-white h4 text-center">1001</div>
                         </div>
                     </div>
                     </div>
-                    <div class="col-lg-6 mb-4">
+                    <div class="col-lg-6 mb-2">
                     <div class="card bg-success text-white shadow">
-                        <div class="card-body">
-                        Success
-                        <div class="text-white-50 small">#1cc88a</div>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="col-lg-6 mb-4">
-                    <div class="card bg-info text-white shadow">
-                        <div class="card-body">
-                        Info
-                        <div class="text-white-50 small">#36b9cc</div>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="col-lg-6 mb-4">
-                    <div class="card bg-warning text-white shadow">
-                        <div class="card-body">
-                        Warning
-                        <div class="text-white-50 small">#f6c23e</div>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="col-lg-6 mb-4">
-                    <div class="card bg-danger text-white shadow">
-                        <div class="card-body">
-                        Danger
-                        <div class="text-white-50 small">#e74a3b</div>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="col-lg-6 mb-4">
-                    <div class="card bg-secondary text-white shadow">
-                        <div class="card-body">
-                        Secondary
-                        <div class="text-white-50 small">#858796</div>
+                        <div class="card-body text-center">
+                        Transaksi Bulan Agustus
+                        <div class="text-white h4 text-center">523</div>
                         </div>
                     </div>
                     </div>
@@ -227,33 +159,341 @@
 
             </div>
 
-            <div class="col-lg-6 mb-4">
+            <div class="col-lg-6 my-2">
 
-                <!-- Illustrations -->
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="text-center">
-                            <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="{{ asset('packages/sbadmin2/img/undraw_posting_photo.svg') }}" alt="">
+                <div class="row">
+                    <div class="col-lg-6 mb-2">
+                        <div class="card bg-primary text-white shadow">
+                            <div class="card-body text-center">
+                            Users
+                            <div class="text-white h4 text-center">215</div>
+                            </div>
                         </div>
-                        <p>Add some quality, svg illustrations to your project courtesy of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a constantly updated collection of beautiful svg images that you can use completely free and without attribution!</p>
-                        <a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on unDraw &rarr;</a>
+                    </div>
+                    <div class="col-lg-6 mb-2">
+                        <div class="card bg-success text-white shadow">
+                            <div class="card-body text-center">
+                            Deposit Bulan Agustus
+                            <div class="text-white h4 text-center">508</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Approach -->
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-12 mb-3">
+                <ul class="list-group">
+                    <li class="list-group-item text-center active" aria-current="true">Deposit</li>
+                    <li class="list-group-item text-center">
+                        1652
+                    </li>
+                </ul>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead class="thead-light">
+                            <tr class="text-center">
+                                <th scope="col">Menunggu</th>
+                                <th scope="col">Validasi</th>
+                                <th scope="col">Berhasil</th>
+                                <th scope="col">Gagal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="text-center">
+                                <th>101</th>
+                                <td>202</td>
+                                <td>531</td>
+                                <td>25</td>
+                            </tr>
+                        </tbody>
+                    </table>
                     </div>
-                    <div class="card-body">
-                        <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce CSS bloat and poor page performance. Custom CSS classes are used to create custom components and custom utility classes.</p>
-                        <p class="mb-0">Before working with this theme, you should become familiar with the Bootstrap framework, especially the utility classes.</p>
+            </div>
+            <div class="col-md-6 col-12 mb-3">
+                <div class="card p-2">
+                    <div class="bg-success p-2 text-white rounded">
+                        <span mt-5>Top 5 User Bulan - X</span>
+                    </div>
+                    <div class="d-flex flex-wrap justify-content-center">
+                        @for($i = 0; $i < 5; $i++)
+                        <div class="p-2 text-center mt-3">
+                            <img src="https://place-hold.it/70x70" alt=""><br>
+                            <span><b>Member</b></span>
+                        </div>
+                        @endfor
+                    </div>
+                    <hr>
+                    <a href="" class="text-center">Lihat Semua</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 mb-3">
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xl-6 col-md-6 mb-3">
+                <span for="" class="mt-3"><b>By Date</b></span>
+                <div class="input-group">
+                    <input type="text" class="form-control datepicker" aria-label="Dollar amount (with dot and two decimal places)">
+                    <div class="input-group-append">
+                        <span class="input-group-text">&nbsp;&nbsp;TO&nbsp;&nbsp;</span>
                     </div>
                 </div>
+                <div class="input-group mt-2">
+                    <input type="text" class="form-control datepicker" aria-label="Dollar amount (with dot and two decimal places)">
+                    <div class="input-group-prepend" id="button-addon3">
+                        <button class="btn btn-outline-secondary" type="button">Filter</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-md-6 mb-3">
+                <span for="" class="mt-3"><b>By Month</b></span>
+                <div class="input-group">
+                    <input type="text" class="form-control changeMonth" aria-label="Dollar amount (with dot and two decimal places)">
+                    <div class="input-group-prepend" id="button-addon3">
+                        <button class="btn btn-outline-secondary" type="button">Filter</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <div class="row">
+            <div class="col-xl-6 col-md-6">
+                <div class="card p-2">
+                    <div class="bg-primary p-2 text-white rounded">
+                        <span mt-5>Activity</span>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td>Transaksi</td>
+                                <td>:</td>
+                                <td>0</td>
+                                <td><a href="" class="badge badge-primary">lihat</a></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Member Baru</td>
+                                <td>:</td>
+                                <td>0</td>
+                                <td><a href="" class="badge badge-primary">lihat</a></td>
+                            </tr>
+                        </tbody>
+                        <thead>
+                            <tr>
+                                <td>Permintaan Deposit</td>
+                                <td>:</td>
+                                <td>0</td>
+                                <td><a href="" class="badge badge-primary">lihat</a></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Pesan Masuk</td>
+                                <td>:</td>
+                                <td>0</td>
+                                <td><a href="" class="badge badge-primary">lihat</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="bg-primary p-2 text-white rounded">
+                        <span mt-5>Recruitment</span>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td>Omset</td>
+                                <td>:</td>
+                                <td>0</td>
+                                <td><a href="" class="badge badge-primary">lihat</a></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Utang Bonus</td>
+                                <td>:</td>
+                                <td>0</td>
+                                <td><a href="" class="badge badge-primary">lihat</a></td>
+                            </tr>
+                        </tbody>
+                        <thead>
+                            <tr>
+                                <td>Tunai Bonus</td>
+                                <td>:</td>
+                                <td>0</td>
+                                <td><a href="" class="badge badge-primary">lihat</a></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Gross Profit Recruitment</td>
+                                <td>:</td>
+                                <td>0</td>
+                                <td><a href="" class="badge badge-primary">lihat</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-xl-6 col-md-6 mb-3">
+                <div class="card p-2">
+
+                    <div class="bg-primary p-2 text-white rounded">
+                        <span mt-5>Transaksi Produk Utama</span>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td>Omset</td>
+                                <td>:</td>
+                                <td>0</td>
+                                <td><a href="" class="badge badge-primary">lihat</a></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>HPP</td>
+                                <td>:</td>
+                                <td>0</td>
+                                <td><a href="" class="badge badge-primary">lihat</a></td>
+                            </tr>
+                        </tbody>
+                        <thead>
+                            <tr>
+                                <td>Pend. Ongkir</td>
+                                <td>:</td>
+                                <td>0</td>
+                                <td><a href="" class="badge badge-primary">lihat</a></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Beban. Ongkir</td>
+                                <td>:</td>
+                                <td>0</td>
+                                <td><a href="" class="badge badge-primary">lihat</a></td>
+                            </tr>
+                        </tbody>
+                        <thead>
+                            <tr>
+                                <td>Gross Profit Produk Utama</td>
+                                <td>:</td>
+                                <td>0</td>
+                                <td><a href="" class="badge badge-primary">lihat</a></td>
+                            </tr>
+                        </thead>
+                    </table>
+
+
+                    <div class="bg-primary p-2 text-white rounded">
+                        <span mt-5>Transaksi PPOB</span>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td>Omset</td>
+                                <td>:</td>
+                                <td>0</td>
+                                <td><a href="" class="badge badge-primary">lihat</a></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Server</td>
+                                <td>:</td>
+                                <td>0</td>
+                                <td><a href="" class="badge badge-primary">lihat</a></td>
+                            </tr>
+                        </tbody>
+                        <thead>
+                            <tr>
+                                <td>Gross Profit PPOB</td>
+                                <td>:</td>
+                                <td>0</td>
+                                <td><a href="" class="badge badge-primary">lihat</a></td>
+                            </tr>
+                        </thead>
+                    </table>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <tbody><tr style="background-color: #F8F8F8;font-size: 10px;">
+                                <th style="text-align: center;">Berhasil</th>
+                                <th style="text-align: center;">Pending</th>
+                                <th style="text-align: center;">Gagal</th>
+                            </tr>
+                            <tr align="center" style="font-size: 15px;font-weight: bold;">
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-12 mb-3">
+                <div class="card p-2">
+                    <div class="bg-danger p-2 text-white rounded">
+                        <span mt-5>Member Baru</span>
+                    </div>
+                    <div class="d-flex flex-wrap justify-content-center">
+                        @for($i = 0; $i < 5; $i++)
+                        <div class="p-2 text-center mt-3">
+                            <img src="https://place-hold.it/70x70" alt=""><br>
+                            <span><b>Member</b></span>
+                        </div>
+                        @endfor
+                    </div>
+                    <hr>
+                    <a href="" class="text-center">Lihat Semua</a>
+                </div>
+            </div>
+            <div class="col-md-6 col-12 mb-3">
+                <div class="card p-2">
+                    <div class="bg-danger p-2 text-white rounded">
+                        <span mt-5>Request Validasi</span>
+                    </div>
+                    <div class="d-flex flex-wrap justify-content-center">
+                        @for($i = 0; $i < 5; $i++)
+                        <div class="p-2 text-center mt-3">
+                            <img src="https://place-hold.it/70x70" alt=""><br>
+                            <span><b>Member</b></span>
+                        </div>
+                        @endfor
+                    </div>
+                    <hr>
+                    <a href="" class="text-center">Lihat Semua</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-12 mb-3">
+                <div class="card p-2">
+                    <div class="bg-danger p-2 text-white rounded">
+                        <span mt-5>Request Transfer Bank</span>
+                    </div>
+                    <div class="d-flex flex-wrap justify-content-center">
+                        @for($i = 0; $i < 5; $i++)
+                        <div class="p-2 text-center mt-3">
+                            <img src="https://place-hold.it/70x70" alt=""><br>
+                            <span><b>Member</b></span>
+                        </div>
+                        @endfor
+                    </div>
+                    <hr>
+                    <a href="" class="text-center">Lihat Semua</a>
+                </div>
             </div>
 
         </div>
@@ -263,5 +503,13 @@
 @endsection
 
 @section('js')
-@include('layouts.public.chart')
+<script>
+    $( ".datepicker" ).datepicker({
+        changeMonth: true,
+        changeYear: true
+    });
+
+    $('.changeMonth').monthpicker()
+
+</script>
 @endsection
