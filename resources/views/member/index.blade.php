@@ -22,7 +22,7 @@
             $url = 'member';
         }elseif($role_id[1]['name'] == $role)
         {
-            $url = 'admin';
+            $url = 'member';
         }
     @endphp
     <!-- Page Wrapper -->

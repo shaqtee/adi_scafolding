@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tag;
+use App\Models\File as PhotoFile;
 use App\Models\Product;
 use App\Models\Taggable;
 use Illuminate\Http\Request;
@@ -31,7 +32,9 @@ class ProductController extends Controller
     {
         $tags = (Tag::orderBy('id', 'ASC')->get())->toArray();
         $prodToAttach = (Product::orderBy('id', 'ASC')->get())->toArray();
-        return view('product.create', compact('tags', 'prodToAttach'));
+
+        $photos = (PhotoFile::orderBy('fileable_id', 'ASC')->get())->toArray();
+        return view('product.create', compact('tags', 'prodToAttach', 'photos'));
     }
 
     /**
@@ -206,10 +209,11 @@ class ProductController extends Controller
         return Response::json($searchResult);
     }
 
+    /**
+     * Taggable.
+     */
     public function createTag(Request $request)
     {
-
-
         $request->validate([
             'name' => 'required|unique:tags',
         ], [
@@ -284,5 +288,32 @@ class ProductController extends Controller
         }
 
         return Response::json($response);
+    }
+
+    /**
+     * PHOTO PLUS.
+     */
+    public function photoCreate(Request $request)
+    {
+
+        Product::find($request->produkId)
+            ->files()->create([
+                'name' => $request->nama_foto
+            ]);
+        return redirect()->back()->with('status', 'Photo plus berhasil ditambahkan');
+    }
+
+    public function photoUpdate(Request $request, $photo)
+    {
+        PhotoFile::find($photo)->update([
+            'name' => $request->nama_foto
+        ]);
+        return redirect()->back()->with('status', 'Photo plus berhasil diupdate');
+    }
+
+    public function photoDelete(Request $request)
+    {
+        PhotoFile::find($request->fotoId)->delete();
+        return Response::json($request);
     }
 }

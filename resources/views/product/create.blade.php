@@ -123,6 +123,55 @@
         </div>
     </div>
 
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <div class="row row-cols-2 align-items-center mb-1 p-0">
+                <div class="col">
+                    <span>
+                        <b>Photo Plus Module</b>
+                    <a href="" class="badge badge-primary" data-toggle="modal" data-target="#createPhoto">Upload</a>
+                    </span>
+                </div>
+            </div>
+            <div id="alertAttach" class="d-none shadow alert alert-warning alert-dismissible fade show" role="alert">
+                <span class="responseAttach"></span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="table-responsive">
+            <table class="table table-sm table-dark">
+                <thead class="text-center">
+                <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Nama Foto</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody class="text-center">
+                    @foreach($photos as $photo)
+                    <tr>
+                        <th scope="row">{{ $photo['id'] }}</th>
+                        <td>
+                            @php
+                                $productPhoto = (App\Models\Product::where('id', $photo['fileable_id'])->first())->toArray();
+                            @endphp
+                            {{ $productPhoto['nama_produk'] }}
+                        </td>
+                        <td>{{ $photo['name'] }}</td>
+                        <td>
+                            <a href="" class="badge badge-primary updateTag" onclick="updatePhoto(this)" data-foto="{{ $photo['name'] }}" data-fotoid="{{ $photo['id'] }}" data-produk="{{ $productPhoto['id'] }}" data-toggle="modal" data-target="#createPhoto">edit</a>
+                            <a href="" data-fotoid="{{ $photo['id'] }}" data-produk="{{ $productPhoto['id'] }}" onclick="detachPhoto(this)" class="badge badge-danger">delete</a>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 {{-- Products --}}
@@ -152,19 +201,6 @@
                                 </div>
                             @enderror
                         </div>
-
-                        <!-- harga -->
-                        {{--<div class="input-group input-group-sm">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-sm">Harga</span>
-                            </div>
-                            <input type="number" name="harga" class="form-control @error('harga') is-invalid @enderror"  aria-describedby="basic-addon3" value="{{ old('harga') }}" required>
-                            @error('harga')
-                                <div class="invalid-feedback ml-2">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>--}}
 
                         <!-- berat -->
                         <div class="input-group input-group-sm">
@@ -282,19 +318,6 @@
                                 </div>
                             @enderror
                         </div>
-
-                        <!-- harga -->
-                        {{--<div class="input-group input-group-sm">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-sm">Harga</span>
-                            </div>
-                            <input type="number" name="harga" class="form-control @error('harga') is-invalid @enderror"  aria-describedby="basic-addon3" value="{{ old('harga') }}" required>
-                            @error('harga')
-                                <div class="invalid-feedback ml-2">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>--}}
 
                         <!-- berat -->
                         <div class="input-group input-group-sm">
@@ -444,6 +467,51 @@
 </div>
 <!-- endModalCreateTags -->
 
+<!-- ModalCreatePhotos -->
+<div class="modal fade" id="createPhoto" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title photoLabel" id="staticBackdropLabel">Upload Photo Plus</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+            <form name="photoForm" action="{{ url('/product/photo/create') }}" method="POST">
+            @csrf
+            <div class="modal-body">
+                <select name="produkId">
+                    <option value="">--Select Product--</option>
+                    @foreach($prodToAttach as $prod)
+                    <option class="id_{{ $tag['id'] }}" value="{{ $prod['id'] }}">{{ $prod['id'] }}-{{ $prod['nama_produk'] }}</option>
+                    @endforeach
+                </select>
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Photo from <a href="https://unsplash.com" target="_blank">unsplash.com</a> (Jika tidak ada photo)</label>
+                    <input type="text" class="form-control" name="nama_foto" id="recipient-name" value="https://source.unsplash.com/_/600x600">
+                </div>
+                <label for="recipient-name" class="col-form-label">Photo from your Files.</label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                    </div>
+                    <div class="custom-file">
+                    <input type="file" class="custom-file-input" name="nama_file" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                </div>
+            </div>
+            <span class="text-danger"><b>Note:</b> 1 Produk berisi 3 Photo Plus</span>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary closePhoto" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary updateButton">Upload</button>
+            </form>
+        </div>
+    </div>
+    </div>
+</div>
+<!-- endModalCreatePhotos -->
+
 @endsection
 
 @section('js')
@@ -468,14 +536,13 @@
     }
 
     $('.modalHapus').on('click', function(){
-        console.log($(this).attr('data-id'))
         let idHapus = $(this).attr('data-id');
         $('.hapusData').attr('action', `{{ url('product/${idHapus}') }}`)
     })
 
     $('.searchTable').keyup(function(e){
         e.preventDefault();
-        console.log($('input[name="searchTable"]').val())
+
         $.ajax({
             url: "{{ url('/product/searchproducts') }}",
             dataType:'JSON',
@@ -485,7 +552,6 @@
                 'keyword':$('input[name="searchTable"]').val()
             },
             success:function(response){
-                console.log(response)
                 $(".dataproduk").empty();
                 let i = 1;
                 $.each(response, function(index, prod){
@@ -520,9 +586,8 @@
                             'id':idUpdate
                         },
                         success: function(response){
-                            console.log(response)
                             let cekFile = $("input[type=file]").val()
-                            console.log(cekFile.length)
+
                             $(".updateform").attr('action', `/product/${response.id}`)
                             $("input[name=nama_produk]").val(`${response.nama_produk}`)
                             $("input[name=harga]").val(`${response.harga}`)
@@ -540,7 +605,6 @@
 
                 /* Delete Saat Live Search */
                 $('.modalHapus').on('click', function(){
-                    console.log($(this).attr('data-id'))
                     let idHapus = $(this).attr('data-id');
                     $('.hapusData').attr('action', `{{ url('product/${idHapus}') }}`)
                 })
@@ -578,7 +642,7 @@
     })
 
     function readUpdate(input) {
-        console.log(input.files)
+
         if (input.files && input.files[0]) {
             var reader = new FileReader();
 
@@ -603,7 +667,7 @@
     function updateTag(val){
         $('.modalLabel').html('Products | Update Tag')
         $('.createTag').html('Update')
-        console.log()
+
 
         $.ajax({
             url:"{{ url('/product/tag/show') }}",
@@ -614,7 +678,7 @@
                 id:$(val).data('id')
             },
             success:function(data){
-                console.log(data.id)
+
                 $('input[name="name"]').val(data.name)
                 $('form[name="update"]').attr('action', `{{ url('/product/tag/update/${data.id}') }}`)
             }
@@ -636,7 +700,7 @@
                 prodid:prodId
             },
             success:function(data){
-                console.log(data)
+
                 $('#alertAttach').removeClass('d-none').addClass('d-block')
                 $('.responseAttach').html(data)
             }
@@ -658,7 +722,7 @@
                 prodid:prodId
             },
             success:function(data){
-                console.log(data)
+
                 $('#alertAttach').removeClass('d-none').addClass('d-block')
                 $('.responseAttach').html(data)
             }
@@ -668,5 +732,42 @@
     $('.buttonCloseUpdate').on('click', function(){
         location.reload()
     })
+
+    function updatePhoto(val){
+        let dataFoto = $(val).data('foto'),
+            photoId = $(val).data('fotoid'),
+            produkId = $(val).data('produk');
+
+        $('.photoLabel').html('Update Photo Plus')
+        $('.updateButton').html('Update')
+        $('input[name="nama_foto"]').val(dataFoto)
+        $('select[name="produkId"]').val(produkId)
+        $('form[name="photoForm"]').attr('action', `{{ url('/product/photo/update/${photoId}') }}`)
+
+        $('.closePhoto').on('click', function(){
+            location.reload();
+        })
+    }
+
+    function detachPhoto(val){
+        window.event.preventDefault()
+        let fotoId = $(val).data('fotoid'),
+            produkId = $(val).data('produk');
+
+        $.ajax({
+            url:"{{ url('/product/photo/delete') }}",
+            type:"POST",
+            dataType:"JSON",
+            data:{
+                _token:"{{ csrf_token() }}",
+                fotoId:fotoId,
+                produkId:produkId
+            },
+            success: function(data){
+                console.log(data)
+                location.reload();
+            }
+        })
+    }
 </script>
 @endsection

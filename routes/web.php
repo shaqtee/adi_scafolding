@@ -78,6 +78,10 @@ Route::middleware(['auth', 'role:administrator', 'verified'])->group(function ()
 
     Route::get('/admin/data/pengiriman', [AdminController::class, 'dataPengiriman']);
     Route::get('/admin/data/bonus', [AdminController::class, 'dataBonus']);
+
+    Route::post('/product/photo/create', [ProductController::class, 'photoCreate']);
+    Route::post('/product/photo/update/{photo}', [ProductController::class, 'photoUpdate']);
+    Route::post('/product/photo/delete', [ProductController::class, 'photoDelete']);
 });
 
 /*

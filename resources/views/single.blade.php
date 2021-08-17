@@ -294,7 +294,7 @@
                         <div class="mt-auto p-0 m-0 mb-3">
                             <div class="mt-1"><b>Rp {{ number_format($pst['harga'],0,",",".") }}</b></div>
                             <div class="mt-1"><span class="badge badge-warning inline-block">50%</span><div style="font-size:0.7rem"><del>Rp 1.000.000</del></div></div>
-                            <a href="{{ url('/single'.$pst['id']) }}" class="btn btn-dark text-white btn-md mt-2">Detail</a>
+                            <a href="{{ url('/single/'.$pst['id']) }}" class="btn btn-dark text-white btn-md mt-2">Detail</a>
                         </div>
                     </div>
                     @endforeach

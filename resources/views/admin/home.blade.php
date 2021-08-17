@@ -10,19 +10,20 @@
     <!-- Begin Page Content -->
     <div class="container-fluid">
         <!-- Page Heading -->
-        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <div class="d-sm-flex flex-wrap align-items-center justify-content-between mb-3">
             <div class="text-center">
                 <a href="/checkout" class=" btn btn-sm btn-secondary shadow-sm border border-white">Back to Checkout</a>
                 <a href="/" class="btn btn-sm btn-secondary shadow-sm border border-white">Go Shop</a>
             </div>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <div class="text-center">
+            <a href="#" class="btn btn-sm btn-danger btn-block shadow-sm liveMode">
                 Live Mode
             </a>
+            </div>
         </div>
 
         <!-- Content Row -->
         <div class="row">
-
             <!-- Earnings (Monthly) Card Example -->
             <div class="col-xl-4 col-md-6 mb-4">
                 <div class="card border-left-primary shadow h-100 py-2">
@@ -184,14 +185,21 @@
         </div>
 
         <div class="row">
-            <div class="col-md-6 col-12 mb-3">
-                <ul class="list-group">
+            <div class="col-md-6 col-12">
+                <ul class="list-group mb-1">
                     <li class="list-group-item text-center active" aria-current="true">Deposit</li>
                     <li class="list-group-item text-center">
                         1652
                     </li>
                 </ul>
-                <div class="table-responsive">
+                <select class="custom-select" id="validationTooltip04" required>
+                    <option selected disabled value="">Check Member Saldo</option>
+                    <option>...</option>
+                </select>
+                <div class="invalid-tooltip">
+                    Please select a valid state.
+                </div>
+                <div class="table-responsive mt-1">
                     <table class="table table-bordered">
                         <thead class="thead-light">
                             <tr class="text-center">
@@ -210,18 +218,19 @@
                             </tr>
                         </tbody>
                     </table>
-                    </div>
+
+                </div>
             </div>
             <div class="col-md-6 col-12 mb-3">
                 <div class="card p-2">
-                    <div class="bg-success p-2 text-white rounded">
+                    <div class="bg-success p-2 text-white text-center rounded">
                         <span mt-5>Top 5 User Bulan - X</span>
                     </div>
                     <div class="d-flex flex-wrap justify-content-center">
                         @for($i = 0; $i < 5; $i++)
                         <div class="p-2 text-center mt-3">
                             <img src="https://place-hold.it/70x70" alt=""><br>
-                            <span><b>Member</b></span>
+                            <span><a href="" class='text-success'><b>Member</b></a></span>
                         </div>
                         @endfor
                     </div>
@@ -443,14 +452,14 @@
         <div class="row">
             <div class="col-md-6 col-12 mb-3">
                 <div class="card p-2">
-                    <div class="bg-danger p-2 text-white rounded">
+                    <div class="bg-danger p-2 text-white text-center rounded">
                         <span mt-5>Member Baru</span>
                     </div>
                     <div class="d-flex flex-wrap justify-content-center">
                         @for($i = 0; $i < 5; $i++)
                         <div class="p-2 text-center mt-3">
                             <img src="https://place-hold.it/70x70" alt=""><br>
-                            <span><b>Member</b></span>
+                            <span><a href="" class="text-danger"><b>Member</b></a></span>
                         </div>
                         @endfor
                     </div>
@@ -460,14 +469,14 @@
             </div>
             <div class="col-md-6 col-12 mb-3">
                 <div class="card p-2">
-                    <div class="bg-danger p-2 text-white rounded">
+                    <div class="bg-danger p-2 text-white text-center rounded">
                         <span mt-5>Request Validasi</span>
                     </div>
                     <div class="d-flex flex-wrap justify-content-center">
                         @for($i = 0; $i < 5; $i++)
                         <div class="p-2 text-center mt-3">
                             <img src="https://place-hold.it/70x70" alt=""><br>
-                            <span><b>Member</b></span>
+                            <span><a href="" class="text-danger"><b>Member</b></a></span>
                         </div>
                         @endfor
                     </div>
@@ -480,14 +489,14 @@
         <div class="row">
             <div class="col-md-6 col-12 mb-3">
                 <div class="card p-2">
-                    <div class="bg-danger p-2 text-white rounded">
+                    <div class="bg-danger p-2 text-white text-center rounded">
                         <span mt-5>Request Transfer Bank</span>
                     </div>
                     <div class="d-flex flex-wrap justify-content-center">
                         @for($i = 0; $i < 5; $i++)
                         <div class="p-2 text-center mt-3">
                             <img src="https://place-hold.it/70x70" alt=""><br>
-                            <span><b>Member</b></span>
+                            <span><a href="" class="text-danger"><b>Member</b></a></span>
                         </div>
                         @endfor
                     </div>
@@ -503,13 +512,22 @@
 @endsection
 
 @section('js')
+<script type="text/javascript" src="packages/jquery-ui/jquery.mtz.monthpicker.js"></script>
 <script>
     $( ".datepicker" ).datepicker({
         changeMonth: true,
         changeYear: true
     });
 
-    $('.changeMonth').monthpicker()
+    $('.changeMonth').monthpicker({
+        pattern:'mmmm-yyyy'
+    })
 
+    $('.liveMode').on('click', function(){
+
+        if($(this).html() === 'Live Mode'){
+            console.log('hai')
+        }
+    })
 </script>
 @endsection
