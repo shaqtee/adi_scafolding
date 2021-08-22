@@ -1,7 +1,24 @@
 @extends('admin.index')
+@section('css')
+<style>
+    .mycol{
+        border: 2px solid red;
+    }
+</style>
+@endsection
 @section('content')
     <!-- Begin Page Content -->
     <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3 mb-2">
+                <div class="d-none d-sm-block custom-control custom-switch bg-gradient-dark py-1  text-center rounded">
+                    <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
+                    <label class="custom-control-label" for="customSwitch1">
+                        <a href="" class="badge badge-primary displayMode">Live Mode</a>
+                    </label>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-3">
                 <form action="{{ url('/admin/productmenu/store') }}" method="POST">
@@ -10,7 +27,7 @@
                         <h5>Menu PPOB dasboard member :</h5>
                         <p class="bg-dark text-success">{{ session('status') }}</p>
                         <div class="row row-cols-md-1 ">
-                            <div class="col">
+                            <div class="col-12">
                                 <div class="input-group input-group-sm mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="inputGroup-sizing-sm">Menu</span>
@@ -18,7 +35,7 @@
                                     <input name="menu_name" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col-12">
                                 <div class="input-group input-group-sm mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="inputGroup-sizing-sm">Icon</span>
@@ -26,7 +43,7 @@
                                     <input name="icon" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col-12">
                                 <div class="input-group input-group-sm mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="inputGroup-sizing-sm">Jenis</span>
@@ -34,7 +51,7 @@
                                     <input name="jenis" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col-12">
                                 <div class="input-group input-group-sm mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="inputGroup-sizing-sm">Sort</span>
@@ -115,6 +132,18 @@
         {
 
         }
+
+        $('#customSwitch1').on('click', function(){
+        $(this).attr('checked', !$(this).attr('checked'))
+
+        if(!$(this).attr('checked') === true){
+            $('.displayMode').html('Maintenance Mode')
+            $('.displayMode').toggleClass('badge-danger badge-primary')
+        }else if(!$(this).attr('checked') === false){
+            $('.displayMode').html('Live Mode')
+            $('.displayMode').toggleClass('badge-primary badge-danger')
+        }
+    })
     </script>
 
 @endsection

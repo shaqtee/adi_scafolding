@@ -1,24 +1,25 @@
 @extends('admin.index')
 @section('css')
 <style>
-    /*.changeMonth .ui-datepicker-calendar {
-        display: none;
-    }*/
-    </style>
+    .mycol{
+        border:2px solid red;
+    }
+</style>
 @endsection
 @section('content')
     <!-- Begin Page Content -->
     <div class="container-fluid">
         <!-- Page Heading -->
-        <div class="d-sm-flex flex-wrap align-items-center justify-content-between mb-3">
-            <div class="text-center">
-                <a href="/checkout" class=" btn btn-sm btn-secondary shadow-sm border border-white">Back to Checkout</a>
-                <a href="/" class="btn btn-sm btn-secondary shadow-sm border border-white">Go Shop</a>
+        <div class="d-flex flex-wrap align-items-center justify-content-center mb-2">
+            <div class="col text-left">
+                <a href="/checkout" style="font-size:0.8em;" class="btn btn-sm btn-secondary shadow-sm border border-white">Back to Checkout</a>
+                <a href="/" style="font-size:0.8em;" class="btn btn-sm btn-secondary shadow-sm border border-white">Go Shop</a>
             </div>
-            <div class="text-center">
-            <a href="#" class="btn btn-sm btn-danger btn-block shadow-sm liveMode">
-                Live Mode
-            </a>
+            <div class="d-none d-sm-block custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
+                <label class="custom-control-label" for="customSwitch1">
+                    <a href="" class="badge badge-primary displayMode">Live Mode</a>
+                </label>
             </div>
         </div>
 
@@ -523,10 +524,15 @@
         pattern:'mmmm-yyyy'
     })
 
-    $('.liveMode').on('click', function(){
+    $('#customSwitch1').on('click', function(){
+        $(this).attr('checked', !$(this).attr('checked'))
 
-        if($(this).html() === 'Live Mode'){
-            console.log('hai')
+        if(!$(this).attr('checked') === true){
+            $('.displayMode').html('Maintenance Mode')
+            $('.displayMode').toggleClass('badge-danger badge-primary')
+        }else if(!$(this).attr('checked') === false){
+            $('.displayMode').html('Live Mode')
+            $('.displayMode').toggleClass('badge-primary badge-danger')
         }
     })
 </script>

@@ -22,16 +22,66 @@ class AdminController extends Controller
 {
     public function index()
     {
+        /* Sort name => qty */
+        function array_flatten($array)
+        {
+            if (!is_array($array)) {
+                return FALSE;
+            }
+            $result = array();
+            foreach ($array as $key => $value) {
+                if (is_array($value)) {
+                    $result = array_merge($result, array_flatten($value));
+                } else {
+                    $result[$key] = $value;
+                }
+            }
+            return $result;
+        }
+
+        $payments = (Payment::where('status', 'process')->orderBy('updated_at', 'DESC')->get())->toArray();
+
+        foreach ($payments as $payment) {
+            $item['nama'][] = explode('|', $payment['item']);
+            $item['unit'][] = explode('|', $payment['unit_qty']);
+        }
+
+        $nama = array_flatten($item['nama']);
+        $unit = array_flatten($item['unit']);
+
+        foreach ($nama as $k => $v) {
+            $produk[] = [$v => $unit[$k]];
+        }
+
+        foreach ($produk as $key => $prod) {
+            foreach ($prod as $k => $p) {
+                if (!isset($produk[$k])) {
+                    $produk[$k] = 0;
+                }
+                $produk[$k] += $p;
+            }
+        }
+
+        foreach ($produk as $key => $prod) {
+            if (is_integer($key)) {
+                continue;
+            }
+            $result[] = [$key => $prod];
+        }
+        /* end Sort name => qty */
+
         /* ====================E-COMMERCE=================== */
 
         $reasons = Lava::DataTable();
 
         $reasons->addStringColumn('Reasons')
-            ->addNumberColumn('Percent')
-            ->addRow(['Check Reviews', 5])
-            ->addRow(['Watch Trailers', 2])
-            ->addRow(['See Actors Other Work', 4])
-            ->addRow(['Settle Argument', 89]);
+            ->addNumberColumn('Percent');
+
+        foreach ($result as $key => $res) {
+            foreach ($res as $k => $r) {
+                $reasons->addRow([$k, $r]);
+            }
+        }
 
         Lava::PieChart('reasons', $reasons, [
             'title'  => 'Produk Utama',
@@ -50,10 +100,10 @@ class AdminController extends Controller
 
         $ppob->addStringColumn('Reasons')
             ->addNumberColumn('Percent')
-            ->addRow(['Check Reviews', 15])
-            ->addRow(['Watch Trailers', 10])
-            ->addRow(['See Actors Other Work', 50])
-            ->addRow(['Settle Argument', 25]);
+            ->addRow(['OVO', 15])
+            ->addRow(['Telkomsel', 10])
+            ->addRow(['Dana', 50])
+            ->addRow(['XL Pulsa', 25]);
 
         Lava::PieChart('ppob', $ppob, [
             'title'  => 'Produk PPOB',
@@ -66,8 +116,12 @@ class AdminController extends Controller
         ]);
         /* ====================End PPOB=================== */
 
+
+
         $allUserSaldo = User::sum('saldo');
         $allUserBonus = User::sum('saldo_bonus');
+
+
 
         return view('admin.home', compact('allUserSaldo', 'allUserBonus', 'reasons', 'ppob'));
     }

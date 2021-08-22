@@ -13,7 +13,11 @@
         <div class="col-md-4 mb-3">
             <div class="card text-center border-left-primary shadow p-1">
                 <div class="py-2">
+                    @if(auth()->user()->image === NULL)
+                    <img class="rounded-circle" width="100" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
+                    @else
                     <img class="rounded-circle shadow" src="{{ asset('/images/member/profile/'.auth()->user()->image) }}" width="100" alt="">
+                    @endif
                 </div>
                 <div>
                     <label class="p-0"><b>{{ auth()->user()->name }}</b><br>
